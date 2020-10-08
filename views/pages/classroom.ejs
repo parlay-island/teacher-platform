@@ -1,0 +1,22 @@
+<html>
+
+<head>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/classroom.css">
+    <script type='text/javascript' src='/javascripts/classroom.js'></script>
+</head>
+
+<body>
+    <div class="teacher-platform-main">
+        <%- include('../templates/nav-bar', {activeTab: 'classroom'}); %> 
+        <div class="student-progress">
+            <%- include('../templates/title-with-desc', {title: 'Your Classroom', 
+                    desc: 'Monitor your classroom to see which students are struggling and what questions students are getting wrong.'}); %>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,21 @@
+<head>
+    <link rel="stylesheet" href="/stylesheets/templates/nav-bar.css">
+    <script type='text/javascript' src='/javascripts/nav-bar.js'></script>
+</head>
+
+<body>
+    <div class="nav-bar">
+        <div class="teacher-name">Gary Horton</div>
+        <%- include('./nav-row', {navClass: activeTab=='question' ? 'nav-row-selected' : '', id: 'question', 
+        link: '/', title:'Update Questions', imgSrc: '/images/question-black.png'}); %>
+
+        <%- include('./nav-row', {navClass: activeTab=='classroom' ? 'nav-row-selected' : '', id: 'classroom', 
+        link: '/classroom', title:'Student Progress', imgSrc: '/images/check-black.png'}); %>
+        
+        <%- include('./nav-row', {navClass:'sign-out', id: 'signout', 
+        link: '/', title:'Sign out', imgSrc: '/images/sign-out.png'}); %>
+    </div>
+
+    
+    
+</body>

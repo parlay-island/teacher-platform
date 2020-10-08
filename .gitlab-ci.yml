@@ -1,21 +1,23 @@
-image: node:latest
-
-stages:
-  - build
-  - test
+# to cache both npm modules and Cypress binary we use environment variables
+# to point at the folders we can list as paths in "cache" job settings
+variables:
+  npm_config_cache: "$CI_PROJECT_DIR/.npm"
+  CYPRESS_CACHE_FOLDER: "$CI_PROJECT_DIR/cache/Cypress"
 
 cache:
+  key: ${CI_COMMIT_REF_SLUG}
   paths:
-    - node_modules/
-
-install_dependencies:
-  stage: build
-  script:
-    - npm install
-  artifacts:
-    paths:
-      - node_modules/
+    - .npm
+    - cache/Cypress
 
 run_tests:
+  image: cypress/base:10
   stage: test
-  script: npm test
+  script: 
+    - npm ci
+    - npm run ci
+  artifacts:
+    paths:
+      - cypress/videos
+      - cypress/screenshots
+    expire_in: 1 day
