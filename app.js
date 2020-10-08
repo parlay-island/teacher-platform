@@ -7,14 +7,19 @@ let PORT = process.env.PORT || 3000;
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
+
 //setup public folder
 app.use(express.static("./public"));
 
-app.get("/", function (req, res) {
-    res.render("pages/index");
-});
+// set up routes
+const chooseUnitRouter = require("./routes/choose-unit");
+app.use("/", chooseUnitRouter);
+
+const classroomRouter = require("./routes/classroom");
+app.use("/classroom", classroomRouter);
+
+// set up server
 var server = app.listen(PORT, function () {
     console.log("Example app listening on port 3000!");
 });
-
 module.exports = server;
