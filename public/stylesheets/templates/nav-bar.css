@@ -13,15 +13,15 @@
 
 .teacher-name {
     text-align: center;
-    margin-top: 80px;
-    font-size: 55px;
+    margin-top: 50px;
+    font-size: 30px;
     font-weight: bold;
-    margin-bottom: 90px;
+    margin-bottom: 80px;
 }
 
 .nav-row {
-    line-height: 60px;
-    padding: 40px;
+    line-height: 30px;
+    padding: 20px;
     cursor: pointer;
 }
 
@@ -30,7 +30,7 @@
 }
 
 .nav-row-text {
-    font-size: 30px;
+    font-size: 18px;
     display: inline-block;
     margin-left: 20px;
     vertical-align: middle;
@@ -41,6 +41,8 @@
 .nav-row-icon {
     margin-left: 20px;
     vertical-align: middle;
+    height: 30px;
+    width: 30px;
 }
 
 .sign-out {
