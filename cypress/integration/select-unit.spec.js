@@ -2,7 +2,7 @@ describe('selecting a unit', () => {
     beforeEach(() => {
         cy.viewport(1200, 850);
         cy.server();
-        cy.route('GET', '**/units', 'fixture:units.json');
+        cy.route('GET', '**/units/', 'fixture:units.json');
         cy.visit("/");
     });
 
