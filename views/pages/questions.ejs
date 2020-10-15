@@ -1,0 +1,41 @@
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/questions.css">
+    <script type='text/javascript' src='/javascripts/questions.js'></script>
+    <script type="text/javascript">
+        window.addEventListener("DOMContentLoaded", (event) => {
+                getQuestionsByUnit('<%= unit %>');
+        });
+    </script>
+</head>
+
+<body>
+    <div class="teacher-platform-main">
+        <%- include('../templates/nav-bar', {activeTab: 'question'}); %>
+        <div class="questions-main">
+            <%- include('../templates/title-with-desc', {title: 'Update Questions', 
+                    desc: 'Add or delete questions using the corresponding icons. Modify a question by clicking on it.'}); %>
+
+            <div class="questions-title">
+                <%= unit %> - Question Bank
+            </div>
+
+            <div class="add-question">
+                <img class="add-question-icon" src="/images/plus-icon.png">
+                <div class="add-question-text">Add a question</div>
+            </div>
+
+            <div class="questions-body">
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+</html>

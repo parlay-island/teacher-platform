@@ -18,6 +18,9 @@ app.use("/", chooseUnitRouter);
 const classroomRouter = require("./routes/classroom");
 app.use("/classroom", classroomRouter);
 
+const questionsRouter = require("./routes/questions");
+app.use("/", questionsRouter);
+
 // set up server
 var server = app.listen(PORT, function () {
     console.log("Example app listening on port 3000!");
