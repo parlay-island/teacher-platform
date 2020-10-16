@@ -37,3 +37,13 @@ body {
     font-weight: lighter;
     text-align: center;
 }
+
+.unit-text {
+    text-decoration: none;
+    color: black;
+}
+
+.no-units-text {
+    font-weight: lighter;
+    color: red;
+}

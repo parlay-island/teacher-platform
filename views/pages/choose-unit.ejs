@@ -6,7 +6,7 @@
         href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="/stylesheets/choose-unit.css">
-    <script type='text/javascript' src='/javascripts/choose-unit.js'></script>
+    <script type='module' src='/javascripts/choose-unit.js'></script>
 </head>
 
 <body>
@@ -17,13 +17,7 @@
         desc: 'Please click on the unit that you would like to update questions for.'}); %>
 
         <div class="unit-grid-container">
-            <% units.forEach(function(unit) { %>
-                <div class="unit-grid-item">
-                    <div class="unit-grid-item-title">
-                        <%= unit %>
-                    </div>
-                </div>
-            <% }); %>
+            <!-- rendered by choose-unit.js -->
         </div>
     </div>
     </div>
