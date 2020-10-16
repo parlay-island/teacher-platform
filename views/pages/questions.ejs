@@ -6,8 +6,10 @@
         href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="/stylesheets/questions.css">
-    <script type='text/javascript' src='/javascripts/questions.js'></script>
-    <script type="text/javascript">
+    <script type='module' src='/javascripts/questions.js'></script>
+    <script type="module">
+        import { getQuestionsByUnit } from '/javascripts/questions.js';
+        
         window.addEventListener("DOMContentLoaded", (event) => {
                 getQuestionsByUnit('<%= unit %>');
         });
@@ -31,6 +33,7 @@
             </div>
 
             <div class="questions-body">
+                <!-- rendered by questions.js -->
             </div>
 
         </div>

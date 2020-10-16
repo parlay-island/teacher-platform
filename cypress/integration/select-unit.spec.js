@@ -25,7 +25,7 @@ describe('selecting a unit when the get request returns all the questions', () =
 
     it ('renders the correct heading and description', () => {
         cy.location().should((loc) => {
-            expect(loc.pathname).to.eq('/questions');
+            expect(loc.pathname).to.eq('/Economics/questions');
         });
 
         cy.get('.header-title').should('contain', 'Update Questions');
@@ -53,7 +53,7 @@ describe('displaying questions when the GET request returns no questions', () =>
             response: []
         }).as('getQuestionsEmpty');
         
-        cy.visit('/questions?unit=Economics');
+        cy.visit('/Economics/questions');
         cy.wait('@getQuestionsEmpty');
     });
 
@@ -75,7 +75,7 @@ describe('displaying questions when GET request throws error', () => {
             }
         }).as('getQuestionsError');
 
-        cy.visit('/questions?unit=Economics');
+        cy.visit('/Economics/questions');
         cy.wait('@getQuestionsError');
     });
 

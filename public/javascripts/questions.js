@@ -1,18 +1,16 @@
-function getQuestionsByUnit(unit) {
-        const xhr = new XMLHttpRequest();
-        const getQuestionsByUnitUrl = "https://parlay-island-backend.herokuapp.com/questions/?tag=" + unit;
-        xhr.open("GET", getQuestionsByUnitUrl);
+import { makeGetRequest } from './request-helper.js';
 
-        xhr.onload = function () {
-            if (xhr.status == 200) {
-                const jsonResponse = JSON.parse(this.response);
-                makeQuestionsHtml(jsonResponse.questions);
-            } else {
-                console.error(xhr.status);
-                displayQuestionsFetchError();
-            }
-        };
-        xhr.send();
+export function getQuestionsByUnit(unit) {
+    unit = decodeURI(unit);
+    const requestUrl = "/questions/?tag=" + unit;
+    makeGetRequest(requestUrl).then(function (res) {
+        const jsonResponse = JSON.parse(res.response);
+        const questions = jsonResponse.questions;
+        makeQuestionsHtml(questions);
+    }).catch(function (error) {
+        console.log('something went wrong when fetching questions', error);
+        displayQuestionsFetchError();
+    });
 }
 
 function displayQuestionsFetchError() {
