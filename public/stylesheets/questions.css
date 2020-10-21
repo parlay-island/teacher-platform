@@ -24,6 +24,7 @@ body {
     display: flex;
     cursor: pointer;
     padding: 20px;
+    margin-bottom: 10px;
 }
 
 .question-text {
@@ -39,6 +40,7 @@ body {
 
 .add-question {
     margin-bottom: 20px;
+    cursor: pointer;
 }
 
 .add-question-icon {
