@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link
+            href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap"
+            rel="stylesheet">
+        <link rel="stylesheet" href="/stylesheets/view-question.css">
+        <script type='module' src='/javascripts/view-question.js'></script>
+    </head>
+
+    <body>
+        <%- include('../templates/nav-bar', {activeTab: 'question'}); %>
+        <div class='view-question'>
+            <%- include('../templates/back-nav', {navText: 'Questions / ' + questionUnit, link: '/' + questionUnit + '/questions'}); %>
+            <div class='question-heading-section'>
+                <div class='question-title'>
+                    <!-- rendered by view-question.js -->
+                </div>
+
+                <div class='modify-question'>
+                    <img src='/images/edit-icon.png' class='edit-question-icon' />
+                    <div class='modify-question-text'>
+                        Modify Question
+                    </div>
+                </div>
+            </div>
+            
+            
+            
+            <div class='question-choices'>
+                <!-- rendered by view-question.js -->
+            </div>
+        </div>
+    </body>
+
+</html>

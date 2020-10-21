@@ -21,6 +21,7 @@ function displayQuestionsFetchError() {
     questionsDOM.innerHTML = errorHtml;
 }
 
+
 function makeQuestionsHtml(questions) {
     const questionsDOM = document.getElementsByClassName("questions-body")[0];
     let questionsHtml = '';
@@ -36,7 +37,27 @@ function makeQuestionsHtml(questions) {
                                     </div>
                                     <img class="remove-question-icon" src="/images/trash-icon.png">
                                 </div>`;
-            });
+        });
     }
     questionsDOM.innerHTML = questionsHtml;
+    addClickListenersToQuestionRows(questions);
 }
+
+function addClickListenersToQuestionRows(questions) {
+    const questionRows = Array.from(document.getElementsByClassName('question-row'));
+    if (questionRows.length > 0) {
+        questionRows.forEach((questionRow, index) => {
+            questionRow.addEventListener('click', function (event) {
+                sendQuestionToNewPage(questions[index]);
+                event.preventDefault();
+            });
+        });
+    }
+}
+
+function sendQuestionToNewPage(question) {
+    sessionStorage.setItem('question', JSON.stringify(question));
+    const unit = question.tags[0];
+    window.location = `/${unit}/questions/view-question?id=${question.id}`;
+}
+

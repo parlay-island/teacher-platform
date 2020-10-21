@@ -1,0 +1,17 @@
+.route-back {
+    margin-bottom: 5px;
+}
+
+.back-arrow {
+    height: 30px;
+    width: 30px;
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.route-back-text {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 5px;
+}
