@@ -24,6 +24,9 @@ app.use("/", questionsRouter);
 const addQuestionRouter = require("./routes/add-question");
 app.use("/", addQuestionRouter);
 
+const gameRouter = require("./routes/game");
+app.use("/", gameRouter);
+
 // set up server
 var server = app.listen(PORT, function () {
     console.log("Example app listening on port 3000!");
