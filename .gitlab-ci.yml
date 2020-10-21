@@ -4,6 +4,10 @@ variables:
   npm_config_cache: "$CI_PROJECT_DIR/.npm"
   CYPRESS_CACHE_FOLDER: "$CI_PROJECT_DIR/cache/Cypress"
 
+stages:
+  - test
+  - deploy
+
 cache:
   key: ${CI_COMMIT_REF_SLUG}
   paths:
@@ -21,3 +25,27 @@ run_tests:
       - cypress/videos
       - cypress/screenshots
     expire_in: 1 day
+
+
+deploy_to_stage:
+  stage: deploy
+  tags:
+    - brew-installed
+  environment:
+    name: staging
+  script:
+    - brew install awsebcli
+    - eb deploy parlay-island-frontend-stage
+  only:
+    - master
+
+deploy_to_prod:
+  stage: deploy
+  tags:
+    - brew-installed
+  environment:
+    name: prod
+  when: manual
+  script:
+    - brew install awsebcli
+    - eb deploy parlay-island-frontend-prod
