@@ -1,0 +1,60 @@
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/add-question.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script type='text/javascript' src='/javascripts/add-question.js'></script>
+</head>
+
+<body>
+    <div class="alert alert-inactive">
+        <!-- This will be filled by add-question.js -->
+    </div>
+
+    <div class="add-question-main">
+        <div class="add-question-title">
+            Add a New Question
+
+            <img onclick="window.location='/<%=unit %>/questions';" class="exit-add-question" src='/images/close-icon.png'/>
+        </div>
+
+        <div class="add-question-form">
+            <div class="new-question-input-label">Question</div>
+            <input type="text" id="new-question" name="new-question" class="new-question-input" required>
+            
+            <div class="answer-choice-heading">
+                <div class="answer-choice-instr">
+                    <div class="choice-instr-title">
+                        Answer Choices
+                    </div>
+                    <div class="choice-instr-desc">
+                        Fill out all the potential answer choices to this question.
+                    </div>
+                </div>
+            
+                <div class="correct-choice-instr">
+                    <div class="choice-instr-title">
+                        Correct Answer
+                    </div>
+                    <div class="choice-instr-desc">
+                        Check the box next to correct answer choice.
+                    </div>
+                </div>
+            </div>
+            <%- include('../templates/answer-choice-row', {choiceNum: '1'}); %>
+            <%- include('../templates/answer-choice-row', {choiceNum: '2'}); %>
+            <%- include('../templates/answer-choice-row', {choiceNum: '3'}); %>
+            <%- include('../templates/answer-choice-row', {choiceNum: '4'}); %>
+            
+            <!-- <input type="submit" id="submit-question" value="Add Question" class="submit-question-button"
+            onclick="postQuestion('<%= unit %>')"> -->
+            <button id="submit-question" class="submit-question-button"
+                onclick="postQuestion('<%= unit %>')"> Add Question </button>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,13 @@
+<head>
+    <link rel="stylesheet" href="/stylesheets/templates/answer-choice-row.css">
+</head>
+
+<body>
+    <div class="answer-choice-text"> Answer Choice #<%= choiceNum %></div>
+    <div class="answer-choice-row">
+        <input class="answer-choice-input" type="text" id="choice<%= choiceNum %>" required>
+        <input class="answer-choice-radio" type="radio" id="choice<%= choiceNum %>-radio" name="answer-choices" value="<%= choiceNum %>">
+    </div>
+</body>
+
+

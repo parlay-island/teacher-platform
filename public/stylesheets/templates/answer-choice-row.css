@@ -1,0 +1,28 @@
+.answer-choice-row {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.answer-choice-text {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.answer-choice-input {
+    width: 85%;
+    height: 40px;
+    font-size: 18px;
+    outline: none;
+    background-color: #F6F5F5;
+    border: none;
+    padding: 8px;
+}
+
+.answer-choice-radio {
+    height: 20px;
+    width: 20px;
+}
+
+input[type=radio] {
+    margin: auto;
+}
