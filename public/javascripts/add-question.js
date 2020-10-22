@@ -1,13 +1,16 @@
 const baseApiUrl = "https://parlay-island-backend.herokuapp.com";
 
-function postQuestion(unit) {
+function postQuestion(unit, questionID, requestType) {
     const hasNullInputs = checkNullQuestionInputs();
     if (! hasNullInputs) {
         const json = getQuestionInputsAsJson(unit);
-        console.log(json);
-        makePostRequest("/questions/", json).then(function (res) {
+        var requestURL = "/questions/";
+        if (questionID) {
+            requestURL = `/questions/${questionID}`;
+        }
+        makePostRequest(requestURL, json, requestType).then(function (res) {
             console.log(res.responseText);
-            showSuccessAlert();
+            showSuccessAlert(requestType);
 
             // redirect to question page
             setTimeout(() => { window.location = `/${unit}/questions`;}, 1000);
@@ -19,7 +22,7 @@ function postQuestion(unit) {
     return false;
 }
 
-function showSuccessAlert() {
+function showSuccessAlert(requestType) {
     const successAlertDOM = document.getElementsByClassName('alert')[0];
     if (successAlertDOM.classList.contains('alert-danger')) {
         successAlertDOM.classList.remove('alert-danger');
@@ -28,7 +31,13 @@ function showSuccessAlert() {
         successAlertDOM.classList.remove('alert-inactive');
     }
     successAlertDOM.classList.add('alert-success');
-    successAlertDOM.innerHTML = ` <strong>Success!</strong> You successfully added a new question.`;
+    var successMessage;
+    if (requestType=='POST') {
+        successMessage = 'You successfully added a new question.';
+    } else {
+        successMessage = 'You successfully updated this question.'
+    }
+    successAlertDOM.innerHTML = ` <strong>Success!</strong> ${successMessage}`;
 }
 
 function showErrorAlert(errorMessage) {
@@ -93,7 +102,7 @@ function getQuestionInputsAsJson(unit) {
     return json;
 }
 
-var makePostRequest = function (url, data) {
+var makePostRequest = function (url, data, requestType) {
     var requestUrl = baseApiUrl + url;
     console.log(requestUrl);
     console.log(data);
@@ -117,7 +126,7 @@ var makePostRequest = function (url, data) {
         }
         };
 
-        request.open("POST", requestUrl, true);
+        request.open(requestType, requestUrl, true);
         request.setRequestHeader("Content-Type", "application/json");
         request.send(JSON.stringify(data));
     });
