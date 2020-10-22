@@ -55,4 +55,5 @@ body {
 
 .modify-question {
     display: inline-block;
+    cursor: pointer;
 }

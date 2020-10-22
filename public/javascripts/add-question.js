@@ -1,6 +1,7 @@
-const baseApiUrl = "https://parlay-island-backend.herokuapp.com";
+import { makePostRequest } from './request-helper.js';
 
-function postQuestion(unit, questionID, requestType) {
+
+export function postQuestion(unit, questionID, requestType) {
     const hasNullInputs = checkNullQuestionInputs();
     if (! hasNullInputs) {
         const json = getQuestionInputsAsJson(unit);
@@ -99,38 +100,11 @@ function getQuestionInputsAsJson(unit) {
     json["times_correct"] = 0;
     json["answer"] = [findCorrectAnswer()];
     json["choices"] = choices;
+
+    // TODO (js803): change this to read from level ID when updating /units endpoint to be /levels instead
+    json["level"] = 1;
     return json;
 }
-
-var makePostRequest = function (url, data, requestType) {
-    var requestUrl = baseApiUrl + url;
-    console.log(requestUrl);
-    console.log(data);
-    var request = new XMLHttpRequest();
-
-    return new Promise(function (resolve, reject) {
-        request.onreadystatechange = function () {
-        // only run if request is complete
-        if (request.readyState != 4) return;
-
-        // process response
-        if (request.status >= 200 && request.status < 300) {
-            // success
-            resolve(request);
-        } else {
-            // failure
-            reject({
-                status: request.status,
-                statusText: request.statusText,
-            });
-        }
-        };
-
-        request.open(requestType, requestUrl, true);
-        request.setRequestHeader("Content-Type", "application/json");
-        request.send(JSON.stringify(data));
-    });
-};
 
 function findCorrectAnswer() {
     const choiceRadioButtons = document.getElementsByClassName(

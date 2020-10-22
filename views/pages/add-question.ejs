@@ -7,10 +7,12 @@
         rel="stylesheet">
     <link rel="stylesheet" href="/stylesheets/add-question.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script type='text/javascript' src='/javascripts/add-question.js'></script>
+    <script type='module' src='/javascripts/add-question.js'></script>
     <script type='module' src ='/javascripts/modify-question.js'></script>
     <script type='module'>
         import { fillInExistingFields } from '/javascripts/modify-question.js';
+        import { postQuestion } from '/javascripts/add-question.js';
+
         window.addEventListener("DOMContentLoaded", (event) => {
             if ('<%= questionID %>') {
                 const questionJSON = JSON.parse(sessionStorage.getItem('question'));
@@ -18,6 +20,12 @@
                     fillInExistingFields(questionJSON);
                 }
             }
+
+            document.getElementById('submit-question').addEventListener('click', function (event) {
+                postQuestion('<%= unit %>', '<%= questionID %>',
+                    '<%= questionID %>' ? 'PUT' : 'POST');
+                event.preventDefault();
+            })
         });
     </script>
 </head>
@@ -65,8 +73,7 @@
             <%- include('../templates/answer-choice-row', {choiceNum: '3'}); %>
             <%- include('../templates/answer-choice-row', {choiceNum: '4'}); %>
             
-            <button id="submit-question" class="submit-question-button" onclick="postQuestion('<%= unit %>', '<%= questionID %>', 
-                                '<%= questionID %>' ? 'PUT' : 'POST')"> 
+            <button id="submit-question" class="submit-question-button"> 
                 <% if(questionID){ %>
                     Modify Question
                 <% } else{ %>
