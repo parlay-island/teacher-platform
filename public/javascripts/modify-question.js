@@ -1,4 +1,5 @@
 export function fillInExistingFields(question) {
+    console.log('fillling in fields');
     const questionInput = document.getElementById("new-question");
     questionInput.value = question.body;
 

@@ -1,13 +1,14 @@
 import { makePostRequest } from './request-helper.js';
-
+import { fillInExistingFields } from "./modify-question.js";
 
 export function postQuestion(unit, questionID, requestType) {
     const hasNullInputs = checkNullQuestionInputs();
     if (! hasNullInputs) {
         const json = getQuestionInputsAsJson(unit);
-        var requestURL = "/questions/";
+        console.log(json);
+        var requestURL = baseApiUrl + "/questions/";
         if (questionID) {
-            requestURL = `/questions/${questionID}`;
+            requestURL = baseApiUrl + `/questions/${questionID}`;
         }
         makePostRequest(requestURL, json, requestType).then(function (res) {
             console.log(res.responseText);
@@ -122,3 +123,17 @@ function findCorrectAnswer() {
     return parseInt(selected)-1;
 }
 
+ window.addEventListener("DOMContentLoaded", (event) => {
+    if (questionID) {
+        const questionJSON = JSON.parse(sessionStorage.getItem('question'));
+        if (questionJSON.id = parseInt(questionID)) {
+            fillInExistingFields(questionJSON);
+        }
+    }
+
+    document.getElementById('submit-question').addEventListener('click', function (event) {
+        postQuestion(questionUnit, questionID,
+            questionID ? 'PUT' : 'POST');
+        event.preventDefault();
+    });
+});

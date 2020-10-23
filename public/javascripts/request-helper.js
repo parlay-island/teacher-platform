@@ -2,8 +2,8 @@
 const baseApiUrl =
     "http://parlay-island-server-dev.eba-kq6isupz.us-east-2.elasticbeanstalk.com";
 
-export var makeGetRequest = function (url) {
-    var requestUrl = baseApiUrl + url;
+export var makeGetRequest = function (requestUrl) {
+    // var requestUrl = baseApiUrl + url;
     console.log(requestUrl);
     var request = new XMLHttpRequest();
 
@@ -32,8 +32,8 @@ export var makeGetRequest = function (url) {
     });
 }
 
-export var makePostRequest = function (url, data, requestType) {
-    var requestUrl = baseApiUrl + url;
+export var makePostRequest = function (requestUrl, data, requestType) {
+    // var requestUrl = baseApiUrl + url;
     console.log(requestUrl);
     console.log(data);
     var request = new XMLHttpRequest();

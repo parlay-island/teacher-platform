@@ -7,27 +7,14 @@
         rel="stylesheet">
     <link rel="stylesheet" href="/stylesheets/add-question.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script>
+        // so that other scripts can access the questionID passed in
+        var questionUnit = "<%= unit %>";
+        var questionID = "<%= questionID %>";
+        var baseApiUrl = "<%= baseAPIUrl %>";
+    </script>
     <script type='module' src='/javascripts/add-question.js'></script>
     <script type='module' src ='/javascripts/modify-question.js'></script>
-    <script type='module'>
-        import { fillInExistingFields } from '/javascripts/modify-question.js';
-        import { postQuestion } from '/javascripts/add-question.js';
-
-        window.addEventListener("DOMContentLoaded", (event) => {
-            if ('<%= questionID %>') {
-                const questionJSON = JSON.parse(sessionStorage.getItem('question'));
-                if (questionJSON.id = parseInt('<%= questionID %>')) {
-                    fillInExistingFields(questionJSON);
-                }
-            }
-
-            document.getElementById('submit-question').addEventListener('click', function (event) {
-                postQuestion('<%= unit %>', '<%= questionID %>',
-                    '<%= questionID %>' ? 'PUT' : 'POST');
-                event.preventDefault();
-            })
-        });
-    </script>
 </head>
 
 <body>
