@@ -1,9 +1,4 @@
-// const baseApiUrl = "https://parlay-island-backend.herokuapp.com";
-const baseApiUrl =
-    "http://parlay-island-server-dev.eba-kq6isupz.us-east-2.elasticbeanstalk.com";
-
 export var makeGetRequest = function (requestUrl) {
-    // var requestUrl = baseApiUrl + url;
     console.log(requestUrl);
     var request = new XMLHttpRequest();
 
@@ -33,9 +28,6 @@ export var makeGetRequest = function (requestUrl) {
 }
 
 export var makePostRequest = function (requestUrl, data, requestType) {
-    // var requestUrl = baseApiUrl + url;
-    console.log(requestUrl);
-    console.log(data);
     var request = new XMLHttpRequest();
 
     return new Promise(function (resolve, reject) {
