@@ -56,7 +56,6 @@ function addClickListenersToQuestionRows(questions) {
 }
 
 function sendQuestionToNewPage(question) {
-    sessionStorage.setItem('question', JSON.stringify(question));
     const unit = question.tags[0];
     window.location = `/${unit}/questions/view-question?id=${question.id}`;
 }

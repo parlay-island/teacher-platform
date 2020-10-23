@@ -1,5 +1,4 @@
 export var makeGetRequest = function (requestUrl) {
-    console.log(requestUrl);
     var request = new XMLHttpRequest();
 
     return new Promise(function (resolve, reject) {

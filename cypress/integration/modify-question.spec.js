@@ -5,25 +5,22 @@ describe('loading the page to modify question', () => {
         cy.server();
         cy.route(
             "GET",
-            "**/questions/?tag=Economics",
-            "fixture:questionsByUnit.json"
-        ).as("getQuestionsByUnit");
+            "**/questions/1",
+            "fixture:addedQuestion.json"
+        ).as("getSingleQuestion");
         cy.route({
             method: "PUT",
             url: "**/questions/1",
             response: "fixture:updatedQuestion.json",
         }).as("putQuestion");
-
         cy.route(
             "GET",
             "**/questions/?tag=Economics",
             "fixture:questionsByUnit.json"
         ).as("getQuestionsByUnit");
 
-        cy.visit(`${UNIT}/questions`);
-        cy.wait("@getQuestionsByUnit");
-
-        cy.get(".question-text").click({ force: true });
+        cy.visit(`${UNIT}/questions/view-question?id=1`);
+        cy.wait("@getSingleQuestion");
         cy.get(".edit-question-icon").click({ force: true });
     });
 
@@ -63,9 +60,9 @@ describe('sending a PUT request on submit that fails', () => {
         cy.server();
         cy.route(
             "GET",
-            "**/questions/?tag=Economics",
-            "fixture:questionsByUnit.json"
-        ).as("getQuestionsByUnit");
+            "**/questions/1",
+            "fixture:addedQuestion.json"
+        ).as("getSingleQuestion");
         cy.route({
             method: "PUT",
             url: "**/questions/1",
@@ -80,10 +77,8 @@ describe('sending a PUT request on submit that fails', () => {
             "fixture:questionsByUnit.json"
         ).as("getQuestionsByUnit");
 
-        cy.visit(`${UNIT}/questions`);
-        cy.wait("@getQuestionsByUnit");
-
-        cy.get(".question-text").click({ force: true });
+        cy.visit(`${UNIT}/questions/view-question?id=1`);
+        cy.wait("@getSingleQuestion");
         cy.get(".edit-question-icon").click({ force: true });
     });
 

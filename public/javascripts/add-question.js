@@ -15,7 +15,11 @@ export function postQuestion(unit, questionID, requestType) {
             showSuccessAlert(requestType);
 
             // redirect to question page
-            setTimeout(() => { window.location = `/${unit}/questions`;}, 1000);
+            var redirectURL = `/${unit}/questions`;
+            if (requestType=='PUT') {
+                redirectURL = `/${unit}/questions/view-question?id=${questionID}`;
+            }
+            setTimeout(() => { window.location = redirectURL;}, 1000);
         }).catch(function (error) {
             showErrorAlert('Something went wrong when trying to add your question. Please try again');
             console.log('something went wrong when posting units', error);
@@ -123,7 +127,8 @@ function findCorrectAnswer() {
     return parseInt(selected)-1;
 }
 
- window.addEventListener("DOMContentLoaded", (event) => {
+window.addEventListener("DOMContentLoaded", (event) => {
+    // filling in fields when modifying a question
     if (questionID) {
         const questionJSON = JSON.parse(sessionStorage.getItem('question'));
         if (questionJSON.id = parseInt(questionID)) {

@@ -5,14 +5,17 @@ describe('viewing a question', () => {
         cy.server();
         cy.route(
             "GET",
+            "**/questions/1",
+            "fixture:addedQuestion.json"
+        ).as("getSingleQuestion");
+        cy.route(
+            "GET",
             "**/questions/?tag=Economics",
             "fixture:questionsByUnit.json"
         ).as("getQuestionsByUnit");
         
-        cy.visit(`${UNIT}/questions`);
-        cy.wait('@getQuestionsByUnit');
-
-        cy.get('.question-text').click({ force: true });
+        cy.visit(`${UNIT}/questions/view-question?id=1`);
+        cy.wait("@getSingleQuestion");
     });
 
     it ('display the right information about the question', () => {

@@ -1,3 +1,5 @@
+import { makeGetRequest } from "./request-helper.js";
+
 function fillQuestionAndChoices(question) {
     const questionTitleDOM = document.getElementsByClassName('question-title')[0];
     questionTitleDOM.innerHTML = `${question.body}`;
@@ -18,6 +20,19 @@ function fillQuestionAndChoices(question) {
     choicesDOM.innerHTML = choicesHtml;
 }
 
+function getQuestion() {
+    var requestUrl = baseApiUrl + `/questions/${questionID}`;
+    makeGetRequest(requestUrl).then(function (res) {
+        const questionJSON = JSON.parse(res.response);
+        
+        // storing in session so modify question page does not have to re-fetch
+        sessionStorage.setItem("question", JSON.stringify(questionJSON));
+        fillQuestionAndChoices(questionJSON);
+    }).catch(function (error) {
+        console.log('something went wrong', error);
+    });
+}
+
 window.addEventListener("DOMContentLoaded", (event) => {
-    fillQuestionAndChoices(JSON.parse(sessionStorage.getItem('question')));
+    getQuestion();
 });
