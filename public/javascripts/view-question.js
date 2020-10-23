@@ -1,4 +1,4 @@
-import { makeGetRequest } from "./request-helper.js";
+import { makeXHRRequest } from "./request-helper.js";
 
 function fillQuestionAndChoices(question) {
     const questionTitleDOM = document.getElementsByClassName('question-title')[0];
@@ -22,7 +22,7 @@ function fillQuestionAndChoices(question) {
 
 function getQuestion() {
     var requestUrl = baseApiUrl + `/questions/${questionID}`;
-    makeGetRequest(requestUrl).then(function (res) {
+    makeXHRRequest(requestUrl, null, 'GET').then(function (res) {
         const questionJSON = JSON.parse(res.response);
         
         // storing in session so modify question page does not have to re-fetch

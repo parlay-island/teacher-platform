@@ -1,4 +1,4 @@
-import { makePostRequest } from './request-helper.js';
+import { makeXHRRequest} from './request-helper.js';
 import { fillInExistingFields } from "./modify-question.js";
 
 export function postQuestion(unit, questionID, requestType) {
@@ -10,7 +10,7 @@ export function postQuestion(unit, questionID, requestType) {
         if (questionID) {
             requestURL = baseApiUrl + `/questions/${questionID}`;
         }
-        makePostRequest(requestURL, json, requestType).then(function (res) {
+        makeXHRRequest(requestURL, json, requestType).then(function (res) {
             console.log(res.responseText);
             showSuccessAlert(requestType);
 

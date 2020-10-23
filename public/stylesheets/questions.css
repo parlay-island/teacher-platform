@@ -18,17 +18,22 @@ body {
 }
 
 .question-row {
-    background-color: #F6F5F5;
-    border-radius: 20px;
-    height: 40px;
     display: flex;
     cursor: pointer;
-    padding: 20px;
     margin-bottom: 10px;
 }
 
-.question-text {
+.question-text-section {
     color: #9E9B9B;
+    background-color: #F6F5F5;
+    border-radius: 20px;
+    height: 40px;
+    width: 90%;
+    padding: 20px;
+    display: flex;
+}
+
+.question-text {
     margin-top: auto;
     margin-bottom: auto;
 }
