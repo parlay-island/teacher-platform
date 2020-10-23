@@ -1,5 +1,4 @@
 node_modules
 builds/
 cache/
-.env
 cypress/videos/
