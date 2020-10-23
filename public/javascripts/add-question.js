@@ -1,16 +1,25 @@
-const baseApiUrl = "https://parlay-island-backend.herokuapp.com";
+import { makePostRequest } from './request-helper.js';
+import { fillInExistingFields } from "./modify-question.js";
 
-function postQuestion(unit) {
+export function postQuestion(unit, questionID, requestType) {
     const hasNullInputs = checkNullQuestionInputs();
     if (! hasNullInputs) {
         const json = getQuestionInputsAsJson(unit);
         console.log(json);
-        makePostRequest("/questions/", json).then(function (res) {
+        var requestURL = baseApiUrl + "/questions/";
+        if (questionID) {
+            requestURL = baseApiUrl + `/questions/${questionID}`;
+        }
+        makePostRequest(requestURL, json, requestType).then(function (res) {
             console.log(res.responseText);
-            showSuccessAlert();
+            showSuccessAlert(requestType);
 
             // redirect to question page
-            setTimeout(() => { window.location = `/${unit}/questions`;}, 1000);
+            var redirectURL = `/${unit}/questions`;
+            if (requestType=='PUT') {
+                redirectURL = `/${unit}/questions/view-question?id=${questionID}`;
+            }
+            setTimeout(() => { window.location = redirectURL;}, 1000);
         }).catch(function (error) {
             showErrorAlert('Something went wrong when trying to add your question. Please try again');
             console.log('something went wrong when posting units', error);
@@ -19,7 +28,7 @@ function postQuestion(unit) {
     return false;
 }
 
-function showSuccessAlert() {
+function showSuccessAlert(requestType) {
     const successAlertDOM = document.getElementsByClassName('alert')[0];
     if (successAlertDOM.classList.contains('alert-danger')) {
         successAlertDOM.classList.remove('alert-danger');
@@ -28,7 +37,13 @@ function showSuccessAlert() {
         successAlertDOM.classList.remove('alert-inactive');
     }
     successAlertDOM.classList.add('alert-success');
-    successAlertDOM.innerHTML = ` <strong>Success!</strong> You successfully added a new question.`;
+    var successMessage;
+    if (requestType=='POST') {
+        successMessage = 'You successfully added a new question.';
+    } else {
+        successMessage = 'You successfully updated this question.'
+    }
+    successAlertDOM.innerHTML = ` <strong>Success!</strong> ${successMessage}`;
 }
 
 function showErrorAlert(errorMessage) {
@@ -90,38 +105,11 @@ function getQuestionInputsAsJson(unit) {
     json["times_correct"] = 0;
     json["answer"] = [findCorrectAnswer()];
     json["choices"] = choices;
+
+    // TODO (js803): change this to read from level ID when updating /units endpoint to be /levels instead
+    json["level"] = 1;
     return json;
 }
-
-var makePostRequest = function (url, data) {
-    var requestUrl = baseApiUrl + url;
-    console.log(requestUrl);
-    console.log(data);
-    var request = new XMLHttpRequest();
-
-    return new Promise(function (resolve, reject) {
-        request.onreadystatechange = function () {
-        // only run if request is complete
-        if (request.readyState != 4) return;
-
-        // process response
-        if (request.status >= 200 && request.status < 300) {
-            // success
-            resolve(request);
-        } else {
-            // failure
-            reject({
-                status: request.status,
-                statusText: request.statusText,
-            });
-        }
-        };
-
-        request.open("POST", requestUrl, true);
-        request.setRequestHeader("Content-Type", "application/json");
-        request.send(JSON.stringify(data));
-    });
-};
 
 function findCorrectAnswer() {
     const choiceRadioButtons = document.getElementsByClassName(
@@ -139,3 +127,18 @@ function findCorrectAnswer() {
     return parseInt(selected)-1;
 }
 
+window.addEventListener("DOMContentLoaded", (event) => {
+    // filling in fields when modifying a question
+    if (questionID) {
+        const questionJSON = JSON.parse(sessionStorage.getItem('question'));
+        if (questionJSON.id = parseInt(questionID)) {
+            fillInExistingFields(questionJSON);
+        }
+    }
+
+    document.getElementById('submit-question').addEventListener('click', function (event) {
+        postQuestion(questionUnit, questionID,
+            questionID ? 'PUT' : 'POST');
+        event.preventDefault();
+    });
+});

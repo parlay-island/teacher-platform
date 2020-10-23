@@ -7,7 +7,14 @@
         rel="stylesheet">
     <link rel="stylesheet" href="/stylesheets/add-question.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script type='text/javascript' src='/javascripts/add-question.js'></script>
+    <script>
+        // so that other scripts can access the questionID passed in
+        var questionUnit = "<%= unit %>";
+        var questionID = "<%= questionID %>";
+        var baseApiUrl = "<%= baseAPIUrl %>";
+    </script>
+    <script type='module' src='/javascripts/add-question.js'></script>
+    <script type='module' src ='/javascripts/modify-question.js'></script>
 </head>
 
 <body>
@@ -17,8 +24,11 @@
 
     <div class="add-question-main">
         <div class="add-question-title">
-            Add a New Question
-
+            <% if(questionID){ %>
+                Modify Question
+            <% } else{ %>
+                Add A New Question
+            <% } %>
             <img onclick="window.location='/<%=unit %>/questions';" class="exit-add-question" src='/images/close-icon.png'/>
         </div>
 
@@ -50,10 +60,13 @@
             <%- include('../templates/answer-choice-row', {choiceNum: '3'}); %>
             <%- include('../templates/answer-choice-row', {choiceNum: '4'}); %>
             
-            <!-- <input type="submit" id="submit-question" value="Add Question" class="submit-question-button"
-            onclick="postQuestion('<%= unit %>')"> -->
-            <button id="submit-question" class="submit-question-button"
-                onclick="postQuestion('<%= unit %>')"> Add Question </button>
+            <button id="submit-question" class="submit-question-button"> 
+                <% if(questionID){ %>
+                    Modify Question
+                <% } else{ %>
+                    Add Question
+                <% } %>
+            </button>
         </div>
     </div>
 </body>

@@ -1,7 +1,8 @@
 import { makeGetRequest } from './request-helper.js';
 
 function getUnits() {
-    makeGetRequest("/units/").then(function (res) {
+    var requestUrl = baseApiUrl + "/units/";
+    makeGetRequest(requestUrl).then(function (res) {
         const jsonResponse = JSON.parse(res.response);
         const units = jsonResponse.units;
         makeUnitsHtml(units);

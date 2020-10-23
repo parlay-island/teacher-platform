@@ -2,7 +2,7 @@ import { makeGetRequest } from './request-helper.js';
 
 export function getQuestionsByUnit(unit) {
     unit = decodeURI(unit);
-    const requestUrl = "/questions/?tag=" + unit;
+    const requestUrl = baseApiUrl + "/questions/?tag=" + unit;
     makeGetRequest(requestUrl).then(function (res) {
         const jsonResponse = JSON.parse(res.response);
         const questions = jsonResponse.questions;
@@ -56,8 +56,11 @@ function addClickListenersToQuestionRows(questions) {
 }
 
 function sendQuestionToNewPage(question) {
-    sessionStorage.setItem('question', JSON.stringify(question));
     const unit = question.tags[0];
     window.location = `/${unit}/questions/view-question?id=${question.id}`;
 }
+
+window.addEventListener("DOMContentLoaded", (event) => {
+    getQuestionsByUnit(unit);
+});
 
