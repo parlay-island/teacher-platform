@@ -1,8 +1,8 @@
-import { makeGetRequest } from './request-helper.js';
+import { makeXHRRequest } from './request-helper.js';
 
 function getUnits() {
     var requestUrl = baseApiUrl + "/units/";
-    makeGetRequest(requestUrl).then(function (res) {
+    makeXHRRequest(requestUrl, null, 'GET').then(function (res) {
         const jsonResponse = JSON.parse(res.response);
         const units = jsonResponse.units;
         makeUnitsHtml(units);

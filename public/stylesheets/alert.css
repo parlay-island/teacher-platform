@@ -1,0 +1,15 @@
+.alert-success {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.alert-danger {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.alert-inactive {
+    display: none;
+}
