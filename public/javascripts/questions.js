@@ -1,8 +1,7 @@
 import { makeXHRRequest } from './request-helper.js';
 
-export function getQuestionsByUnit(unit) {
-    unit = decodeURI(unit);
-    const requestUrl = baseApiUrl + "/questions/?tag=" + unit;
+export function getQuestionsByUnit(unitID) {
+    const requestUrl = baseApiUrl + "/questions/?level=" + unitID;
     makeXHRRequest(requestUrl, null, 'GET').then(function (res) {
         const jsonResponse = JSON.parse(res.response);
         const questions = jsonResponse.questions;
@@ -112,10 +111,11 @@ function addClickListenersToQuestionRows(questions) {
 
 function sendQuestionToNewPage(question) {
     const unit = question.tags[0];
-    window.location = `/${unit}/questions/view-question?id=${question.id}`;
+    const unitID = question.level;
+    window.location = `/${unit}/${unitID}/questions/view-question?id=${question.id}`;
 }
 
 window.addEventListener("DOMContentLoaded", (event) => {
-    getQuestionsByUnit(unit);
+    getQuestionsByUnit(unitID);
 });
 

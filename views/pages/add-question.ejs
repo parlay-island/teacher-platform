@@ -9,8 +9,12 @@
     <link rel="stylesheet" href="/stylesheets/alert.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script>
-        // so that other scripts can access the questionID passed in
-        var questionUnit = "<%= unit %>";
+        // so that scripts can access the variables passed in
+        var unitID = "<%= unitID %>";
+        var tempUnit = "<%= unit %>";
+        
+        // need to decode the ampersand
+        var questionUnit = tempUnit.replace(/&amp;/g, '&');
         var questionID = "<%= questionID %>";
         var baseApiUrl = "<%= baseAPIUrl %>";
     </script>
@@ -30,7 +34,7 @@
             <% } else{ %>
                 Add A New Question
             <% } %>
-            <img onclick="window.location='/<%=unit %>/questions';" class="exit-add-question" src='/images/close-icon.png'/>
+            <img onclick="window.location='/<%= unit %>/<%= unitID %>/questions';" class="exit-add-question" src='/images/close-icon.png'/>
         </div>
 
         <div class="add-question-form">

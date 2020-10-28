@@ -1,10 +1,12 @@
+const UNIT_ID = 1;
+
 describe('selecting a unit when the get request returns all the questions', () => {
     beforeEach(() => {
         // mocking the response to fetch all units
         cy.server();
         cy.route(
             "GET",
-            "**/units/",
+            "**/levels/",
             "fixture:units.json"
         ).as("getUnits");
         cy.visit("/");
@@ -14,7 +16,7 @@ describe('selecting a unit when the get request returns all the questions', () =
         cy.server();
         cy.route(
             "GET",
-            "**/questions/?tag=Economics",
+            `**/questions/?level=${UNIT_ID}`,
             "fixture:questionsByUnit.json"
         ).as("getQuestionsByUnit");
 
@@ -25,7 +27,7 @@ describe('selecting a unit when the get request returns all the questions', () =
 
     it ('renders the correct heading and description', () => {
         cy.location().should((loc) => {
-            expect(loc.pathname).to.eq('/Economics/questions');
+            expect(loc.pathname).to.eq('/Economics/1/questions');
         });
 
         cy.get('.header-title').should('contain', 'Update Questions');
@@ -49,11 +51,11 @@ describe('displaying questions when the GET request returns no questions', () =>
         cy.server();
         cy.route({
             method: 'GET',
-            url: '**/questions/?tag=Economics',
+            url: `**/questions/?level=${UNIT_ID}`,
             response: []
         }).as('getQuestionsEmpty');
         
-        cy.visit('/Economics/questions');
+        cy.visit('/Economics/1/questions');
         cy.wait('@getQuestionsEmpty');
     });
 
@@ -68,14 +70,14 @@ describe('displaying questions when GET request throws error', () => {
         cy.server();
         cy.route({
             method: 'GET',
-            url: '**/questions/?tag=Economics',
+            url: `**/questions/?level=${UNIT_ID}`,
             status: 500,
             response: {
                 message: 'Something went wrong, please try again later',
             }
         }).as('getQuestionsError');
 
-        cy.visit('/Economics/questions');
+        cy.visit('/Economics/1/questions');
         cy.wait('@getQuestionsError');
     });
 

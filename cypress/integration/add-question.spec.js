@@ -1,8 +1,9 @@
 const UNIT = 'Economics';
+const UNIT_ID = 1;
 
 describe('validation when adding a question', () => {
     beforeEach(() => {
-        cy.visit(`/${UNIT}/add-question`);
+        cy.visit(`/${UNIT}/${UNIT_ID}/add-question`);
     });
 
     it ('presents a validation alert if some choices are empty', () => {
@@ -27,7 +28,7 @@ describe('validation when adding a question', () => {
 
 describe('sending a post request on submit', () => {
     beforeEach(() => {
-        cy.visit(`/${UNIT}/add-question`);
+        cy.visit(`/${UNIT}/${UNIT_ID}/add-question`);
 
         cy.server();
         cy.route({
@@ -38,7 +39,7 @@ describe('sending a post request on submit', () => {
 
         cy.route(
             "GET",
-            "**/questions/?tag=Economics",
+            `**/questions/?level=${UNIT_ID}`,
             "fixture:questionsByUnit.json"
         ).as("getQuestionsByUnit");
     });
@@ -71,7 +72,7 @@ describe('sending a post request on submit', () => {
 
 describe('post request on submit fails', () => {
     beforeEach(() => {
-        cy.visit(`/${UNIT}/add-question`);
+        cy.visit(`/${UNIT}/${UNIT_ID}/add-question`);
 
         cy.server();
         cy.route({

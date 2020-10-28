@@ -1,10 +1,12 @@
 const UNIT = 'Economics';
+const UNIT_ID = 1;
+
 describe('removing question when DELETE request fails', () => {
     beforeEach(() => {
         cy.server();
         cy.route(
             "GET",
-            "**/questions/?tag=Economics",
+            `**/questions/?level=${UNIT_ID}`,
             "fixture:questionsByUnit.json"
         ).as("getQuestionsByUnit");
         cy.route({
@@ -16,7 +18,7 @@ describe('removing question when DELETE request fails', () => {
             }
         }).as("deleteQuestionFail");
 
-        cy.visit(`/${UNIT}/questions`);
+        cy.visit(`/${UNIT}/${UNIT_ID}/questions`);
         cy.wait("@getQuestionsByUnit");
     })
     it ('shows an error message', () => {
@@ -31,7 +33,7 @@ describe('removing a question when DELETE request succeeds', () => {
         cy.server();
         cy.route(
             "GET",
-            "**/questions/?tag=Economics",
+            `**/questions/?level=${UNIT_ID}`,
             "fixture:questionsByUnit.json"
         ).as("getQuestionsByUnit");
         cy.route({
@@ -40,7 +42,7 @@ describe('removing a question when DELETE request succeeds', () => {
             response: "fixture:addedQuestion.json",
         }).as("deleteQuestion");
 
-        cy.visit(`/${UNIT}/questions`);
+        cy.visit(`/${UNIT}/${UNIT_ID}/questions`);
         cy.wait("@getQuestionsByUnit");
     });
 
@@ -49,7 +51,7 @@ describe('removing a question when DELETE request succeeds', () => {
         cy.get("#cancel-delete").click({ force: true });
 
         cy.location().should((loc) => {
-            expect(loc.pathname).to.eq(`/${UNIT}/questions`);
+            expect(loc.pathname).to.eq(`/${UNIT}/${UNIT_ID}/questions`);
         });
         // question should still be there
         cy.get(".question-text").should("contain", "Question 1");

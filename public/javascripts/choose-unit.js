@@ -1,10 +1,10 @@
 import { makeXHRRequest } from './request-helper.js';
 
 function getUnits() {
-    var requestUrl = baseApiUrl + "/units/";
+    var requestUrl = baseApiUrl + "/levels/";
     makeXHRRequest(requestUrl, null, 'GET').then(function (res) {
         const jsonResponse = JSON.parse(res.response);
-        const units = jsonResponse.units;
+        const units = jsonResponse.levels;
         makeUnitsHtml(units);
     }).catch(function (error) {
         console.log('something went wrong when fetching units', error);
@@ -29,10 +29,10 @@ function makeUnitsHtml(units) {
                         </div>`;
     } else {
         units.forEach((unit) => {
-            unitHtml += `<a href="/${unit}/questions" class="unit-text">
+            unitHtml += `<a href="/${unit.name}/${unit.id}/questions" class="unit-text">
                     <div class="unit-grid-item">
                         <div class="unit-grid-item-title">
-                            ${unit}
+                            ${unit.name}
                         </div>
                     </div>
                 </a>`;

@@ -4,7 +4,7 @@ describe('rendering all units when GET request is successful', () => {
         cy.server();
         cy.route(
             "GET",
-            "**/units/",
+            "**/levels/",
             "fixture:units.json"
         ).as("getUnits");
         cy.visit("/");
@@ -42,7 +42,7 @@ describe('rendering units when GET request returns no units', () => {
         cy.server();
         cy.route({
             method: 'GET',
-            url: '**/units/',
+            url: '**/levels/',
             response: []
         }).as('getUnitsEmpty');
 
@@ -61,7 +61,7 @@ describe('rendering units when GET request fails', () => {
         cy.server();
         cy.route({
             method: 'GET',
-            url: '**/units/',
+            url: '**/levels/',
             status: 500,
             response: {
                 message: 'Something went wrong, please try again later',

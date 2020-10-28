@@ -1,7 +1,24 @@
 {
-    "units": ["Economics",
-            "Income & Education",
-            "Money & Credit Management",
-            "Financial Planning",
-            "Critical Consumerism"]
+    "levels": [
+        {
+            "id": 1,
+            "name": "Economics"
+        },
+        {
+            "id": 2,
+            "name": "Income & Education"
+        },
+        {
+            "id": 3,
+            "name": "Money & Credit Management"
+        },
+        {
+            "id": 4,
+            "name": "Financial Planning"
+        }, 
+        {
+            "id": 5,
+            "name": "Critical Consumerism"
+        }
+    ]
 }
