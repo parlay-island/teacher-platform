@@ -15,13 +15,13 @@
     <body>
         <%- include('../templates/nav-bar', {activeTab: 'question'}); %>
         <div class='view-question'>
-            <%- include('../templates/back-nav', {navText: 'Questions / ' + questionUnit, link: '/' + questionUnit + '/questions'}); %>
+            <%- include('../templates/back-nav', {navText: 'Questions / ' + questionUnit, link: '/' + questionUnit + '/' + unitID + '/questions'}); %>
             <div class='question-heading-section'>
                 <div class='question-title'>
                     <!-- rendered by view-question.js -->
                 </div>
 
-                <div class='modify-question' onclick="window.location='/<%= questionUnit %>/add-question?id=<%= questionID %>'; ">
+                <div class='modify-question' onclick="window.location='/<%= questionUnit %>/<%= unitID %>/add-question?id=<%= questionID %>'; ">
                     <img src='/images/edit-icon.png' class='edit-question-icon' />
                     <div class='modify-question-text'>
                         Modify Question

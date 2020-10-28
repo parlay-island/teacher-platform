@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/stylesheets/questions.css">
     <link rel="stylesheet" href="/stylesheets/alert.css">
     <script>
-        var unit = "<%= unit %>";
+        var unitID = "<%= unitID %>";
         var baseApiUrl = "<%= baseAPIUrl %>";
     </script>
     <script type='module' src='/javascripts/questions.js'></script>
@@ -31,7 +31,7 @@
                 <%= unit %> - Question Bank
             </div>
 
-            <div class="add-question" onclick="window.location='/<%= unit %>/add-question';">
+            <div class="add-question" onclick="window.location='/<%= unit %>/<%= unitID %>/add-question';">
                 <img class="add-question-icon" src="/images/plus-icon.png">
                 <div class="add-question-text">Add a question</div>
             </div>

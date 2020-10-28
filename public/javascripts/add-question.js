@@ -1,10 +1,10 @@
 import { makeXHRRequest} from './request-helper.js';
 import { fillInExistingFields } from "./modify-question.js";
 
-export function postQuestion(unit, questionID, requestType) {
+export function postQuestion(unitID, unit, questionID, requestType) {
     const hasNullInputs = checkNullQuestionInputs();
     if (! hasNullInputs) {
-        const json = getQuestionInputsAsJson(unit);
+        const json = getQuestionInputsAsJson(unitID, unit);
         console.log(json);
         var requestURL = baseApiUrl + "/questions/";
         if (questionID) {
@@ -15,9 +15,9 @@ export function postQuestion(unit, questionID, requestType) {
             showSuccessAlert(requestType);
 
             // redirect to question page
-            var redirectURL = `/${unit}/questions`;
+            var redirectURL = `/${unit}/${unitID}/questions`;
             if (requestType=='PUT') {
-                redirectURL = `/${unit}/questions/view-question?id=${questionID}`;
+                redirectURL = `/${unit}/${unitID}/questions/view-question?id=${questionID}`;
             }
             setTimeout(() => { window.location = redirectURL;}, 1000);
         }).catch(function (error) {
@@ -83,7 +83,7 @@ function checkNullQuestionInputs() {
     return false;
 }
 
-function getQuestionInputsAsJson(unit) {
+function getQuestionInputsAsJson(unitID, unit) {
     const questionInput = document.getElementById("new-question");
     const answerChoiceInputs = document.getElementsByClassName(
         "answer-choice-input"
@@ -105,9 +105,7 @@ function getQuestionInputsAsJson(unit) {
     json["times_correct"] = 0;
     json["answer"] = [findCorrectAnswer()];
     json["choices"] = choices;
-
-    // TODO (js803): change this to read from level ID when updating /units endpoint to be /levels instead
-    json["level"] = 1;
+    json["level"] = unitID;
     return json;
 }
 
@@ -129,6 +127,7 @@ function findCorrectAnswer() {
 
 window.addEventListener("DOMContentLoaded", (event) => {
     // filling in fields when modifying a question
+    console.log(questionUnit);
     if (questionID) {
         const questionJSON = JSON.parse(sessionStorage.getItem('question'));
         if (questionJSON.id = parseInt(questionID)) {
@@ -137,7 +136,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
     }
 
     document.getElementById('submit-question').addEventListener('click', function (event) {
-        postQuestion(questionUnit, questionID,
+        postQuestion(unitID, questionUnit, questionID,
             questionID ? 'PUT' : 'POST');
         event.preventDefault();
     });

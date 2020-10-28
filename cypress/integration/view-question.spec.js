@@ -1,4 +1,5 @@
 const UNIT = 'Economics';
+const UNIT_ID = 1;
 
 describe('viewing a question', () => {
     beforeEach(() => {
@@ -10,11 +11,11 @@ describe('viewing a question', () => {
         ).as("getSingleQuestion");
         cy.route(
             "GET",
-            "**/questions/?tag=Economics",
+            `**/questions/?level=${UNIT_ID}`,
             "fixture:questionsByUnit.json"
         ).as("getQuestionsByUnit");
         
-        cy.visit(`${UNIT}/questions/view-question?id=1`);
+        cy.visit(`${UNIT}/${UNIT_ID}/questions/view-question?id=1`);
         cy.wait("@getSingleQuestion");
     });
 
@@ -36,7 +37,7 @@ describe('viewing a question', () => {
     it ('redirects to the page with all questions', () => {
         cy.get('.back-arrow').click({ force: true });
         cy.location().should((loc) => {
-            expect(loc.pathname).to.eq(`/${UNIT}/questions`);
+            expect(loc.pathname).to.eq(`/${UNIT}/${UNIT_ID}/questions`);
         });
     });
 })

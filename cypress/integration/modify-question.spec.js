@@ -1,4 +1,5 @@
 const UNIT = 'Economics';
+const UNIT_ID = 1;
 
 describe('loading the page to modify question', () => {
     beforeEach(() => {
@@ -15,11 +16,11 @@ describe('loading the page to modify question', () => {
         }).as("putQuestion");
         cy.route(
             "GET",
-            "**/questions/?tag=Economics",
+            `**/questions/?level=${UNIT_ID}`,
             "fixture:questionsByUnit.json"
         ).as("getQuestionsByUnit");
 
-        cy.visit(`${UNIT}/questions/view-question?id=1`);
+        cy.visit(`${UNIT}/${UNIT_ID}/questions/view-question?id=1`);
         cy.wait("@getSingleQuestion");
         cy.get(".edit-question-icon").click({ force: true });
     });
@@ -73,11 +74,11 @@ describe('sending a PUT request on submit that fails', () => {
         }).as("putQuestionFail");
         cy.route(
             "GET",
-            "**/questions/?tag=Economics",
+            `**/questions/?level=${UNIT_ID}`,
             "fixture:questionsByUnit.json"
         ).as("getQuestionsByUnit");
 
-        cy.visit(`${UNIT}/questions/view-question?id=1`);
+        cy.visit(`${UNIT}/${UNIT_ID}/questions/view-question?id=1`);
         cy.wait("@getSingleQuestion");
         cy.get(".edit-question-icon").click({ force: true });
     });
