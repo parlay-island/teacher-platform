@@ -30,10 +30,22 @@ function makeQuestionsHtml(questions) {
                             </div>`;
     } else {
         questions.forEach((question) => {
+            var progressText;
+            if (question.times_answered == 0) {
+                progressText = '0.00% answered';
+            } else {
+                const percentCorrect = ((question.times_correct / question.times_answered) * 100).toFixed(2);
+                progressText = `${percentCorrect}% correct`;
+            }
+
             questionsHtml += ` <div class="question-row">
                                     <div class="question-text-section">
                                         <div class="question-text">
                                             ${question.body}
+                                        </div>
+
+                                        <div class="question-progress">
+                                            ${progressText}
                                         </div>
                                     </div>
                                     

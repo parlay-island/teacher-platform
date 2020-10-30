@@ -3,27 +3,27 @@
     "tags": [
         "Economics"
     ],
-    "times_answered": 6,
-    "times_correct": 3,
+    "times_answered": 0,
+    "times_correct": 0,
     "answer": [
         2
     ],
     "choices": [
         {
             "body": "Choice 1",
-            "times_chosen": 1
+            "times_chosen": 0
         },
         {
             "body": "Choice 2",
-            "times_chosen": 1
+            "times_chosen": 0
         },
         {
             "body": "Choice 3",
-            "times_chosen": 3
+            "times_chosen": 0
         },
         {
             "body": "Choice 4",
-            "times_chosen": 1
+            "times_chosen": 0
         }
     ]
 }

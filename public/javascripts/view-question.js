@@ -13,8 +13,18 @@ function fillQuestionAndChoices(question) {
             className = 'choice-row-correct';
         } 
 
+        var choiceProgressText;
+        if (question.times_answered == 0) {
+            choiceProgressText = '0.00% answered';
+        } else {
+            const percentChoiceCorrect = ((question.choices[i].times_chosen / question.times_answered) * 100).toFixed(2);
+            choiceProgressText = `${percentChoiceCorrect}% answered`;
+        }
+        
         choicesHtml += `<div class='choice-row ${className}'>
                             <div class='choice-row-text'> ${question.choices[i].body} </div>
+
+                            <div class='choice-row-progress'>${choiceProgressText}</div>
                         </div>`;
     }
     choicesDOM.innerHTML = choicesHtml;
