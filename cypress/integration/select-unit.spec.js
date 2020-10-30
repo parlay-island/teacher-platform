@@ -43,6 +43,19 @@ describe('selecting a unit when the get request returns all the questions', () =
         // should display the delete button
         cy.get('.remove-question-icon').should('exist');
     });
+
+    it('should show the percentage correct per question', () => {
+        cy.fixture('questionsByUnit.json').then((questionsByUnit) => {
+            const questions = questionsByUnit.questions;
+
+            var index = 0;
+            cy.get('.question-progress').each((progressText) => {
+                const expectedPercentcorrect = ((questions[index].times_correct / questions[index].times_answered) * 100);
+                expect(progressText).to.contain(expectedPercentcorrect);
+                index++;
+            })
+        })
+    });
 });
 
 describe('displaying questions when the GET request returns no questions', () => {

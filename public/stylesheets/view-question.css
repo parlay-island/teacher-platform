@@ -24,12 +24,19 @@ body {
     border-radius: 19px;
     margin-bottom: 10px;
     display: flex;
+    flex-direction: row;
 }
 
 .choice-row-text {
     margin-top: auto;
     margin-bottom: auto;
     margin-right: auto;
+}
+
+.choice-row-progress {
+    margin-left: auto;
+    margin-bottom: auto;
+    margin-top: auto;
 }
 
 .choice-row-correct {
@@ -56,4 +63,10 @@ body {
 .modify-question {
     display: inline-block;
     cursor: pointer;
+}
+
+.view-question-description {
+    color: #9E9B9B;
+    font-size: 18px;
+    margin-bottom: 30px;
 }

@@ -40,4 +40,44 @@ describe('viewing a question', () => {
             expect(loc.pathname).to.eq(`/${UNIT}/${UNIT_ID}/questions`);
         });
     });
+
+    it('shows the percentage breakdown for each answer choice', () => {
+        cy.fixture('addedQuestion.json').then((questionJSON) => {
+            const total = questionJSON.times_answered;
+            const choices = questionJSON.choices;
+            const expectedChoicePercents = [];
+            choices.forEach((choice, index) => {
+                expectedChoicePercents[index] = ((choice.times_chosen / total) * 100).toFixed(2);
+            });
+
+            var index = 0;
+            cy.get('.choice-row-progress').each((choicePercentage) => {
+                expect(choicePercentage).to.contain(expectedChoicePercents[index]);
+                index++;
+            });
+        });
+    });
+});
+
+describe('viewing a question that has not been answered', () => {
+    beforeEach(() => {
+        cy.server();
+        cy.route(
+            "GET",
+            "**/questions/1",
+            "fixture:questionNoProgress.json"
+        ).as("getSingleQuestion");
+        cy.route(
+            "GET",
+            `**/questions/?level=${UNIT_ID}`,
+            "fixture:questionsByUnit.json"
+        ).as("getQuestionsByUnit");
+
+        cy.visit(`${UNIT}/${UNIT_ID}/questions/view-question?id=1`);
+        cy.wait("@getSingleQuestion");
+    });
+
+    it('shows that the question has no been answered', () => {
+        cy.get('.choice-row-progress').should('contain', '0.00% answered');
+    })
 })
