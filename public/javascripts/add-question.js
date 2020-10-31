@@ -1,14 +1,14 @@
 import { makeXHRRequest} from './request-helper.js';
 import { fillInExistingFields } from "./modify-question.js";
 
-export function postQuestion(unitID, unit, questionID, requestType) {
+export function postQuestion(unitID, unit, question, requestType) {
     const hasNullInputs = checkNullQuestionInputs();
     if (! hasNullInputs) {
-        const json = getQuestionInputsAsJson(unitID, unit);
+        const json = getQuestionInputsAsJson(unitID, unit, question);
         console.log(json);
         var requestURL = baseApiUrl + "/questions/";
-        if (questionID) {
-            requestURL = baseApiUrl + `/questions/${questionID}`;
+        if (question) {
+            requestURL = baseApiUrl + `/questions/${question.id}`;
         }
         makeXHRRequest(requestURL, json, requestType).then(function (res) {
             console.log(res.responseText);
@@ -16,8 +16,8 @@ export function postQuestion(unitID, unit, questionID, requestType) {
 
             // redirect to question page
             var redirectURL = `/${unit}/${unitID}/questions`;
-            if (requestType=='PUT') {
-                redirectURL = `/${unit}/${unitID}/questions/view-question?id=${questionID}`;
+            if (question) {
+                redirectURL = `/${unit}/${unitID}/questions/view-question?id=${question.id}`;
             }
             setTimeout(() => { window.location = redirectURL;}, 1000);
         }).catch(function (error) {
@@ -83,7 +83,7 @@ function checkNullQuestionInputs() {
     return false;
 }
 
-function getQuestionInputsAsJson(unitID, unit) {
+function getQuestionInputsAsJson(unitID, unit, existingQuestion) {
     const questionInput = document.getElementById("new-question");
     const answerChoiceInputs = document.getElementsByClassName(
         "answer-choice-input"
@@ -92,17 +92,18 @@ function getQuestionInputsAsJson(unitID, unit) {
     var i;
     var choices = [];
     for (i = 0; i < answerChoiceInputs.length; i++) {
-        choices.push({
-            body: answerChoiceInputs[i].value,
-            times_chosen: 0,
-        });
+        var choice = {
+            body: answerChoiceInputs[i].value
+        }
+        if (existingQuestion) { // when updating question choices, need the choice ID
+            choice.id = existingQuestion.choices[i].id
+        }
+        choices.push(choice);
     }
 
     var json = {};
     json["body"] = questionInput.value;
     json["tags"] = [unit];
-    json["times_answered"] = 0;
-    json["times_correct"] = 0;
     json["answer"] = [findCorrectAnswer()];
     json["choices"] = choices;
     json["level"] = unitID;
@@ -127,16 +128,17 @@ function findCorrectAnswer() {
 
 window.addEventListener("DOMContentLoaded", (event) => {
     // filling in fields when modifying a question
-    console.log(questionUnit);
+    var questionJSON;
     if (questionID) {
-        const questionJSON = JSON.parse(sessionStorage.getItem('question'));
+        questionJSON = JSON.parse(sessionStorage.getItem('question'));
+        console.log(questionJSON);
         if (questionJSON.id = parseInt(questionID)) {
             fillInExistingFields(questionJSON);
         }
     }
 
     document.getElementById('submit-question').addEventListener('click', function (event) {
-        postQuestion(unitID, questionUnit, questionID,
+        postQuestion(unitID, questionUnit, questionJSON,
             questionID ? 'PUT' : 'POST');
         event.preventDefault();
     });
