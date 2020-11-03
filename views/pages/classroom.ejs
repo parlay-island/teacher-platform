@@ -6,7 +6,10 @@
         href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="/stylesheets/classroom.css">
-    <script type='text/javascript' src='/javascripts/classroom.js'></script>
+    <script>
+        var baseApiUrl = "<%= baseAPIUrl %>";
+    </script>
+    <script type='module' src='/javascripts/classroom.js'></script>
 </head>
 
 <body>
@@ -15,6 +18,12 @@
         <div class="student-progress">
             <%- include('../templates/title-with-desc', {title: 'Your Classroom', 
                     desc: 'Monitor your classroom to see which students are struggling and what questions students are getting wrong.'}); %>
+            <div class="all-students-title">
+                All Students
+            </div>
+            <div class="all-students-body">
+                <!-- rendered by classroom.js -->
+            </div>
         </div>
     </div>
 

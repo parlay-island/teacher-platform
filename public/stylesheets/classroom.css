@@ -10,3 +10,44 @@ body {
     margin-left: 20%;
     padding: 30px;
 }
+
+.all-students-title {
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.student-row {
+    display: flex;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+.student-text-section {
+    color: black;
+    background-color: #F6F5F5;
+    border-radius: 15px;
+    height: 30px;
+    width: 90%;
+    padding: 20px;
+    display: flex;
+}
+
+.student-text {
+    display: inline-flex;
+    margin-top: auto;
+    margin-bottom: auto;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 22px;
+    width: 100%;
+}
+.student-percent {
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.no-students-text {
+    font-weight: lighter;
+    color: red;
+}
