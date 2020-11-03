@@ -1,7 +1,7 @@
 import { makeXHRRequest } from './request-helper.js';
 
 export function getAllStudents() {
-  const requestUrl = baseApiUrl + "/players/results/summary";
+  const requestUrl = baseApiUrl + "/players/";
   makeXHRRequest(requestUrl, null, 'GET').then(function (res) {
       const jsonResponse = JSON.parse(res.response);
       const students = jsonResponse.players;

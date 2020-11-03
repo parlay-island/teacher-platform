@@ -3,7 +3,7 @@ describe('viewing all students', () => {
         cy.server();
         cy.route(
             "GET",
-            "**/players/results/summary",
+            "**/players/",
             "fixture:studentOverview.json"
         ).as("getAllStudents");
         
@@ -31,7 +31,7 @@ describe('displaying all students when the GET request returns no students', () 
         cy.server();
         cy.route({
             method: 'GET',
-            url: `**/players/results/summary`,
+            url: `**/players/`,
             response: []
         }).as('getAllStudentsEmpty');
         
@@ -49,7 +49,7 @@ describe('displaying students when GET request throws error', () => {
         cy.server();
         cy.route({
             method: 'GET',
-            url: `**/results/summary`,
+            url: `**/players/`,
             status: 500,
             response: {
                 message: 'Something went wrong, please try again later',
