@@ -1,0 +1,12 @@
+{
+    "students": [
+      {
+        "player_name": "player1",
+        "percent": 86
+      },
+      {
+        "player_name": "player2",
+        "percent": 35
+      }
+    ]
+  }
