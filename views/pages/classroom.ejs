@@ -18,6 +18,19 @@
         <div class="student-progress">
             <%- include('../templates/title-with-desc', {title: 'Your Classroom', 
                     desc: 'Monitor your classroom to see which students are struggling and what questions students are getting wrong.'}); %>
+            
+            <div class="struggling-students-title">
+                Struggling Students
+            </div>
+
+            <div class="struggling-students-description">
+                These are the four students who have the lowest overall question accuracy.
+            </div>
+
+            <div class="struggling-students-container">
+                <!-- rendered by classroom.js -->
+            </div>
+
             <div class="all-students-title">
                 All Students
             </div>
