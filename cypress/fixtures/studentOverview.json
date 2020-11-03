@@ -1,10 +1,12 @@
 {
     "players": [
       {
+        "id": 0,
         "name": "player1",
         "accuracy": 86
       },
       {
+        "id": 1,
         "name": "player2",
         "accuracy": 35
       }
