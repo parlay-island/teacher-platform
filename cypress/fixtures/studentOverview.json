@@ -1,12 +1,12 @@
 {
-    "students": [
+    "players": [
       {
-        "player_name": "player1",
-        "percent": 86
+        "name": "player1",
+        "accuracy": 86
       },
       {
-        "player_name": "player2",
-        "percent": 35
+        "name": "player2",
+        "accuracy": 35
       }
     ]
   }

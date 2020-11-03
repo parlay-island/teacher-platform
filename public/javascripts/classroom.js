@@ -1,11 +1,10 @@
 import { makeXHRRequest } from './request-helper.js';
 
 export function getAllStudents() {
-  // need to change endpoint
-  const requestUrl = baseApiUrl + "/results/summary";
+  const requestUrl = baseApiUrl + "/players/results/summary";
   makeXHRRequest(requestUrl, null, 'GET').then(function (res) {
       const jsonResponse = JSON.parse(res.response);
-      const students = jsonResponse.students;
+      const students = jsonResponse.players;
       makeStudentsHtml(students);
   }).catch(function (error) {
       console.log('something went wrong when fetching student results', error);
@@ -33,9 +32,9 @@ function makeStudentsHtml(students) {
       studentsHtml += ` <div class="student-row">
                             <div class="student-text-section">
                                     <div class="student-text">
-                                            ${student.player_name}
+                                            ${student.name}
                                             <div class="student-percent">
-                                                ${student.percent}%
+                                                ${student.accuracy}%
                                             </div>
                                     </div>
                             </div>

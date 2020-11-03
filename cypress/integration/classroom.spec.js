@@ -3,7 +3,7 @@ describe('viewing all students', () => {
         cy.server();
         cy.route(
             "GET",
-            "**/results/summary",
+            "**/players/results/summary",
             "fixture:studentOverview.json"
         ).as("getAllStudents");
         
@@ -31,7 +31,7 @@ describe('displaying all students when the GET request returns no students', () 
         cy.server();
         cy.route({
             method: 'GET',
-            url: `**/results/summary`,
+            url: `**/players/results/summary`,
             response: []
         }).as('getAllStudentsEmpty');
         
