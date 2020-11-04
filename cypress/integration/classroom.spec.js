@@ -1,7 +1,8 @@
-const GREEN_COLOR = "rgb(219, 245, 202)";
-const YELLOW_COLOR = "rgb(255, 227, 186)";
-const ORANGE_COLOR = "rgb(255, 209, 194)";
-const RED_COLOR = "rgb(255, 186, 186)";
+const GREEN_COLOR = "rgb(218, 255, 195)";
+const YELLOW_COLOR = "rgb(255, 235, 195)";
+const ORANGE_COLOR = "rgb(255, 217, 195)";
+const RED_COLOR = "rgb(255, 199, 195)";
+
 describe('viewing all students', () => {
     beforeEach(() => {
         cy.server();
