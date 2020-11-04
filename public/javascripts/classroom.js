@@ -74,16 +74,13 @@ function addBackgroundColorsToStrugglingStudents(strugglingStudents) {
 
 function getStudentColorBasedOnAccuracy(accuracy) {
   if (accuracy > 75) {
-    return "var(--green)"; // green
+    return "var(--green)";
   } else if (accuracy > 50) {
     return "var(--yellow)";
-    // return "#FFE3BA"; // yellow
   } else if (accuracy > 25) {
     return "var(--orange)";
-    // return "#FFD1C2"; // orange
   } else {
     return "var(--red)";
-    // return "#FFBABA"; // red 
   }
 }
 
