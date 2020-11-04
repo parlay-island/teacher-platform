@@ -1,0 +1,20 @@
+{
+    "results": [
+        {
+            "id": 1,
+            "question": 1,
+            "player": 1,
+            "choice": 2,
+            "count": 1,
+            "is_correct": true
+        },
+        {
+            "id": 2,
+            "question": 1,
+            "player": 1,
+            "choice": 1,
+            "count": 1,
+            "is_correct": false
+        }
+    ]
+}

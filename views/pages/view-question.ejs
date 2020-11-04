@@ -15,7 +15,11 @@
     <body>
         <%- include('../templates/nav-bar', {activeTab: 'question'}); %>
         <div class='view-question'>
-            <%- include('../templates/back-nav', {navText: 'Questions / ' + questionUnit, link: '/' + questionUnit + '/' + unitID + '/questions'}); %>
+            <% if (playerID) { %>
+                <%- include('../templates/back-nav', {navText: 'Classroom / Student', link: '/classroom/view-student/' + playerID}); %>
+            <% } else { %>
+                <%- include('../templates/back-nav', {navText: 'Questions / ' + questionUnit, link: '/' + questionUnit + '/' + unitID + '/questions'}); %>
+            <% } %>
             <div class='question-heading-section'>
                 <div class='question-title'>
                     <!-- rendered by view-question.js -->

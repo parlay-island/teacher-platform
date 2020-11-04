@@ -39,7 +39,7 @@ function makeStudentsHtml(students) {
                                     <div class="student-text">
                                             ${student.name}
                                             <div class="student-percent">
-                                                ${student.accuracy}%
+                                              ${Number((student.accuracy).toFixed(2))}%
                                             </div>
                                     </div>
                             </div>
@@ -57,9 +57,8 @@ function makeStrugglingStudentsHtml(strugglingStudents) {
       strugglingStudentsHtml += `<div class="struggling-student-tile" id="${student.id}-tile">
                                     ${student.name}
                                     <div class="struggling-student-tile-accuracy">
-                                      ${student.accuracy}%
+                                    ${Number((student.accuracy).toFixed(2))}%
                                     </div>
-                                    
                                   </div>`;
     });
     strugglingStudentsDOM.innerHTML = strugglingStudentsHtml;
@@ -99,9 +98,7 @@ function addClickListenersToStudentRows(students) {
 }
 
 function sendToStudentPage(student) {
-    // const unit = question.tags[0];
-    // const unitID = question.level;
-    // window.location = `/${unit}/${unitID}/questions/view-question?id=${question.id}`;
+    window.location = `/classroom/view-student/${student.id}`;
 }
 
 window.addEventListener("DOMContentLoaded", (event) => {
