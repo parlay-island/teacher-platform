@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link
+            href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap"
+            rel="stylesheet">
+        <link rel="stylesheet" href="/stylesheets/view-student.css">
+        <script>
+            var playerId = '<%= playerId %>';
+            var baseApiUrl = '<%= baseAPIUrl %>';
+        </script>
+        <script type='module' src='/javascripts/view-student.js'></script>
+    </head>
+
+    <body>
+        <%- include('../templates/nav-bar', {activeTab: 'classroom'}); %>
+        <div class='view-student'>
+            <%- include('../templates/back-nav', {navText: 'Classroom', link: '/classroom'}); %>
+            <div class='student-heading-section'>
+                <!-- rendered by view-student.js -->
+            </div>
+
+            <div class='student-performance'>
+                <!-- rendered by view-student.js -->
+            </div>
+        </div>
+    </body>
+
+</html>

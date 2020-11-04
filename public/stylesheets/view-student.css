@@ -1,0 +1,78 @@
+:root {
+    --red: #FFC7C3;
+    --orange: #FFD9C3;
+    --yellow: #FFEBC3;
+    --green: #DAFFC3;
+}
+
+* {
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+body {
+    margin: 0;
+}
+
+.view-student {
+    margin-left: 20%;
+    padding: 30px;
+}
+
+.unit-results {
+    margin-bottom: 40px;
+}
+
+.unit-title {
+    font-size: 30px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.student-header {
+    display: inline-block;
+    margin-bottom: 40px;
+}
+
+.student-name {
+    font-size: 50px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.student-accuracy {
+    font-size: 35px;
+    font-weight: bolder;
+    margin-left: 10px;
+    display: inline-block;
+}
+
+.question-text-section {
+    cursor: pointer;
+    color: black;
+    background-color: #F6F5F5;
+    border-radius: 15px;
+    height: 30px;
+    width: 90%;
+    padding: 20px;
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.question-text {
+    display: inline-flex;
+    margin-top: auto;
+    margin-bottom: auto;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 22px;
+    width: 100%;
+}
+.question-percent {
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.no-results-text {
+    font-weight: lighter;
+    color: red;
+}
