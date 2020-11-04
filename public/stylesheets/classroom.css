@@ -6,15 +6,61 @@ body {
     margin: 0;
 }
 
+:root {
+    --red: #FFC7C3;
+    --orange: #FFD9C3;
+    --yellow: #FFEBC3;
+    --green: #DAFFC3;
+}
+
 .student-progress {
     margin-left: 20%;
     padding: 30px;
 }
 
-.all-students-title {
+.all-students-title, .struggling-students-title {
     font-size: 25px;
     font-weight: bold;
     margin-bottom: 20px;
+}
+
+.struggling-students-description {
+    color: #9E9B9B;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.struggling-students-container {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-gap: 1rem;
+    margin-bottom: 30px;
+}
+
+.struggling-student-tile {
+    height: 50px;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.struggling-student-tile-accuracy {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.struggling-student-tile:nth-child(1){
+    grid-column: span 4;
+}
+
+.struggling-student-tile:nth-child(2) {
+    grid-column: span 3;
+}
+.struggling-student-tile:nth-child(3){
+    grid-column: span 3;
+}
+
+.struggling-student-tile:nth-child(4) {
+    grid-column: span 2;
 }
 
 .student-row {

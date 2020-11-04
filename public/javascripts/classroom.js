@@ -28,6 +28,11 @@ function makeStudentsHtml(students) {
                                 There are currently no student results for your class.
                             </div>`;
   } else {
+    const studentsCopy = [...students];
+    studentsCopy.sort((s1, s2) => s2.accuracy - s1.accuracy);
+    const strugglingStudents = studentsCopy.slice(Math.max(studentsCopy.length - 4, 0));
+    makeStrugglingStudentsHtml(strugglingStudents);
+
     students.forEach((student) => {
       studentsHtml += ` <div class="student-row">
                             <div class="student-text-section">
@@ -43,6 +48,40 @@ function makeStudentsHtml(students) {
   }
   studentsDOM.innerHTML = studentsHtml;
   addClickListenersToStudentRows(students);
+}
+
+function makeStrugglingStudentsHtml(strugglingStudents) {
+    const strugglingStudentsDOM = document.getElementsByClassName("struggling-students-container")[0];
+    let strugglingStudentsHtml = "";
+    strugglingStudents.forEach((student, index) => {
+      strugglingStudentsHtml += `<div class="struggling-student-tile" id="${student.id}-tile">
+                                    ${student.name}
+                                    <div class="struggling-student-tile-accuracy">
+                                      ${student.accuracy}%
+                                    </div>
+                                    
+                                  </div>`;
+    });
+    strugglingStudentsDOM.innerHTML = strugglingStudentsHtml;
+    addBackgroundColorsToStrugglingStudents(strugglingStudents);
+}
+
+function addBackgroundColorsToStrugglingStudents(strugglingStudents) {
+  strugglingStudents.forEach((student) => {
+    document.getElementById(`${student.id}-tile`).style.backgroundColor = getStudentColorBasedOnAccuracy(student.accuracy);
+  });
+}
+
+function getStudentColorBasedOnAccuracy(accuracy) {
+  if (accuracy > 75) {
+    return "var(--green)";
+  } else if (accuracy > 50) {
+    return "var(--yellow)";
+  } else if (accuracy > 25) {
+    return "var(--orange)";
+  } else {
+    return "var(--red)";
+  }
 }
 
 function addClickListenersToStudentRows(students) {
