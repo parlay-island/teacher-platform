@@ -18,3 +18,8 @@ import './commands'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+
+// to mock being logged in
+beforeEach(() => {
+    cy.setCookie("userId", "user0");
+})

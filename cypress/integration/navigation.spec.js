@@ -1,7 +1,7 @@
 describe('the navigation bar works', () => {
     beforeEach(() => {
         cy.viewport(1200, 850); 
-        cy.visit('/');
+        cy.visit('/choose-unit');
     });
 
     it('renders with the update questions, student progress, and sign out labels', () => {
@@ -42,7 +42,7 @@ describe('the navigation bar works', () => {
         cy.get(".nav-row-text").eq(0).click({ force: true });
         cy.wait(500);
         cy.location().should((loc) => {
-            expect(loc.pathname).to.eq("/");
+            expect(loc.pathname).to.eq("/choose-unit");
         });
     })
 })

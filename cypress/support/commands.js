@@ -23,3 +23,10 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+Cypress.Commands.add("shouldBeCalled", (alias, timesCalled) => {
+    expect(
+        cy.state("requests").filter((call) => call.alias === alias),
+        `${alias} should have been called ${timesCalled} times`
+    ).to.have.length(timesCalled);
+});
