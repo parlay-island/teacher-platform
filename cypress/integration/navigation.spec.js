@@ -1,7 +1,7 @@
 describe('the navigation bar works', () => {
     beforeEach(() => {
         cy.viewport(1200, 850); 
-        cy.visit('/choose-unit');
+        cy.visit('/');
         cy.wait('@getTeacherName');
     });
 
@@ -47,7 +47,7 @@ describe('the navigation bar works', () => {
         cy.get(".nav-row-text").eq(0).click({ force: true });
         cy.wait(500);
         cy.location().should((loc) => {
-            expect(loc.pathname).to.eq("/choose-unit");
+            expect(loc.pathname).to.eq("/");
         });
     })
 })

@@ -21,12 +21,10 @@ import './commands'
 
 // to mock being logged in
 beforeEach(() => {
-    cy.setCookie("userId", "user0");
-    
     cy.server();
     cy.route(
         "GET",
-        "**/teacher/me/",
+        "**/teachers/me/",
         "fixture:teacher.json"
     ).as("getTeacherName");
 })

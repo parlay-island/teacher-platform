@@ -21,10 +21,9 @@ function showErrorAlert() {
 window.addEventListener("DOMContentLoaded", (event) => {
     document.getElementById('log-in-form').addEventListener('submit', function (event) {
         var requestUrl = baseApiUrl + "/auth/token/login/?format=json";
-
         makeXHRRequest(requestUrl, getUserNameAndPassword(), 'POST').then(function (res) {
             if (res.status >= 200 && res.status < 300) {
-                window.location = "/choose-unit";
+                window.location = "/";
             } 
         }).catch(function (error) {
             showErrorAlert();

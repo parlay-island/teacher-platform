@@ -7,7 +7,7 @@ describe('rendering all units when GET request is successful', () => {
             "fixture:units.json"
         ).as("getUnits");
 
-        cy.visit("/choose-unit");
+        cy.visit("/");
 
         cy.wait("@getUnits");
     });
@@ -47,7 +47,7 @@ describe('rendering units when GET request returns no units', () => {
             response: []
         }).as('getUnitsEmpty');
 
-        cy.visit("/choose-unit");
+        cy.visit("/");
         cy.wait('@getUnitsEmpty');
     });
 
@@ -68,7 +68,7 @@ describe('rendering units when GET request fails', () => {
                 message: 'Something went wrong, please try again later',
             },
         }).as('getUnitsError');
-        cy.visit("/choose-unit");
+        cy.visit("/");
         cy.wait('@getUnitsError');
     });
 

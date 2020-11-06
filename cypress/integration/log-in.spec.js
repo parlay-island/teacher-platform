@@ -8,7 +8,7 @@ describe('successful log in', () => {
             response:[]
         }).as("postLogIn");
 
-        cy.visit('/');        
+        cy.visit('/log-in');        
     });
 
     it('successfully sends the post request', () => {
@@ -19,12 +19,9 @@ describe('successful log in', () => {
         cy.wait('@postLogIn').then((xhr) => {
             expect(xhr.method).to.eq('POST');
             assert.isNotNull(xhr.response.body.data);
-            
-            // should create the cookie for the user
-            cy.getCookie("userId").should("exist");
 
             // should show the correct teacher
-            cy.visit('/choose-unit');
+            cy.visit('/');
             cy.get('.teacher-name').should('contain', 'Test Teacher');
         });
     })
@@ -44,14 +41,14 @@ describe('log in when POST request fails', () => {
 
         cy.route({
             method: 'GET',
-            url: '**/teacher/me/',
+            url: '**/teachers/me/',
             status: 400,
             response: {
                 message: 'Something went wrong'
             }
         }).as('getTeacherNameFail');
 
-        cy.visit('/');
+        cy.visit('/log-in');
     });
 
     it('creates an alert error message', () => {
@@ -64,7 +61,7 @@ describe('log in when POST request fails', () => {
     });
 
     it('should show an error when trying to get the teacher name', () => {
-        cy.visit('/choose-unit');
+        cy.visit('/');
         cy.wait('@getTeacherNameFail');
 
         cy.on('window:alert', (str) => {
@@ -73,7 +70,7 @@ describe('log in when POST request fails', () => {
         cy.wait(1000);
         // check that it redirects to login 
         cy.location().should((loc) => {
-            expect(loc.pathname).to.eq('/');
+            expect(loc.pathname).to.eq('/log-in');
         });
     })
 })

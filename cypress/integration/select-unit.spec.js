@@ -10,7 +10,7 @@ describe('selecting a unit when the get request returns all the questions', () =
             "**/levels/",
             "fixture:units.json"
         ).as("getUnits");
-        cy.visit("/choose-unit");
+        cy.visit("/");
         cy.wait('@getUnits');
 
         // mock the get request to get questions for a particular unit (economics)
