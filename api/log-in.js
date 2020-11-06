@@ -1,18 +1,19 @@
-const axios = require('axios');
+// const axios = require('axios');
 
-postLogIn = function(url, data) {
-    return new Promise(async function (resolve, reject) {
-        const res = await axios.post(url, data);
-        if (res.status >= 200 && res.status < 300) {
-            resolve(res);
-        } else {
-            reject({
-                status: res.status
-            });
-        }
-    })
-}
+// postLogIn = async function(url, data) {
+//     return new Promise(async function (resolve, reject) {
+//         axios.post(url, data).then(res => {
+//             resolve(res);
+//         }).catch(err => {
+//             console.log(err.request);
+//             reject({
+//                 status: err.response.status,
+//                 message: err.request.data
+//             })
+//         });
+//     })
+// }
 
-module.exports = {
-    postLogIn: postLogIn
-}
+// module.exports = {
+//     postLogIn: postLogIn
+// }

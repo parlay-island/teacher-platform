@@ -2,7 +2,12 @@ describe('the navigation bar works', () => {
     beforeEach(() => {
         cy.viewport(1200, 850); 
         cy.visit('/choose-unit');
+        cy.wait('@getTeacherName');
     });
+
+    it('renders with the correct teacher name', () => {
+        cy.get('.teacher-name').should('contain', 'Test Teacher');
+    })
 
     it('renders with the update questions, student progress, and sign out labels', () => {
         // the update question tab should be initially active 

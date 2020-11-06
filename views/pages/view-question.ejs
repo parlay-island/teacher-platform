@@ -13,7 +13,7 @@
     </head>
 
     <body>
-        <%- include('../templates/nav-bar', {activeTab: 'question'}); %>
+        <%- include('../templates/nav-bar', {activeTab: 'question', baseApiUrl: baseAPIUrl}); %>
         <div class='view-question'>
             <% if (playerID) { %>
                 <%- include('../templates/back-nav', {navText: 'Classroom / Student', link: '/classroom/view-student/' + playerID}); %>

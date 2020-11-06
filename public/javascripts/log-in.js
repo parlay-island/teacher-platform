@@ -20,12 +20,12 @@ function showErrorAlert() {
 
 window.addEventListener("DOMContentLoaded", (event) => {
     document.getElementById('log-in-form').addEventListener('submit', function (event) {
-        makeXHRRequest('/log-in', getUserNameAndPassword(), 'POST').then(function (res) {
+        var requestUrl = baseApiUrl + "/auth/token/login/?format=json";
+
+        makeXHRRequest(requestUrl, getUserNameAndPassword(), 'POST').then(function (res) {
             if (res.status >= 200 && res.status < 300) {
                 window.location = "/choose-unit";
-            } else {
-                showErrorAlert();
-            }
+            } 
         }).catch(function (error) {
             showErrorAlert();
         })

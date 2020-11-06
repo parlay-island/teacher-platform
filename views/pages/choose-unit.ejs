@@ -14,7 +14,7 @@
 
 <body>
     <div class="teacher-platform-main">
-    <%- include('../templates/nav-bar', {activeTab: 'question'}); %>
+    <%- include('../templates/nav-bar', {activeTab: 'question', baseApiUrl: baseAPIUrl}); %>
     <div class="choose-unit">
         <%- include('../templates/title-with-desc', {title: 'Choose The Unit', 
         desc: 'Please click on the unit that you would like to update questions for.'}); %>

@@ -17,13 +17,13 @@
 
 <body>
     <div class="teacher-platform-main">
-        <%- include('../templates/nav-bar', {activeTab: 'question'}); %>
+        <%- include('../templates/nav-bar', {activeTab: 'question', baseApiUrl: baseAPIUrl}); %>
         <div class="questions-main">
             <div class="alert alert-danger alert-inactive">
                 <!-- This will be filled by questions.js on delete FAIL -->
             </div>
 
-            <%- include('../templates/back-nav', {navText: 'All Units', link: '/' }); %>
+            <%- include('../templates/back-nav', {navText: 'All Units', link: '/choose-unit' }); %>
             <%- include('../templates/title-with-desc', {title: 'Update Questions', 
                     desc: 'Add or delete questions using the corresponding icons. Modify a question by clicking on it.'}); %>
 
