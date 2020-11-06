@@ -1,10 +1,13 @@
 <head>
     <link rel="stylesheet" href="/stylesheets/templates/nav-bar.css">
+    <script type='module' src='/javascripts/nav-bar.js'></script>
 </head>
 
 <body>
     <div class="nav-bar">
-        <div class="teacher-name">Gary Horton</div>
+        <div class="teacher-name">
+            <!-- will be filled by nav-bar.js -->
+        </div>
         <%- include('./nav-row', {navClass: activeTab=='question' ? 'nav-row-selected' : '', id: 'question', 
         link: '/', title:'Update Questions', imgSrc: '/images/question-black.png'}); %>
 

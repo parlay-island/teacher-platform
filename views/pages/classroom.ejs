@@ -14,7 +14,7 @@
 
 <body>
     <div class="teacher-platform-main">
-        <%- include('../templates/nav-bar', {activeTab: 'classroom'}); %> 
+        <%- include('../templates/nav-bar', {activeTab: 'classroom', baseApiUrl: baseAPIUrl}); %> 
         <div class="student-progress">
             <%- include('../templates/title-with-desc', {title: 'Your Classroom', 
                     desc: 'Monitor your classroom to see which students are struggling and what questions students are getting wrong.'}); %>

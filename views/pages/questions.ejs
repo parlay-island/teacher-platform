@@ -17,7 +17,7 @@
 
 <body>
     <div class="teacher-platform-main">
-        <%- include('../templates/nav-bar', {activeTab: 'question'}); %>
+        <%- include('../templates/nav-bar', {activeTab: 'question', baseApiUrl: baseAPIUrl}); %>
         <div class="questions-main">
             <div class="alert alert-danger alert-inactive">
                 <!-- This will be filled by questions.js on delete FAIL -->

@@ -1,5 +1,6 @@
 export var makeXHRRequest = function (requestUrl, data, requestType) {
     var request = new XMLHttpRequest();
+    request.withCredentials = true;
 
     return new Promise(function (resolve, reject) {
         request.onreadystatechange = function () {
@@ -18,7 +19,6 @@ export var makeXHRRequest = function (requestUrl, data, requestType) {
             });
         }
         };
-
         request.open(requestType, requestUrl, true);
         request.setRequestHeader("Content-Type", "application/json");
         const dataToSend = data ? JSON.stringify(data) : data;

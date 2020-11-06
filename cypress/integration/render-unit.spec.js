@@ -1,14 +1,15 @@
 describe('rendering all units when GET request is successful', () => {
     beforeEach(() => {
-        // mocking the response to fetch all units
         cy.server();
         cy.route(
             "GET",
             "**/levels/",
             "fixture:units.json"
         ).as("getUnits");
+
         cy.visit("/");
-        cy.wait('@getUnits');
+
+        cy.wait("@getUnits");
     });
 
     it ('renders with the correct title and description', () => {

@@ -1,17 +1,26 @@
 var express = require("express");
 var path = require("path");
+var cookieParser = require("cookie-parser");
 var app = express();
 
+const LOCAL_BACKEND_API_URL = require('./config');
 let PORT = process.env.PORT || 3000;
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
-//setup public folder
+// setup public folder
 app.use(express.static("./public"));
+app.use(cookieParser());
+
+// set up backend API endpoint
+app.locals.baseApiURL = process.env.BACKEND_API_URL || LOCAL_BACKEND_API_URL;
 
 // set up routes
+const logInRouter = require("./routes/log-in");
+app.use("/log-in", logInRouter);
+
 const chooseUnitRouter = require("./routes/choose-unit");
 app.use("/", chooseUnitRouter);
 

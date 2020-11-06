@@ -106,7 +106,6 @@ function showDeleteQuestionError() {
         errorAlertDOM.classList.remove("alert-inactive");
     }
     errorAlertDOM.innerHTML = `<strong>Error!</strong> Something went wrong when trying to delete a question. Please try again.`;
-    console.log(errorAlertDOM);
 }
 
 function addClickListenersToQuestionRows(questions) {

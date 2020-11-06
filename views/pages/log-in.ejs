@@ -1,0 +1,48 @@
+<html>
+    <head>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap"
+            rel="stylesheet">
+        <link rel="stylesheet" href="/stylesheets/log-in.css">
+        <link rel="stylesheet" href="/stylesheets/alert.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script>
+            var baseApiUrl = "<%= baseAPIUrl %>";
+        </script>
+        <script type='module' src='/javascripts/log-in.js'></script>
+    </head>
+
+    <body>
+        <div class="log-in-page">
+            <div class="alert alert-danger alert-inactive">
+                <!-- This will be filled by log-in.js on log in fail -->
+            </div>
+
+            <div class="welcome-title">
+                Parlay Island Teacher Platform
+            </div>
+            
+            <div class="log-in-container">
+                <div class="log-in-title">
+                    LOG-IN
+                </div>
+                <form id="log-in-form">
+                    <div>
+                        <label for="username"><b>Username</b></label>
+                        <input class="log-in-username" id="log-in-username" type="text" name="username" placeholder="username" required />
+                        
+                        <label for="password"><b>Password</b></label>
+                        <input class="log-in-password" id="log-in-password" type="password" name="password" placeholder="password" required />
+                        <input class="log-in-submit" id="log-in-submit" type="submit" />
+                    </div>
+                </form>
+            </div>
+
+            <div class="register-text">
+                Don't have an account? 
+                <!-- TODO (js803): make route for signing up for an account  -->
+                <a href="#">Register</a>
+            </div>
+        </div>
+    </body>
+</html>
