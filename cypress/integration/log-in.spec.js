@@ -61,6 +61,11 @@ describe('log in when POST request fails', () => {
     });
 
     it('should show an error when trying to get the teacher name', () => {
+        // remove any stored names
+        cy.window().then((win) => {
+            win.sessionStorage.clear();
+        });
+
         cy.visit('/');
         cy.wait('@getTeacherNameFail');
 

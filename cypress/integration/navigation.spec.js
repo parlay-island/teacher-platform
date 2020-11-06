@@ -2,7 +2,6 @@ describe('the navigation bar works', () => {
     beforeEach(() => {
         cy.viewport(1200, 850); 
         cy.visit('/');
-        cy.wait('@getTeacherName');
     });
 
     it('renders with the correct teacher name', () => {

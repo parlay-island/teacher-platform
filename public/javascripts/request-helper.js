@@ -23,6 +23,5 @@ export var makeXHRRequest = function (requestUrl, data, requestType) {
         request.setRequestHeader("Content-Type", "application/json");
         const dataToSend = data ? JSON.stringify(data) : data;
         request.send(dataToSend);
-        console.log(request.HEADERS_RECEIVED);
     });
 };
