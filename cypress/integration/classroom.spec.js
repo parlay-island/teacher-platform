@@ -5,8 +5,6 @@ const RED_COLOR = "rgb(255, 199, 195)";
 
 describe('viewing all students', () => {
     beforeEach(() => {
-        cy.setCookie("userId", "user0");
-
         cy.server();
         cy.route(
             "GET",
@@ -43,8 +41,6 @@ describe('viewing all students', () => {
 
 describe('displaying all students when the GET request returns no students', () => {
     beforeEach(() => {
-        cy.setCookie("userId", "user0");
-
         // mock the get request to get empty list of students
         cy.server();
         cy.route({
@@ -64,8 +60,6 @@ describe('displaying all students when the GET request returns no students', () 
 
 describe('displaying students when GET request throws error', () => {
     beforeEach(() => {
-        cy.setCookie("userId", "user0");
-
         cy.server();
         cy.route({
             method: 'GET',
@@ -87,8 +81,6 @@ describe('displaying students when GET request throws error', () => {
 
 describe('viewing struggling students when there are more than 4 total students', () => {
     beforeEach(() => {
-        cy.setCookie("userId", "user0");
-        
         cy.server();
         cy.route(
             "GET",

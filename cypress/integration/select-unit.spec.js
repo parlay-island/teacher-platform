@@ -2,7 +2,6 @@ const UNIT_ID = 1;
 
 describe('selecting a unit when the get request returns all the questions', () => {
     beforeEach(() => {
-        cy.setCookie("userId", "user0");
         // mocking the response to fetch all units
         cy.server();
         cy.route(
@@ -61,7 +60,6 @@ describe('selecting a unit when the get request returns all the questions', () =
 
 describe('displaying questions when the GET request returns no questions', () => {
     beforeEach(() => {
-        cy.setCookie("userId", "user0");
         // mock the get request to get empty list of questions
         cy.server();
         cy.route({
@@ -81,7 +79,6 @@ describe('displaying questions when the GET request returns no questions', () =>
 
 describe('displaying questions when GET request throws error', () => {
     beforeEach(() => {
-        cy.setCookie("userId", "user0");
         // mock the get request to get empty list of questions
         cy.server();
         cy.route({
