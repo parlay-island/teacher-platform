@@ -1,4 +1,4 @@
-import { makeXHRRequest, TEACHER_NAME_KEY, AUTH_KEY } from './request-helper.js';
+import { makeXHRRequest, TEACHER_NAME_KEY, AUTH_KEY, CLASS_CODE } from './request-helper.js';
 
 function getUserNameAndPassword() {
     const usernameInput = document.getElementById('log-in-username');
@@ -23,7 +23,11 @@ function fetchTeacherInfo() {
     return makeXHRRequest(requestURL, null, 'GET').then(function (res) {
         const nameResponse = JSON.parse(res.response).name;
         const name = nameResponse ? nameResponse : "Teacher"; // use default value Teacher if no name is supplied
+        const codeResponse = JSON.parse(res.response).code;
+        const code = codeResponse ? codeResponse : "Code"; // use default value Teacher if no name is supplied
+
         localStorage.setItem(TEACHER_NAME_KEY, name);
+        localStorage.setItem(CLASS_CODE, code);
     }).catch(function (error) {
         // TODO (js803): check if token has expired --> if so, clear local storage and make new POST log in request
         showErrorAlert('There was a problem fetching your information. Please log in again.');
