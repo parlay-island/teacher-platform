@@ -1,6 +1,5 @@
 var express = require("express");
 var path = require("path");
-var cookieParser = require("cookie-parser");
 var app = express();
 
 const LOCAL_BACKEND_API_URL = require('./config');
@@ -12,7 +11,6 @@ app.set("view engine", "ejs");
 
 // setup public folder
 app.use(express.static("./public"));
-app.use(cookieParser());
 
 // set up backend API endpoint
 app.locals.baseApiURL = process.env.BACKEND_API_URL || LOCAL_BACKEND_API_URL;
