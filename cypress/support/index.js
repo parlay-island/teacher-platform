@@ -24,5 +24,6 @@ beforeEach(() => {
     cy.window().then((win) => {
         win.localStorage.setItem('auth_token', 'token');
         win.localStorage.setItem("teacher_name", "teacher");
+        win.localStorage.setItem("class_code", "code");
     });
 })
