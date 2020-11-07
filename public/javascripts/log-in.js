@@ -25,15 +25,20 @@ function fetchTeacherInfo() {
         const name = nameResponse ? nameResponse : "Teacher"; // use default value Teacher if no name is supplied
         localStorage.setItem(TEACHER_NAME_KEY, name);
     }).catch(function (error) {
+        // TODO (js803): check if token has expired --> if so, clear local storage and make new POST log in request
         showErrorAlert('There was a problem fetching your information. Please log in again.');
     });
 }
 
 window.addEventListener("DOMContentLoaded", (event) => {
-    if (localStorage.getItem(AUTH_KEY)) { // already logged in --> redirect to main page
-        window.location = '/choose-unit';
+    if (localStorage.getItem(AUTH_KEY)) { // have auth key
+        const teacherPromise = [fetchTeacherInfo()]; // have to check that auth key is still valid
+        Promise.all(teacherPromise).then(() => {
+            window.location = "/choose-unit";
+        })
     }
 
+    // need to get an auth key
     document.getElementById('log-in-form').addEventListener('submit', function (event) {
         var requestUrl = baseApiUrl + "/auth/token/login/?format=json";
         makeXHRRequest(requestUrl, getUserNameAndPassword(), 'POST').then(function (res) {
