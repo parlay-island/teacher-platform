@@ -5,7 +5,6 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="/stylesheets/modal.css">
     <link rel="stylesheet" href="/stylesheets/questions.css">
     <link rel="stylesheet" href="/stylesheets/alert.css">
     <script>
@@ -23,7 +22,7 @@
                 <!-- This will be filled by questions.js on delete FAIL -->
             </div>
 
-            <%- include('../templates/back-nav', {navText: 'All Units', link: '/' }); %>
+            <%- include('../templates/back-nav', {navText: 'All Units', link: '/choose-unit' }); %>
             <%- include('../templates/title-with-desc', {title: 'Update Questions', 
                     desc: 'Add or delete questions using the corresponding icons. Modify a question by clicking on it.'}); %>
 
@@ -44,17 +43,8 @@
                 <!-- rendered by questions.js -->
             </div>
 
-            <div id="confirmDeleteModal" class="modal">
-                <div class="modal-content">
-                    <span id="close-delete-modal" class="close">&times;</span>
-                    <div class="delete-confirmation-text">Are you sure you want to delete this question?</div>
-                    <div class="confirm-delete-buttons">
-                        <button id="confirm-delete" class="confirm-delete-button">Confirm</button>
-                        <button id="cancel-delete" class="cancel-delete-button">Cancel</button>
-                    </div>
-                </div>
-            
-            </div>
+            <%- include('../templates/pop-up-modal', {id: 'confirmDeleteModal', confirmId: 'confirm-delete', 
+            cancelId: 'cancel-delete', closeId: 'close-delete-modal', modalText: 'Are you sure you want to delete this question?' }); %>
 
         </div>
     </div>

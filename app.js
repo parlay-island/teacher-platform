@@ -19,10 +19,10 @@ app.locals.baseApiURL = process.env.BACKEND_API_URL || LOCAL_BACKEND_API_URL;
 
 // set up routes
 const logInRouter = require("./routes/log-in");
-app.use("/log-in", logInRouter);
+app.use("/", logInRouter);
 
 const chooseUnitRouter = require("./routes/choose-unit");
-app.use("/", chooseUnitRouter);
+app.use("/choose-unit", chooseUnitRouter);
 
 const classroomRouter = require("./routes/classroom");
 app.use("/classroom", classroomRouter);

@@ -21,7 +21,16 @@ export var makeXHRRequest = function (requestUrl, data, requestType) {
         };
         request.open(requestType, requestUrl, true);
         request.setRequestHeader("Content-Type", "application/json");
+
+        if (localStorage.getItem("auth_token")) {
+            const requestTokenHeader = "Token " + localStorage.getItem("auth_token");
+            request.setRequestHeader("Authorization", requestTokenHeader);
+        }
         const dataToSend = data ? JSON.stringify(data) : data;
         request.send(dataToSend);
     });
 };
+
+// to store vars on log in
+export const TEACHER_NAME_KEY = "teacher_name";
+export const AUTH_KEY = "auth_token";
