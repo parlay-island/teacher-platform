@@ -6,8 +6,6 @@
         href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="/stylesheets/add-question.css">
-    <link rel="stylesheet" href="/stylesheets/alert.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script>
         // so that scripts can access the variables passed in
         var unitID = "<%= unitID %>";
@@ -23,9 +21,7 @@
 </head>
 
 <body>
-    <div class="alert alert-inactive">
-        <!-- This will be filled by add-question.js -->
-    </div>
+    <%- include('../templates/alert'); %>
 
     <div class="add-question-main">
         <div class="add-question-title">

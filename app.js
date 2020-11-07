@@ -40,6 +40,9 @@ app.use("/", gameRouter);
 const viewStudentRouter = require("./routes/view-student");
 app.use("/", viewStudentRouter);
 
+const registerRouter = require("./routes/register");
+app.use("/", registerRouter);
+
 // set up server
 var server = app.listen(PORT, function () {
     console.log("Example app listening on port 3000!");

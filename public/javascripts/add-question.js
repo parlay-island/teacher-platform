@@ -1,5 +1,6 @@
 import { makeXHRRequest} from './request-helper.js';
 import { fillInExistingFields } from "./modify-question.js";
+import { showSuccessAlert, showErrorAlert } from './alert.js';
 
 export function postQuestion(unitID, unit, question, requestType) {
     const hasNullInputs = checkNullQuestionInputs();
@@ -12,7 +13,7 @@ export function postQuestion(unitID, unit, question, requestType) {
         }
         makeXHRRequest(requestURL, json, requestType).then(function (res) {
             console.log(res.responseText);
-            showSuccessAlert(requestType);
+            showQuestionSuccessAlert(requestType);
 
             // redirect to question page
             var redirectURL = `/${unit}/${unitID}/questions`;
@@ -28,34 +29,14 @@ export function postQuestion(unitID, unit, question, requestType) {
     return false;
 }
 
-function showSuccessAlert(requestType) {
-    const successAlertDOM = document.getElementsByClassName('alert')[0];
-    if (successAlertDOM.classList.contains('alert-danger')) {
-        successAlertDOM.classList.remove('alert-danger');
-    }
-    if (successAlertDOM.classList.contains('alert-inactive')) {
-        successAlertDOM.classList.remove('alert-inactive');
-    }
-    successAlertDOM.classList.add('alert-success');
+function showQuestionSuccessAlert(requestType) {
     var successMessage;
     if (requestType=='POST') {
         successMessage = 'You successfully added a new question.';
     } else {
         successMessage = 'You successfully updated this question.'
     }
-    successAlertDOM.innerHTML = ` <strong>Success!</strong> ${successMessage}`;
-}
-
-function showErrorAlert(errorMessage) {
-    const errorAlertDOM = document.getElementsByClassName('alert')[0];
-    if (errorAlertDOM.classList.contains('alert-success')) {
-        errorAlertDOM.classList.remove('alert-success');
-    }
-    if (errorAlertDOM.classList.contains('alert-inactive')) {
-        errorAlertDOM.classList.remove('alert-inactive');
-    }
-    errorAlertDOM.classList.add('alert-danger');
-    errorAlertDOM.innerHTML = ` <strong>Error!</strong> ${errorMessage}`;
+    showSuccessAlert(successMessage);
 }
 
 function checkNullQuestionInputs() {
