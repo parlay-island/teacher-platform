@@ -14,9 +14,7 @@
 
     <body>
         <div class="log-in-page">
-            <div class="alert alert-danger alert-inactive">
-                <!-- This will be filled by log-in.js on log in fail -->
-            </div>
+            <%- include('../templates/alert'); %>
 
             <div class="welcome-title">
                 Parlay Island Teacher Platform
@@ -39,9 +37,8 @@
             </div>
 
             <div class="register-text">
-                Don't have an account? 
-                <!-- TODO (js803): make route for signing up for an account  -->
-                <a href="#">Register</a>
+                Don't have an account?
+                <a href="/register">Register</a>
             </div>
         </div>
     </body>

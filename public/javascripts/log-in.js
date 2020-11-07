@@ -1,4 +1,5 @@
 import { makeXHRRequest, TEACHER_NAME_KEY, AUTH_KEY, CLASS_CODE } from './request-helper.js';
+import { showErrorAlert } from './alert.js';
 
 function getUserNameAndPassword() {
     const usernameInput = document.getElementById('log-in-username');
@@ -8,14 +9,6 @@ function getUserNameAndPassword() {
         "password": passwordInput.value
     };
     return userJson;
-}
-
-function showErrorAlert(message) {
-    const errorAlertDOM = document.getElementsByClassName("alert")[0];
-    if (errorAlertDOM.classList.contains("alert-inactive")) {
-        errorAlertDOM.classList.remove("alert-inactive");
-    }
-    errorAlertDOM.innerHTML = `<strong>Error!</strong> ${message}`;
 }
 
 function fetchTeacherInfo() {
