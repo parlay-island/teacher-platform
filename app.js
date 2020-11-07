@@ -12,8 +12,8 @@ app.set("view engine", "ejs");
 // setup public folder
 app.use(express.static("./public"));
 
-// set up backend API endpoint
-app.locals.baseApiURL = process.env.BACKEND_API_URL || LOCAL_BACKEND_API_URL;
+// // set up backend API endpoint
+// app.locals.baseApiURL = process.env.BACKEND_API_URL || LOCAL_BACKEND_API_URL;
 
 // set up routes
 const logInRouter = require("./routes/log-in");
