@@ -1,14 +1,24 @@
 describe('successful log in', () => {
     beforeEach(() => {
+         // remove any stored names before log in
+        cy.window().then((win) => {
+            win.localStorage.clear();
+        });
+
         cy.server();
         cy.route({
             method: 'POST',
             url: '**/auth/token/login/**',
-            status: 201,
+            status: 200,
             response:[]
         }).as("postLogIn");
 
-        cy.visit('/log-in');        
+        cy.server();
+        cy.route("GET", "**/teachers/me/", "fixture:teacher.json").as(
+            "getTeacherName"
+        );
+
+        cy.visit('/');        
     });
 
     it('successfully sends the post request', () => {
@@ -21,7 +31,7 @@ describe('successful log in', () => {
             assert.isNotNull(xhr.response.body.data);
 
             // should show the correct teacher
-            cy.visit('/');
+            cy.visit('/choose-unit');
             cy.get('.teacher-name').should('contain', 'Test Teacher');
         });
     })
@@ -29,6 +39,11 @@ describe('successful log in', () => {
 
 describe('log in when POST request fails', () => {
     beforeEach(() => {
+         // remove any stored names before log in
+        cy.window().then((win) => {
+            win.localStorage.clear();
+        });
+
         cy.server();
         cy.route({
             method: 'POST',
@@ -48,7 +63,7 @@ describe('log in when POST request fails', () => {
             }
         }).as('getTeacherNameFail');
 
-        cy.visit('/log-in');
+        cy.visit('/');
     });
 
     it('creates an alert error message', () => {
@@ -63,11 +78,10 @@ describe('log in when POST request fails', () => {
     it('should show an error when trying to get the teacher name', () => {
         // remove any stored names
         cy.window().then((win) => {
-            win.sessionStorage.clear();
+            win.localStorage.clear();
         });
 
-        cy.visit('/');
-        cy.wait('@getTeacherNameFail');
+        cy.visit('/choose-unit');
 
         cy.on('window:alert', (str) => {
             expect(str).to.equal(`Could not find your information. Please log in again.`)
@@ -75,7 +89,7 @@ describe('log in when POST request fails', () => {
         cy.wait(1000);
         // check that it redirects to login 
         cy.location().should((loc) => {
-            expect(loc.pathname).to.eq('/log-in');
+            expect(loc.pathname).to.eq('/');
         });
     })
 })

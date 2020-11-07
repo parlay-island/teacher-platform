@@ -1,4 +1,4 @@
-import { makeXHRRequest } from './request-helper.js';
+import { makeXHRRequest, TEACHER_NAME_KEY, AUTH_KEY } from './request-helper.js';
 
 function getUserNameAndPassword() {
     const usernameInput = document.getElementById('log-in-username');
@@ -10,24 +10,50 @@ function getUserNameAndPassword() {
     return userJson;
 }
 
-function showErrorAlert() {
+function showErrorAlert(message) {
     const errorAlertDOM = document.getElementsByClassName("alert")[0];
     if (errorAlertDOM.classList.contains("alert-inactive")) {
         errorAlertDOM.classList.remove("alert-inactive");
     }
-    errorAlertDOM.innerHTML = `<strong>Error!</strong> Invalid username or password. Please try again`;
+    errorAlertDOM.innerHTML = `<strong>Error!</strong> ${message}`;
+}
+
+function fetchTeacherInfo() {
+    const requestURL = baseApiUrl + "/teachers/me/";
+    return makeXHRRequest(requestURL, null, 'GET').then(function (res) {
+        const nameResponse = JSON.parse(res.response).name;
+        const name = nameResponse ? nameResponse : "Teacher"; // use default value Teacher if no name is supplied
+        localStorage.setItem(TEACHER_NAME_KEY, name);
+    }).catch(function (error) {
+        // TODO (js803): check if token has expired --> if so, clear local storage and make new POST log in request
+        showErrorAlert('There was a problem fetching your information. Please log in again.');
+    });
 }
 
 window.addEventListener("DOMContentLoaded", (event) => {
+    if (localStorage.getItem(AUTH_KEY)) { // have auth key
+        const teacherPromise = [fetchTeacherInfo()]; // have to check that auth key is still valid
+        Promise.all(teacherPromise).then(() => {
+            window.location = "/choose-unit";
+        })
+    }
+
+    // need to get an auth key
     document.getElementById('log-in-form').addEventListener('submit', function (event) {
         var requestUrl = baseApiUrl + "/auth/token/login/?format=json";
         makeXHRRequest(requestUrl, getUserNameAndPassword(), 'POST').then(function (res) {
+            const auth_token = JSON.parse(res.response).auth_token;
+            localStorage.setItem(AUTH_KEY, auth_token);
+
             if (res.status >= 200 && res.status < 300) {
-                window.location = "/";
-            } 
+                const teacherPromise = [fetchTeacherInfo()];
+                Promise.all(teacherPromise).then(() => {
+                    window.location = "/choose-unit";
+                });
+            }
         }).catch(function (error) {
-            showErrorAlert();
-        })
+            showErrorAlert('Invalid username or password. Please log in again.');
+        });
         event.preventDefault();
     })
 });

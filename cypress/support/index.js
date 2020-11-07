@@ -19,12 +19,10 @@ import './commands'
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 
-// to mock being logged in
 beforeEach(() => {
-    cy.server();
-    cy.route(
-        "GET",
-        "**/teachers/me/",
-        "fixture:teacher.json"
-    ).as("getTeacherName");
+    // to mock being logged in (log in specs will override this)
+    cy.window().then((win) => {
+        win.localStorage.setItem('auth_token', 'token');
+        win.localStorage.setItem("teacher_name", "teacher");
+    });
 })
