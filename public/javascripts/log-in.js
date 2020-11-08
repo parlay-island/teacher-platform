@@ -13,22 +13,24 @@ function getUserNameAndPassword() {
 
 function fetchTeacherInfo() {
     const requestURL = baseApiUrl + "/teachers/me/";
-    return makeXHRRequest(requestURL, null, 'GET').then(function (res) {
+    makeXHRRequest(requestURL, null, 'GET').then(function (res) {
         const nameResponse = JSON.parse(res.response).name;
         const name = nameResponse ? nameResponse : "Teacher"; // use default value Teacher if no name is supplied
         localStorage.setItem(TEACHER_NAME_KEY, name);
+
+        window.location = "/choose-unit"; // go to main page if successful
     }).catch(function (error) {
-        // TODO (js803): check if token has expired --> if so, clear local storage and make new POST log in request
-        showErrorAlert('There was a problem fetching your information. Please log in again.');
+        console.log(error);
+        if (error.status == 401) { // invalid token
+            localStorage.clear(); // clear token
+        }
+        showErrorAlert('There was a problem fetching your information. Please check your credentials and log in again.');
     });
 }
 
 window.addEventListener("DOMContentLoaded", (event) => {
     if (localStorage.getItem(AUTH_KEY)) { // have auth key
-        const teacherPromise = [fetchTeacherInfo()]; // have to check that auth key is still valid
-        Promise.all(teacherPromise).then(() => {
-            window.location = "/choose-unit";
-        })
+        fetchTeacherInfo();
     }
 
     // need to get an auth key
@@ -39,12 +41,10 @@ window.addEventListener("DOMContentLoaded", (event) => {
             localStorage.setItem(AUTH_KEY, auth_token);
 
             if (res.status >= 200 && res.status < 300) {
-                const teacherPromise = [fetchTeacherInfo()];
-                Promise.all(teacherPromise).then(() => {
-                    window.location = "/choose-unit";
-                });
+                fetchTeacherInfo();
             }
         }).catch(function (error) {
+            console.log(error);
             showErrorAlert('Invalid username or password. Please log in again.');
         });
         event.preventDefault();
