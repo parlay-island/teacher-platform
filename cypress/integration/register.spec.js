@@ -19,6 +19,7 @@ describe('registering when POST request succeeds', () => {
         cy.get('#register-email').type('testTeacher@gmail.com');
         cy.get('#register-username').type('TestTeacher');
         cy.get('#register-password').type('Password');
+        cy.get('#register-password-confirm').type('Password');
         cy.get('#register-submit').click({ force: true });
         cy.wait('@postRegister').then((xhr) => {
             expect(xhr.method).to.eq('POST');
@@ -53,8 +54,9 @@ describe('registering when POST request fails', () => {
         cy.get('#register-email').type('testTeacher@gmail.com');
         cy.get('#register-username').type('TestTeacher');
         cy.get('#register-password').type('Password');
+        cy.get('#register-password-confirm').type('Password');
         cy.get('#register-submit').click({ force: true });
         cy.wait('@postRegisterFail')
-        cy.get('.alert-danger').should('contain', 'Registration Failed. Please try again.');
+        cy.get('.alert-danger').should('contain', 'Registration Failed. Please try again');
     });
 });
