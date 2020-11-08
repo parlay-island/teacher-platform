@@ -17,11 +17,18 @@
     height: 50px;
 }
 
-.welcome-title, .register-title {
+.welcome-title {
     font-size: 50px;
     font-weight: bold;
     text-align: center;
     margin-bottom: 50px;
+}
+
+.register-title {
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 .log-in-container, .register-container {
@@ -32,8 +39,14 @@
     padding: 50px;
 }
 
-.log-in-page, .register-page {
+.log-in-page {
     padding-top: 80px;
+    display: flex;
+    flex-direction: column;
+}
+
+.register-page {
+    padding-top: 30px;
     display: flex;
     flex-direction: column;
 }
