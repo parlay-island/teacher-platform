@@ -34,3 +34,4 @@ export var makeXHRRequest = function (requestUrl, data, requestType) {
 // to store vars on log in
 export const TEACHER_NAME_KEY = "teacher_name";
 export const AUTH_KEY = "auth_token";
+export const CLASS_CODE = "class_code";

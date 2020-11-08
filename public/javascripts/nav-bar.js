@@ -1,4 +1,4 @@
-import { TEACHER_NAME_KEY, AUTH_KEY, makeXHRRequest} from './request-helper.js';
+import { TEACHER_NAME_KEY, CLASS_CODE, AUTH_KEY, makeXHRRequest} from './request-helper.js';
 
 function getTeacherName() {
     if (!localStorage.getItem(AUTH_KEY) || ! localStorage.getItem(TEACHER_NAME_KEY)) {
@@ -9,9 +9,23 @@ function getTeacherName() {
     }
 }
 
+function getClassCode() {
+    if (!localStorage.getItem(AUTH_KEY) || ! localStorage.getItem(CLASS_CODE)) {
+        setTimeout(() => {alert('Could not find your information. Please log in')}, 1000);
+        window.location.href = "/"; // redirect to log in
+    } else {
+        setClassCode(localStorage.getItem(CLASS_CODE));
+    }
+}
+
 function setTeacherName(name) {
     const teacherDOM = document.getElementsByClassName("teacher-name")[0];
     teacherDOM.innerHTML = `${name}`;
+}
+
+function setClassCode(code) {
+    const teacherDOM = document.getElementsByClassName("class-code")[0];
+    teacherDOM.innerHTML = `${code}`;
 }
 
 function logOut() {
@@ -19,6 +33,7 @@ function logOut() {
     makeXHRRequest(logOutUrl, null, 'POST').then(function (res) {
         // clear saved vars for teacher
         localStorage.removeItem(TEACHER_NAME_KEY);
+        localStorage.removeItem(CLASS_CODE);
         localStorage.removeItem(AUTH_KEY);
         window.location = '/'; // go back to log-in
     }).catch(function (error) {
@@ -49,6 +64,7 @@ function showConfirmLogOutModal() {
 
 window.addEventListener("DOMContentLoaded", (event) => {
     getTeacherName();
+    getClassCode();
 
     document.getElementById('signout').addEventListener('click', function (event) {
         showConfirmLogOutModal();

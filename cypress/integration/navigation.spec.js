@@ -15,6 +15,10 @@ describe('the navigation bar works', () => {
         cy.get('.teacher-name').should('contain', 'teacher');
     })
 
+    it('renders with the correct class code', () => {
+        cy.get('.class-code').should('contain', 'code');
+    })
+
     it('renders with the update questions, student progress, and sign out labels', () => {
         // the update question tab should be initially active 
         cy.get('#question').should('have.class', 'nav-row-selected');
