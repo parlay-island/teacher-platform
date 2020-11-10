@@ -24,10 +24,6 @@ function fetchTeacherInfo() {
 
         window.location = "/choose-unit"; // go to main page if successful
     }).catch(function (error) {
-        console.log(error);
-        if (error.status == 401) { // invalid token
-            localStorage.clear(); // clear token
-        }
         showErrorAlert('There was a problem fetching your information. Please check your credentials and log in again.');
     });
 }
