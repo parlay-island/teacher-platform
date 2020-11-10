@@ -5,7 +5,7 @@ describe('logging out with unsuccessful post request', () => {
         cy.route({
             method: 'POST',
             url: '**/auth/token/logout/',
-            status: 401,
+            status: 500,
             response: []
         }).as("postLogOut");
 

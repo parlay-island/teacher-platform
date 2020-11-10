@@ -1,3 +1,5 @@
+import { showErrorAlert } from './alert.js';
+
 export var makeXHRRequest = function (requestUrl, data, requestType) {
     var request = new XMLHttpRequest();
     request.withCredentials = true;
@@ -11,7 +13,12 @@ export var makeXHRRequest = function (requestUrl, data, requestType) {
         if (request.status >= 200 && request.status < 300) {
             // success
             resolve(request);
-        } else {
+        } else if (request.status == 401) { // invalid token
+            localStorage.clear();
+            alert('You login credentials have become invalid, so you have been automatically logged out. Please log in again');
+            setTimeout(() => { window.location = '/';}, 1000);
+        }
+        else {
             // failure
             reject({
                 status: request.status,
