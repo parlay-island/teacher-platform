@@ -1,5 +1,3 @@
-import { showErrorAlert } from './alert.js';
-
 export var makeXHRRequest = function (requestUrl, data, requestType) {
     var request = new XMLHttpRequest();
     request.withCredentials = true;
