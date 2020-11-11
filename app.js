@@ -39,6 +39,9 @@ app.use("/", viewStudentRouter);
 const registerRouter = require("./routes/register");
 app.use("/", registerRouter);
 
+const addUnitRouter = require("./routes/add-unit");
+app.use("/", addUnitRouter);
+
 // set up server
 var server = app.listen(PORT, function () {
     console.log("Example app listening on port 3000!");

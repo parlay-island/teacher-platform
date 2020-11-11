@@ -10,6 +10,7 @@
     <script>
         var unitID = "<%= unitID %>";
         var baseApiUrl = "<%= baseAPIUrl %>";
+        var unit = "<%= unit %>";
     </script>
     <script type='module' src='/javascripts/questions.js'></script>
 </head>
@@ -26,17 +27,11 @@
             <%- include('../templates/title-with-desc', {title: 'Update Questions', 
                     desc: 'Add or delete questions using the corresponding icons. Modify a question by clicking on it.'}); %>
 
-            <div class="questions-title">
-                <%= unit %> - Question Bank
-            </div>
-
-            <div class="add-question" onclick="window.location='/<%= unit %>/<%= unitID %>/add-question';">
-                <img class="add-question-icon" src="/images/plus-icon.png">
-                <div class="add-question-text">Add a question</div>
-            </div>
+            <%- include('../templates/title-and-add-row', {title: `${unit} - Question Bank`, link: `/${unit}/${unitID}/add-question`,
+            addText: 'Add a Question'}); %>
 
             <div class="question-progress-description">
-                The percent at the right of each question row is the percentage of students who answered that question <b>correctly</b>.
+            
             </div>
 
             <div class="questions-body">
