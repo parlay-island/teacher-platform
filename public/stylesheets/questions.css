@@ -11,12 +11,6 @@ body {
     padding: 30px;
 }
 
-.questions-title {
-    font-size: 25px;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
 .question-row {
     display: flex;
     cursor: pointer;
@@ -47,25 +41,6 @@ body {
 .no-questions-text {
     font-weight: lighter;
     color: red;
-}
-
-.add-question {
-    margin-bottom: 20px;
-    cursor: pointer;
-}
-
-.add-question-icon {
-    width: 30px;
-    height: 30px;
-    display: inline-block;
-    vertical-align: middle;
-}
-
-.add-question-text {
-    font-size: 20px;
-    margin-left: 5px;
-    display: inline-block;
-    vertical-align: middle;
 }
 
 .remove-question-icon {

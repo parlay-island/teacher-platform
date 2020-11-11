@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link
+            href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap"
+            rel="stylesheet">
+        <link rel="stylesheet" href="/stylesheets/add-question.css">
+        <script>
+            var baseApiUrl = "<%= baseAPIUrl %>";
+        </script>
+        <script type='module' src='/javascripts/add-unit.js'></script>
+    </head>
+
+    <body>
+        <%- include('../templates/alert'); %>
+        <div class="add-unit-main">
+
+            <div class="add-unit-title">
+                Add A New Unit
+                <img onclick="window.location='/choose-unit';" alt="exit add unit window" class="exit-add-unit"
+                    src='/images/close-icon.png' />
+            </div>
+        
+            <form id="add-unit-form" class="add-unit-form">
+                <div class="new-unit-input-label">Name of Unit</div>
+                <input class="unit-name-input" id="unit-name" type="text" name="unit-name" placeholder="name (eg. Economics)" required />
+                <input class="add-unit-submit" id="add-unit-submit" type="submit" />
+            </form>
+        </div>
+        
+    </body>
+
+</html>

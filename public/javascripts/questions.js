@@ -29,6 +29,7 @@ function makeQuestionsHtml(questions) {
                                 There are currently no questions for this unit.
                             </div>`;
     } else {
+        updateProgressDescription();
         questions.forEach((question) => {
             var progressText;
             if (question.times_answered == 0) {
@@ -56,6 +57,11 @@ function makeQuestionsHtml(questions) {
     questionsDOM.innerHTML = questionsHtml;
     addClickListenersToQuestionRows(questions);
     addCLickListenersToRemove(questions);
+}
+
+function updateProgressDescription() {
+    const progressDescriptionDOM = document.getElementsByClassName('question-progress-description')[0];
+    progressDescriptionDOM.innerHTML = 'The percent at the right of each question row is the percentage of students who answered that question correctly.';
 }
 
 function addCLickListenersToRemove(questions) {

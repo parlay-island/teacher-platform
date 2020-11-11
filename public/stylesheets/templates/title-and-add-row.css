@@ -1,0 +1,24 @@
+.add-title {
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.add-container {
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.add-element-icon {
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.add-element-text {
+    font-size: 20px;
+    margin-left: 5px;
+    display: inline-block;
+    vertical-align: middle;
+}

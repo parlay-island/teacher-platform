@@ -33,7 +33,7 @@ describe('selecting a unit when the get request returns all the questions', () =
         cy.get('.header-title').should('contain', 'Update Questions');
         cy.get('.header-description').should('contain', 'Add or delete questions using the corresponding icons. Modify a question by clicking on it.');
         // should contain the name of the unit selected
-        cy.get('.questions-title').should('contain', 'Economics');
+        cy.get('.add-title').should('contain', 'Economics');
     })
 
     it('shows the questions when selecting a unit', () => {

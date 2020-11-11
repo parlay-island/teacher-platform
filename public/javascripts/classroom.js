@@ -50,7 +50,17 @@ function makeStudentsHtml(students) {
   addClickListenersToStudentRows(students);
 }
 
+function makeStrugglingStudentsDescription(numStudents) {
+  const strugglingStudentsDescriptionDOM = document.getElementsByClassName('struggling-students-description')[0];
+  var descriptionText = `These are the ${numStudents} students who have the lowest overall question accuracy.`;
+  if (numStudents == 1) {
+    descriptionText = `This is the student who has the lowest overall question accuracy`;
+  }
+  strugglingStudentsDescriptionDOM.innerHTML = descriptionText;
+}
+
 function makeStrugglingStudentsHtml(strugglingStudents) {
+    makeStrugglingStudentsDescription(strugglingStudents.length);
     const strugglingStudentsDOM = document.getElementsByClassName("struggling-students-container")[0];
     let strugglingStudentsHtml = "";
     strugglingStudents.forEach((student, index) => {
