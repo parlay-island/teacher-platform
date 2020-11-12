@@ -99,6 +99,7 @@ describe('viewing a student', () => {
 describe('displaying student results when GET request throws error', () => {
     beforeEach(() => {
         cy.server();
+        cy.route("GET", "**/levels/", "fixture:units.json").as("getUnits");
         cy.route({
             method: 'GET',
             url: `**/players/1/results/`,
@@ -120,6 +121,7 @@ describe('displaying student results when GET request throws error', () => {
 describe('displaying student results when student has no results', () => {
     beforeEach(() => {
         cy.server();
+        cy.route("GET", "**/levels/", "fixture:units.json").as("getUnits");
         cy.route(
             "GET",
             `**/players/1/`,

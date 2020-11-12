@@ -30,9 +30,6 @@ app.use("/", addQuestionRouter);
 const viewQuestionRouter = require("./routes/view-question");
 app.use("/", viewQuestionRouter);
 
-const gameRouter = require("./routes/game");
-app.use("/", gameRouter);
-
 const viewStudentRouter = require("./routes/view-student");
 app.use("/", viewStudentRouter);
 
