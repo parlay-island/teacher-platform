@@ -27,6 +27,7 @@ function makeStudentsHtml(students) {
     studentsHtml += ` <div class="no-students-text">
                                 There are currently no student results for your class.
                             </div>`;
+    makeStrugglingStudentsDescription(0);
   } else {
     const studentsCopy = [...students];
     studentsCopy.sort((s1, s2) => s2.accuracy - s1.accuracy);
@@ -53,6 +54,9 @@ function makeStudentsHtml(students) {
 function makeStrugglingStudentsDescription(numStudents) {
   const strugglingStudentsDescriptionDOM = document.getElementsByClassName('struggling-students-description')[0];
   var descriptionText = `These are the ${numStudents} students who have the lowest overall question accuracy.`;
+  if (numStudents == 0) {
+    descriptionText = 'There are currently no student results for your class';
+  }
   if (numStudents == 1) {
     descriptionText = `This is the student who has the lowest overall question accuracy`;
   }
