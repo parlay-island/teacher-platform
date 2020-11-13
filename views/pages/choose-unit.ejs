@@ -1,33 +1,31 @@
-<html>
+<html lang="en">
+    <head>
+        <title>Choose A Unit Page</title>
+        <link rel="stylesheet" href="/stylesheets/choose-unit.css">
+        <script>
+            var baseApiUrl = "<%= baseAPIUrl %>";
+        </script>
+        <script type='module' src='/javascripts/choose-unit.js'></script>
+    </head>
 
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="/stylesheets/choose-unit.css">
-    <script>
-        var baseApiUrl = "<%= baseAPIUrl %>";
-    </script>
-    <script type='module' src='/javascripts/choose-unit.js'></script>
-</head>
+    <body>
+        <a class="skip-link" href="#choose-unit-main-content">Skip to Main Choose Unit</a>
 
-<body>
-    <div class="teacher-platform-main">
-    <%- include('../templates/nav-bar', {activeTab: 'question', baseApiUrl: baseAPIUrl}); %>
-    <div class="choose-unit">
-        <%- include('../templates/title-with-desc', {title: 'Choose The Unit', 
-        desc: 'Please click on the unit that you would like to update questions for.'}); %>
+        <div class="teacher-platform-main">
+        <%- include('../templates/nav-bar', {activeTab: 'question', baseApiUrl: baseAPIUrl}); %>
+        <div class="choose-unit">
+            <%- include('../templates/title-with-desc', {title: 'Choose The Unit', 
+            desc: 'Please click on the unit that you would like to update questions for.'}); %>
 
-        <%- include('../templates/title-and-add-row', {title: 'All Units', link: '/add-unit',
-                    addText: 'Add a New Unit'}); %>
+            <%- include('../templates/title-and-add-row', {title: 'All Units', link: '/add-unit',
+                        addText: 'Add a New Unit'}); %>
 
-        <div class="unit-grid-container">
-            <!-- rendered by choose-unit.js -->
+            <main id="choose-unit-main-content">
+                <div class="unit-grid-container">
+                    <!-- rendered by choose-unit.js -->
+                </div>
+            </main>
         </div>
-    </div>
-    </div>
-
-</body>
-
+        </div>
+    </body>
 </html>

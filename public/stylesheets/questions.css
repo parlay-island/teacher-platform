@@ -1,10 +1,4 @@
-* {
-    font-family: 'Roboto Condensed', sans-serif;
-}
-
-body {
-    margin: 0;
-}
+@import 'layout.css';
 
 .questions-main {
     margin-left: 20%;

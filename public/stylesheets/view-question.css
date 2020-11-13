@@ -1,10 +1,4 @@
-* {
-    font-family: 'Roboto Condensed', sans-serif;
-}
-
-body {
-    margin: 0;
-}
+@import 'layout.css';
 
 .view-question {
     margin-left: 20%;

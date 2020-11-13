@@ -1,49 +1,43 @@
-<html>
+<html lang="en">
+    <head>
+        <title>See All Question for a Unit Page</title>
+        <link rel="stylesheet" href="/stylesheets/questions.css">
+        <script>
+            var unitID = "<%= unitID %>";
+            var baseApiUrl = "<%= baseAPIUrl %>";
+            var unit = "<%= unit %>";
+        </script>
+        <script type='module' src='/javascripts/questions.js'></script>
+    </head>
 
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="/stylesheets/questions.css">
-    <link rel="stylesheet" href="/stylesheets/alert.css">
-    <script>
-        var unitID = "<%= unitID %>";
-        var baseApiUrl = "<%= baseAPIUrl %>";
-        var unit = "<%= unit %>";
-    </script>
-    <script type='module' src='/javascripts/questions.js'></script>
-</head>
+    <body>
+        <a class="skip-link" href="#questions-main-content">Skip to Main Question Content</a>
+        
+        <div class="teacher-platform-main">
+            <%- include('../templates/nav-bar', {activeTab: 'question', baseApiUrl: baseAPIUrl}); %>
+            <div class="questions-main">
 
-<body>
-    <div class="teacher-platform-main">
-        <%- include('../templates/nav-bar', {activeTab: 'question', baseApiUrl: baseAPIUrl}); %>
-        <div class="questions-main">
-            <div class="alert alert-danger alert-inactive">
-                <!-- This will be filled by questions.js on delete FAIL -->
+                <%- include('../templates/back-nav', {navText: 'All Units', link: '/choose-unit' }); %>
+                <%- include('../templates/title-with-desc', {title: 'Update Questions', 
+                        desc: 'Add or delete questions using the corresponding icons. Modify a question by clicking on it.'}); %>
+
+                <%- include('../templates/title-and-add-row', {title: `${unit} - Question Bank`, link: `/${unit}/${unitID}/add-question`,
+                addText: 'Add a Question'}); %>
+
+                <main id="questions-main-content">
+                    <div class="question-progress-description">
+                        <!-- rendered by questions.js -->
+                    </div>
+
+                    <div class="questions-body">
+                        <!-- rendered by questions.js -->
+                    </div>
+                </main>
+
+                <%- include('../templates/pop-up-modal', {id: 'confirmDeleteModal', confirmId: 'confirm-delete', 
+                cancelId: 'cancel-delete', closeId: 'close-delete-modal', modalText: 'Are you sure you want to delete this question?' }); %>
+
             </div>
-
-            <%- include('../templates/back-nav', {navText: 'All Units', link: '/choose-unit' }); %>
-            <%- include('../templates/title-with-desc', {title: 'Update Questions', 
-                    desc: 'Add or delete questions using the corresponding icons. Modify a question by clicking on it.'}); %>
-
-            <%- include('../templates/title-and-add-row', {title: `${unit} - Question Bank`, link: `/${unit}/${unitID}/add-question`,
-            addText: 'Add a Question'}); %>
-
-            <div class="question-progress-description">
-            
-            </div>
-
-            <div class="questions-body">
-                <!-- rendered by questions.js -->
-            </div>
-
-            <%- include('../templates/pop-up-modal', {id: 'confirmDeleteModal', confirmId: 'confirm-delete', 
-            cancelId: 'cancel-delete', closeId: 'close-delete-modal', modalText: 'Are you sure you want to delete this question?' }); %>
-
         </div>
-    </div>
-
-</body>
-
+    </body>
 </html>

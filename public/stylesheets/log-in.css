@@ -1,6 +1,4 @@
-* {
-    font-family: 'Roboto Condensed', sans-serif;
-}
+@import 'layout.css';
 
 .log-in-username, .log-in-password, .register-input {
     width: 100%;

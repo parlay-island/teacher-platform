@@ -1,10 +1,4 @@
-* {
-    font-family: 'Roboto Condensed', sans-serif;
-}
-
-body {
-    margin: 0;
-}
+@import 'layout.css';
 
 .choose-unit {
     margin-left: 20%;
@@ -12,7 +6,7 @@ body {
 }
 
 .teacher-platform-main {
-    /* height: 100vw; */
+    height: 100vw;
 }
 
 .unit-grid-container {

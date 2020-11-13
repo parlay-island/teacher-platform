@@ -50,7 +50,7 @@ function makeQuestionsHtml(questions) {
                                         </div>
                                     </div>
                                     
-                                    <img class="remove-question-icon" src="/images/trash-icon.png">
+                                    <img class="remove-question-icon" src="/images/trash-icon.png" alt="remove-question-icon">
                                 </div>`;
         });
     }
@@ -99,19 +99,11 @@ function removeQuestion(questionID) {
     makeXHRRequest(deleteRequestURL, null, 'DELETE').then(function (res) {
         console.log(res.responseText);
     }).catch (function (error) {
-        showDeleteQuestionError();
+        alert('Something went wrong when trying to delete a question. Please try again.');
         console.log('something went wrong when trying to delete a question', error);
     }).finally(() => {
         window.location.reload();
     });
-}
-
-function showDeleteQuestionError() {
-    const errorAlertDOM = document.getElementsByClassName("alert")[0];
-    if (errorAlertDOM.classList.contains("alert-inactive")) {
-        errorAlertDOM.classList.remove("alert-inactive");
-    }
-    errorAlertDOM.innerHTML = `<strong>Error!</strong> Something went wrong when trying to delete a question. Please try again.`;
 }
 
 function addClickListenersToQuestionRows(questions) {

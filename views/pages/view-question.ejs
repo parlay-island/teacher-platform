@@ -1,9 +1,6 @@
-<html>
+<html lang="en">
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link
-            href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap"
-            rel="stylesheet">
+        <title>View A Specific Question Page</title>
         <link rel="stylesheet" href="/stylesheets/view-question.css">
         <script>
             var questionID = '<%= questionID %>';
@@ -13,36 +10,37 @@
     </head>
 
     <body>
+        <a class="skip-link" href="#view-question-main-content">Skip to View Question Main</a>
         <%- include('../templates/nav-bar', {activeTab: 'question', baseApiUrl: baseAPIUrl}); %>
-        <div class='view-question'>
-            <% if (playerID) { %>
-                <%- include('../templates/back-nav', {navText: 'Classroom / Student', link: '/classroom/view-student/' + playerID}); %>
-            <% } else { %>
-                <%- include('../templates/back-nav', {navText: 'Questions / ' + questionUnit, link: '/' + questionUnit + '/' + unitID + '/questions'}); %>
-            <% } %>
-            <div class='question-heading-section'>
-                <div class='question-title'>
-                    <!-- rendered by view-question.js -->
-                </div>
+        
+        <main id="view-question-main-content">
+            <div class='view-question'>
+                <% if (playerID) { %>
+                    <%- include('../templates/back-nav', {navText: 'Classroom / Student', link: '/classroom/view-student/' + playerID}); %>
+                <% } else { %>
+                    <%- include('../templates/back-nav', {navText: 'Questions / ' + questionUnit, link: '/' + questionUnit + '/' + unitID + '/questions'}); %>
+                <% } %>
+                <div class='question-heading-section'>
+                    <div class='question-title'>
+                        <!-- rendered by view-question.js -->
+                    </div>
 
-                <div class='modify-question' onclick="window.location='/<%= questionUnit %>/<%= unitID %>/add-question?id=<%= questionID %>'; ">
-                    <img src='/images/edit-icon.png' class='edit-question-icon' />
-                    <div class='modify-question-text'>
-                        Modify Question
+                    <div class='modify-question' onclick="window.location='/<%= questionUnit %>/<%= unitID %>/add-question?id=<%= questionID %>'; ">
+                        <img src='/images/edit-icon.png' class='edit-question-icon' alt="edit-question-icon"/>
+                        <div class='modify-question-text'>
+                            Modify Question
+                        </div>
+                    </div>
+
+                    <div class="view-question-description">
+                        Here is a breakdown of the percentage of students who picked each answer choice.
                     </div>
                 </div>
-
-                <div class="view-question-description">
-                    Here is a breakdown of the percentage of students who picked each answer choice.
+                
+                <div class='question-choices'>
+                    <!-- rendered by view-question.js -->
                 </div>
             </div>
-            
-            
-            
-            <div class='question-choices'>
-                <!-- rendered by view-question.js -->
-            </div>
-        </div>
+        </main>
     </body>
-
 </html>

@@ -112,7 +112,6 @@ window.addEventListener("DOMContentLoaded", (event) => {
     var questionJSON;
     if (questionID) {
         questionJSON = JSON.parse(sessionStorage.getItem('question'));
-        console.log(questionJSON);
         if (questionJSON.id = parseInt(questionID)) {
             fillInExistingFields(questionJSON);
         }
