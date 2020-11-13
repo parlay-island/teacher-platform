@@ -1,17 +1,4 @@
-* {
-    font-family: 'Roboto Condensed', sans-serif;
-}
-
-body {
-    margin: 0;
-}
-
-:root {
-    --red: #FFC7C3;
-    --orange: #FFD9C3;
-    --yellow: #FFEBC3;
-    --green: #DAFFC3;
-}
+@import 'layout.css';
 
 .student-progress {
     margin-left: 20%;

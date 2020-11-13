@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap');
+
+* {
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+:root {
+    --red: #FFC7C3;
+    --orange: #FFD9C3;
+    --yellow: #FFEBC3;
+    --green: #DAFFC3;
+}
+
+body {
+    margin: 0;
+}
+
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: #000000;
+    color: white;
+    padding: 8px;
+    z-index: 100;
+}
+
+.skip-link:focus {
+    top: 0;
+}

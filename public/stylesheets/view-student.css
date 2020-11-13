@@ -1,13 +1,4 @@
-:root {
-    --red: #FFC7C3;
-    --orange: #FFD9C3;
-    --yellow: #FFEBC3;
-    --green: #DAFFC3;
-}
-
-* {
-    font-family: 'Roboto Condensed', sans-serif;
-}
+@import 'layout.css';
 
 body {
     margin: 0;

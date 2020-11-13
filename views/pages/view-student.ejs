@@ -1,9 +1,6 @@
-<html>
+<html lang="en">
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link
-            href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap"
-            rel="stylesheet">
+        <title>View A Specific Student Page</title>
         <link rel="stylesheet" href="/stylesheets/view-student.css">
         <script>
             var playerId = '<%= playerId %>';
@@ -13,17 +10,20 @@
     </head>
 
     <body>
+        <a class="skip-link" href="#view-student-main-content">Skip to Main View Student</a>
         <%- include('../templates/nav-bar', {activeTab: 'classroom', baseApiUrl: baseAPIUrl }); %>
-        <div class='view-student'>
-            <%- include('../templates/back-nav', {navText: 'Classroom', link: '/classroom'}); %>
-            <div class='student-heading-section'>
-                <!-- rendered by view-student.js -->
-            </div>
+        
+        <main id="view-student-main-content">
+            <div class='view-student'>
+                <%- include('../templates/back-nav', {navText: 'Classroom', link: '/classroom'}); %>
+                <div class='student-heading-section'>
+                    <!-- rendered by view-student.js -->
+                </div>
 
-            <div class='student-performance'>
-                <!-- rendered by view-student.js -->
+                <div class='student-performance'>
+                    <!-- rendered by view-student.js -->
+                </div>
             </div>
-        </div>
+        </main>
     </body>
-
 </html>

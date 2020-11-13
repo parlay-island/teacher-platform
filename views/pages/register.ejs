@@ -1,8 +1,6 @@
-<html>
+<html lang="en">
     <head>
-        <link
-            href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap"
-            rel="stylesheet">
+        <title>Register for An Account Page</title>
         <script>
             var baseApiUrl = "<%= baseAPIUrl %>";
         </script>
@@ -11,36 +9,40 @@
     </head>
 
     <body>
+        <a class="skip-link" href="#register-main-content">Skip to Register Form</a>
         <div class="register-page">
             <%- include('../templates/alert'); %>
 
             <div class="register-title">
                 REGISTER AS A TEACHER
             </div>
-            <div class="register-container">
-                <form id="register-form">
-                    <div>
-                        <label for="name"><b>Name</b></label>
-                        <input class="register-input" id="register-name" type="text" name="name" placeholder="name" required />
 
-                        <label for="email"><b>Email</b></label>
-                        <input class="register-input" id="register-email" type="text" name="email" placeholder="email" required />
-            
-                        <label for="username"><b>Username</b></label>
-                        <input class="register-input" id="register-username" type="text" name="username" placeholder="username"
-                            required />
-            
-                        <label for="password"><b>Password</b></label>
-                        <input class="register-input" id="register-password" type="password" name="password" placeholder="password"
-                            required />
+            <main id="register-main-content">
+                <div class="register-container">
+                    <form id="register-form">
+                        <div>
+                            <label for="register-name"><b>Name</b></label>
+                            <input class="register-input" id="register-name" type="text" name="name" placeholder="name" required />
 
-                        <label for="password-confirm"><b>Re-enter Password</b></label>
-                        <input class="register-input" id="register-password-confirm" type="password" name="password-confirm" placeholder="re-enter password" required />
-            
-                        <input class="register-submit" id="register-submit" type="submit" />
-                    </div>
-                </form>
-            </div>
+                            <label for="register-email"><b>Email</b></label>
+                            <input class="register-input" id="register-email" type="text" name="email" placeholder="email" required />
+                
+                            <label for="register-username"><b>Username</b></label>
+                            <input class="register-input" id="register-username" type="text" name="username" placeholder="username"
+                                required />
+                
+                            <label for="register-password"><b>Password</b></label>
+                            <input class="register-input" id="register-password" type="password" name="password" placeholder="password"
+                                required />
+
+                            <label for="register-password-confirm"><b>Re-enter Password</b></label>
+                            <input class="register-input" id="register-password-confirm" type="password" name="password-confirm" placeholder="re-enter password" required />
+                
+                            <input class="register-submit" id="register-submit" type="submit" />
+                        </div>
+                    </form>
+                </div>
+            </main>
         </div>
     </body>
 </html>

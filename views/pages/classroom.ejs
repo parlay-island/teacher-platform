@@ -1,45 +1,43 @@
-<html>
+<html lang="en">
+    <head>
+        <title>View Your Classroom Page</title>
+        <link rel="stylesheet" href="/stylesheets/classroom.css">
+        <script>
+            var baseApiUrl = "<%= baseAPIUrl %>";
+        </script>
+        <script type='module' src='/javascripts/classroom.js'></script>
+    </head>
 
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="/stylesheets/classroom.css">
-    <script>
-        var baseApiUrl = "<%= baseAPIUrl %>";
-    </script>
-    <script type='module' src='/javascripts/classroom.js'></script>
-</head>
+    <body>
+        <a class="skip-link" href="#classroom-main-content">Skip to Main Classroom</a>
 
-<body>
-    <div class="teacher-platform-main">
-        <%- include('../templates/nav-bar', {activeTab: 'classroom', baseApiUrl: baseAPIUrl}); %> 
-        <div class="student-progress">
-            <%- include('../templates/title-with-desc', {title: 'Your Classroom', 
-                    desc: 'Monitor your classroom to see which students are struggling and what questions students are getting wrong.'}); %>
-            
-            <div class="struggling-students-title">
-                Struggling Students
-            </div>
-
-            <div class="struggling-students-description">
+        <div class="teacher-platform-main">
+            <%- include('../templates/nav-bar', {activeTab: 'classroom', baseApiUrl: baseAPIUrl}); %> 
+            <div class="student-progress">
+                <%- include('../templates/title-with-desc', {title: 'Your Classroom', 
+                        desc: 'Monitor your classroom to see which students are struggling and what questions students are getting wrong.'}); %>
                 
-            </div>
+                <main id="classroom-main-content">
+                    <div class="struggling-students-title">
+                        Struggling Students
+                    </div>
 
-            <div class="struggling-students-container">
-                <!-- rendered by classroom.js -->
-            </div>
+                    <div class="struggling-students-description">
+                        <!-- rendered by classroom.js -->
+                    </div>
 
-            <div class="all-students-title">
-                All Students
-            </div>
-            <div class="all-students-body">
-                <!-- rendered by classroom.js -->
+                    <div class="struggling-students-container">
+                        <!-- rendered by classroom.js -->
+                    </div>
+
+                    <div class="all-students-title">
+                        All Students
+                    </div>
+                    <div class="all-students-body">
+                        <!-- rendered by classroom.js -->
+                    </div>
+                </main>
             </div>
         </div>
-    </div>
-
-</body>
-
+    </body>
 </html>

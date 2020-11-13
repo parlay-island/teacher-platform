@@ -1,17 +1,18 @@
 <head>
-    <link rel="stylesheet" href="/stylesheets/modal.css">
+    <link rel="stylesheet" href="/stylesheets/templates/modal.css">
 </head>
 
-<div id=<%= id %> class="modal">
-    <div class="modal-content">
-        <span id=<%= closeId %> class="close">&times;</span>
-        <div class="delete-confirmation-text">
-            <%= modalText %>
-        </div>
-        <div class="confirm-delete-buttons">
-            <button id=<%= confirmId %>  class="confirm-delete-button">Confirm</button>
-            <button id=<%= cancelId %> class="cancel-delete-button">Cancel</button>
+<body>
+    <div id=<%= id %> class="modal">
+        <div class="modal-content">
+            <span id=<%= closeId %> class="close">&times;</span>
+            <div class="delete-confirmation-text">
+                <%= modalText %>
+            </div>
+            <div class="confirm-delete-buttons">
+                <button id=<%= confirmId %>  class="confirm-delete-button">Confirm</button>
+                <button id=<%= cancelId %> class="cancel-delete-button">Cancel</button>
+            </div>
         </div>
     </div>
-
-</div>
+</body>

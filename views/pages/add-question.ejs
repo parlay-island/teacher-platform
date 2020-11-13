@@ -1,74 +1,73 @@
-<html>
-
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="/stylesheets/add-question.css">
-    <script>
-        // so that scripts can access the variables passed in
-        var unitID = "<%= unitID %>";
-        var tempUnit = "<%= unit %>";
-        
-        // need to decode the ampersand
-        var questionUnit = tempUnit.replace(/&amp;/g, '&');
-        var questionID = "<%= questionID %>";
-        var baseApiUrl = "<%= baseAPIUrl %>";
-    </script>
-    <script type='module' src='/javascripts/add-question.js'></script>
-    <script type='module' src ='/javascripts/modify-question.js'></script>
-</head>
-
-<body>
-    <%- include('../templates/alert'); %>
-
-    <div class="add-question-main">
-        <div class="add-question-title">
-            <% if(questionID){ %>
-                Modify Question
-            <% } else{ %>
-                Add A New Question
-            <% } %>
-            <img onclick="window.location='/<%= unit %>/<%= unitID %>/questions';" class="exit-add-question" src='/images/close-icon.png'/>
-        </div>
-
-        <div class="add-question-form">
-            <div class="new-question-input-label">Question</div>
-            <input type="text" id="new-question" name="new-question" class="new-question-input" required>
+<html lang="en">
+    <head>
+        <title>Add A New Question Page</title>
+        <link rel="stylesheet" href="/stylesheets/add-question.css">
+        <script>
+            // so that scripts can access the variables passed in
+            var unitID = "<%= unitID %>";
+            var tempUnit = "<%= unit %>";
             
-            <div class="answer-choice-heading">
-                <div class="answer-choice-instr">
-                    <div class="choice-instr-title">
-                        Answer Choices
-                    </div>
-                    <div class="choice-instr-desc">
-                        Fill out all the potential answer choices to this question.
-                    </div>
-                </div>
-            
-                <div class="correct-choice-instr">
-                    <div class="choice-instr-title">
-                        Correct Answer
-                    </div>
-                    <div class="choice-instr-desc">
-                        Check the box next to correct answer choice.
-                    </div>
-                </div>
-            </div>
-            <%- include('../templates/answer-choice-row', {choiceNum: '1'}); %>
-            <%- include('../templates/answer-choice-row', {choiceNum: '2'}); %>
-            <%- include('../templates/answer-choice-row', {choiceNum: '3'}); %>
-            <%- include('../templates/answer-choice-row', {choiceNum: '4'}); %>
-            
-            <button id="submit-question" class="submit-question-button"> 
+            // need to decode the ampersand
+            var questionUnit = tempUnit.replace(/&amp;/g, '&');
+            var questionID = "<%= questionID %>";
+            var baseApiUrl = "<%= baseAPIUrl %>";
+        </script>
+        <script type='module' src='/javascripts/add-question.js'></script>
+        <script type='module' src ='/javascripts/modify-question.js'></script>
+    </head>
+
+    <body>
+        <a class="skip-link" href="#add-question-main-content">Skip to Main Question Form</a>
+        <%- include('../templates/alert'); %>
+
+        <div class="add-question-main">
+            <div class="add-question-title">
                 <% if(questionID){ %>
                     Modify Question
                 <% } else{ %>
-                    Add Question
+                    Add A New Question
                 <% } %>
-            </button>
+                <img onclick="window.location='/<%= unit %>/<%= unitID %>/questions';" class="exit-add-question" src='/images/close-icon.png' alt="exit-add-question"/>
+            </div>
+
+            <main id="add-question-main-content">
+                <div class="add-question-form">
+                    <label for="new-question" class="new-question-input-label">Question</label>
+                    <input type="text" id="new-question" name="new-question" class="new-question-input" required>
+                    
+                    <div class="answer-choice-heading">
+                        <div class="answer-choice-instr">
+                            <div class="choice-instr-title">
+                                Answer Choices
+                            </div>
+                            <div class="choice-instr-desc">
+                                Fill out all the potential answer choices to this question.
+                            </div>
+                        </div>
+                    
+                        <div class="correct-choice-instr">
+                            <div class="choice-instr-title">
+                                Correct Answer
+                            </div>
+                            <div class="choice-instr-desc">
+                                Check the box next to correct answer choice.
+                            </div>
+                        </div>
+                    </div>
+                    <%- include('../templates/answer-choice-row', {choiceNum: '1'}); %>
+                    <%- include('../templates/answer-choice-row', {choiceNum: '2'}); %>
+                    <%- include('../templates/answer-choice-row', {choiceNum: '3'}); %>
+                    <%- include('../templates/answer-choice-row', {choiceNum: '4'}); %>
+                    
+                    <button id="submit-question" class="submit-question-button"> 
+                        <% if(questionID){ %>
+                            Modify Question
+                        <% } else{ %>
+                            Add Question
+                        <% } %>
+                    </button>
+                </div>
+            </main>
         </div>
-    </div>
-</body>
+    </body>
 </html>

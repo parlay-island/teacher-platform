@@ -4,26 +4,25 @@
 </head>
 
 <body>
-    <div class="nav-bar">
-        <div class="teacher-name">
-            <!-- will be filled by nav-bar.js -->
+    <nav>
+        <div class="nav-bar">
+            <div class="teacher-name">
+                <!-- will be filled by nav-bar.js -->
+            </div>
+            <div class="class-code">
+                <!-- will be filled by nav-bar.js -->
+            </div>
+            <%- include('./nav-row', {navClass: activeTab=='question' ? 'nav-row-selected' : '', id: 'question', 
+            link: '/choose-unit', title:'Update Questions', imgSrc: '/images/question-black.png'}); %>
+
+            <%- include('./nav-row', {navClass: activeTab=='classroom' ? 'nav-row-selected' : '', id: 'classroom', 
+            link: '/classroom', title:'Student Progress', imgSrc: '/images/check-black.png'}); %>
+            
+            <%- include('./nav-row', {navClass:'sign-out', id: 'signout', 
+            link: '', title:'Sign out', imgSrc: '/images/sign-out.png'}); %>
+
+            <%- include('../templates/pop-up-modal', {id: 'signOutModal', confirmId: 'confirm-sign-out', 
+            cancelId: 'cancel-sign-out', closeId: 'close-sign-out', modalText: 'Are you sure you want to sign out?' }); %>
         </div>
-        <div class="class-code">
-            <!-- will be filled by nav-bar.js -->
-        </div>
-        <%- include('./nav-row', {navClass: activeTab=='question' ? 'nav-row-selected' : '', id: 'question', 
-        link: '/choose-unit', title:'Update Questions', imgSrc: '/images/question-black.png'}); %>
-
-        <%- include('./nav-row', {navClass: activeTab=='classroom' ? 'nav-row-selected' : '', id: 'classroom', 
-        link: '/classroom', title:'Student Progress', imgSrc: '/images/check-black.png'}); %>
-        
-        <%- include('./nav-row', {navClass:'sign-out', id: 'signout', 
-        link: '', title:'Sign out', imgSrc: '/images/sign-out.png'}); %>
-
-        <%- include('../templates/pop-up-modal', {id: 'signOutModal', confirmId: 'confirm-sign-out', 
-        cancelId: 'cancel-sign-out', closeId: 'close-sign-out', modalText: 'Are you sure you want to sign out?' }); %>
-    </div>
-
-    
-    
+    </nav>
 </body>

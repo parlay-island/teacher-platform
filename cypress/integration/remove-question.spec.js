@@ -25,7 +25,9 @@ describe('removing question when DELETE request fails', () => {
         cy.get(".remove-question-icon").click({ force: true });
         cy.get("#confirm-delete").click({ force: true });
         cy.wait("@deleteQuestionFail");
-        cy.get(".alert-danger").should('exist');
+        cy.on('window:alert', (str) => {
+            expect(str).to.equal(`Something went wrong when trying to delete a question. Please try again.`)
+        });
     })
 })
 describe('removing a question when DELETE request succeeds', () => {
