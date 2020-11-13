@@ -1,6 +1,6 @@
 import { makeXHRRequest } from './request-helper.js';
 import { showErrorAlert, showSuccessAlert } from './alert.js';
-import { UNIT_NAME, POST, LEVELS_ENDPOINT, ADD_UNIT_SUCCESS_MESSAGE, CHOOSE_UNIT_URL, ADD_UNIT_FAIL_MESSAGE, REDIRECT_URL_DURATION } from './constants.js';
+import * as constants from './constants.js';
 
 /**
  * This class is responsible for receiving the inputs
@@ -12,18 +12,18 @@ import { UNIT_NAME, POST, LEVELS_ENDPOINT, ADD_UNIT_SUCCESS_MESSAGE, CHOOSE_UNIT
 function getUnitInput() {
     const unitInput = document.getElementById('unit-name');
     var unitJson = {};
-    unitJson[UNIT_NAME] = unitInput.value;
+    unitJson[constants.UNIT_NAME] = unitInput.value;
     return unitJson;
 }
 
 window.addEventListener("DOMContentLoaded", (event) => {
     document.getElementById('add-unit-form').addEventListener('submit', function (event) {
-        var requestUrl = baseApiUrl + LEVELS_ENDPOINT;
-        makeXHRRequest(requestUrl, getUnitInput(), POST).then(function (res) {
-            showSuccessAlert(ADD_UNIT_SUCCESS_MESSAGE);
-            setTimeout(() => {window.location = CHOOSE_UNIT_URL}, REDIRECT_URL_DURATION);
+        var requestUrl = baseApiUrl + constants.LEVELS_ENDPOINT;
+        makeXHRRequest(requestUrl, getUnitInput(), constants.POST).then(function (res) {
+            showSuccessAlert(constants.ADD_UNIT_SUCCESS_MESSAGE);
+            setTimeout(() => {window.location = constants.CHOOSE_UNIT_URL;}, constants.REDIRECT_URL_DURATION);
         }).catch(function (error) {
-            showErrorAlert(ADD_UNIT_FAIL_MESSAGE);
+            showErrorAlert(constants.ADD_UNIT_FAIL_MESSAGE);
         })
         event.preventDefault();
     })

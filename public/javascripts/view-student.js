@@ -1,16 +1,5 @@
 import { makeXHRRequest } from "./request-helper.js";
-import {
-  GET,
-  LEVELS_ENDPOINT,
-  STUDENTS_FETCH_ERROR_TEXT,
-  MISSING_STUDENT_MESSAGE,
-  GREEN_COLOR,
-  YELLOW_COLOR,
-  ORANGE_COLOR,
-  RED_COLOR,
-  NO_STUDENT_RESULTS_MESSAGE,
-  NO_STUDENT_RESULTS_PER_UNIT_MESSAGE
-} from "./constants.js";
+import * as constants from "./constants.js";
 
 /**
  * Shows the individual progress by student.
@@ -26,12 +15,16 @@ export function getPlayerResults(playerId) {
   getSpecificPlayerInfo(playerId);
   Promise.all(units_promises).then(() => {
     var requestUrl = baseApiUrl + `/players/${playerId}/results/`;
-    makeXHRRequest(requestUrl, null, GET)
+    makeXHRRequest(requestUrl, null, constants.GET)
       .then(function (res) {
         const jsonResponse = JSON.parse(res.response);
         const playerResults = jsonResponse.results;
         const promises = playerResults.map(async (result) => {
-          await getQuestionAndAddToMap(result.question, unit_question_map, result);
+          await getQuestionAndAddToMap(
+            result.question,
+            unit_question_map,
+            result
+          );
         });
         Promise.all(promises).then(() => {
           makeStudentResultsHtml(playerResults, unit_question_map, playerId);
@@ -46,7 +39,7 @@ export function getPlayerResults(playerId) {
 
 function getSpecificPlayerInfo(playerId) {
   var playerRequestUrl = baseApiUrl + `/players/${playerId}/`;
-  makeXHRRequest(playerRequestUrl, null, GET)
+  makeXHRRequest(playerRequestUrl, null, constants.GET)
     .then(function (res) {
       const jsonResponse = JSON.parse(res.response);
       makeStudentHeadingHtml(jsonResponse);
@@ -60,7 +53,7 @@ function getSpecificPlayerInfo(playerId) {
 function displayStudentResultsFetchError() {
   const studentsDOM = document.getElementsByClassName("student-performance")[0];
   let errorHtml = `<div class="no-results-text">
-                            ${STUDENTS_FETCH_ERROR_TEXT} 
+                            ${constants.STUDENTS_FETCH_ERROR_TEXT} 
                         </div>`;
   studentsDOM.innerHTML = errorHtml;
 }
@@ -68,7 +61,7 @@ function displayStudentResultsFetchError() {
 function displayStudentFetchError() {
   const studentsDOM = document.getElementsByClassName("student-heading-section")[0];
   let errorHtml = `<div class="no-results-text">
-                            ${STUDENTS_FETCH_ERROR_TEXT} 
+                            ${constants.STUDENTS_FETCH_ERROR_TEXT} 
                         </div>`;
   studentsDOM.innerHTML = errorHtml;
 }
@@ -78,7 +71,7 @@ function makeStudentHeadingHtml(student) {
   let studentHtml = "";
   if (student == null) {
     studentHtml += ` <div class="no-results-text">
-                        ${MISSING_STUDENT_MESSAGE}
+                        ${constants.MISSING_STUDENT_MESSAGE}
                     </div>`;
   } else {
     const color = determineColor(student.accuracy);
@@ -97,13 +90,13 @@ function makeStudentHeadingHtml(student) {
 
 function determineColor(percentage){
   if(percentage > 75) {
-    return GREEN_COLOR;
+    return constants.GREEN_COLOR;
   } else if(percentage > 50) {
-    return YELLOW_COLOR;
+    return constants.YELLOW_COLOR;
   } else if(percentage > 25) {
-    return ORANGE_COLOR;
+    return constants.ORANGE_COLOR;
   } else {
-    return RED_COLOR;
+    return constants.RED_COLOR;
   }
 }
 
@@ -113,7 +106,7 @@ function makeStudentResultsHtml(studentResults, unit_question_map, playerId) {
   let questions_ordered = [];
   if (studentResults == null || studentResults.length == 0) {
     studentsHtml += ` <div class="no-results-text">
-                                  ${NO_STUDENT_RESULTS_MESSAGE}
+                                  ${constants.NO_STUDENT_RESULTS_MESSAGE}
                               </div>`;
   } else {
     unit_question_map.forEach((questionsAndResponses, unit) => {
@@ -137,7 +130,7 @@ function makeUnitResultHtml(questionsAndResponses, questions_ordered) {
   let questionHtml = "";
   if (questionsAndResponses == null || questionsAndResponses.size === 0) {
     questionHtml = `<div class="no-results-text">
-                          ${NO_STUDENT_RESULTS_PER_UNIT_MESSAGE}
+                          ${constants.NO_STUDENT_RESULTS_PER_UNIT_MESSAGE}
                         </div>`;
   } else {
     questionsAndResponses.forEach((responses, question) => {
@@ -185,8 +178,8 @@ function sendToQuestionPage(question, player) {
 }
 
 function getUnits(unit_question_map) {
-  var requestUrl = baseApiUrl + LEVELS_ENDPOINT;
-  return makeXHRRequest(requestUrl, null, GET)
+  var requestUrl = baseApiUrl + constants.LEVELS_ENDPOINT;
+  return makeXHRRequest(requestUrl, null, constants.GET)
     .then(function (res) {
       const jsonResponse = JSON.parse(res.response);
       const levels = jsonResponse.levels;
@@ -200,7 +193,7 @@ function getUnits(unit_question_map) {
 
 function getQuestionAndAddToMap(questionID, unit_question_map, response) {
   var requestUrl = baseApiUrl + `/questions/${questionID}`;
-  return makeXHRRequest(requestUrl, null, GET)
+  return makeXHRRequest(requestUrl, null, constants.GET)
     .then(function (res) {
       const question = JSON.parse(res.response);
       unit_question_map.forEach((_, key) => {
@@ -208,15 +201,15 @@ function getQuestionAndAddToMap(questionID, unit_question_map, response) {
           const question_map = unit_question_map.get(key);
           let existing_responses = [];
           question_map.forEach((values, key) => {
-            if(JSON.stringify(key) === JSON.stringify(question)){
+            if (JSON.stringify(key) === JSON.stringify(question)) {
               existing_responses = values;
-              question_map.set(key, [...values, response])
-            } 
+              question_map.set(key, [...values, response]);
+            }
           });
-          if(existing_responses.length === 0) {
+          if (existing_responses.length === 0) {
             question_map.set(question, [response]);
           }
-          unit_question_map.set(key,question_map);
+          unit_question_map.set(key, question_map);
         }
       });
     })

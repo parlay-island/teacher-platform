@@ -1,21 +1,6 @@
 import { makeXHRRequest } from './request-helper.js';
 import { showSuccessAlert, showErrorAlert } from './alert.js';
-import {
-    TEACHER_NAME_FIELD,
-    TEACHER_EMAIL_FIELD,
-    TEACHER_USERNAME_FIELD,
-    TEACHER_PASSWORD_FIELD,
-    TEACHER_BOOLEAN_FIELD,
-    LOG_IN_URL,
-    REDIRECT_URL_DURATION,
-    MISMATCHED_PASSWORDS_MESSAGE,
-    CREATE_TEACHER_ENDPOINT,
-    POST,
-    TEACHER_SUCCESS_MESSAGE,
-    REGISTRATION_INPUT_ERROR_MESSAGE,
-    REGISTRATION_FAIL_MESSAGE,
-    BAD_REQUEST_CODE,
-} from "./constants.js";
+import * as constants from "./constants.js";
 /**
  * Teacher registration.
  * Collects the correct input from the registration fields,
@@ -30,11 +15,11 @@ function getRegisterInputs() {
     const usernameInput = document.getElementById('register-username');
     const passwordInput = document.getElementById('register-password');
     var newTeacherJson = {};
-    newTeacherJson[TEACHER_NAME_FIELD] = nameInput.value;
-    newTeacherJson[TEACHER_EMAIL_FIELD] = emailInput.value;
-    newTeacherJson[TEACHER_USERNAME_FIELD] = usernameInput.value;
-    newTeacherJson[TEACHER_PASSWORD_FIELD] = passwordInput.value;
-    newTeacherJson[TEACHER_BOOLEAN_FIELD] = true;
+    newTeacherJson[constants.TEACHER_NAME_FIELD] = nameInput.value;
+    newTeacherJson[constants.TEACHER_EMAIL_FIELD] = emailInput.value;
+    newTeacherJson[constants.TEACHER_USERNAME_FIELD] = usernameInput.value;
+    newTeacherJson[constants.TEACHER_PASSWORD_FIELD] = passwordInput.value;
+    newTeacherJson[constants.TEACHER_BOOLEAN_FIELD] = true;
     return newTeacherJson;
 }
 
@@ -47,14 +32,14 @@ function checkPasswordsMatch() {
 window.addEventListener("DOMContentLoaded", (event) => {
     document.getElementById("register-form").addEventListener('submit', function (event) {
         if (!checkPasswordsMatch()) {
-            showErrorAlert(MISMATCHED_PASSWORDS_MESSAGE);
+            showErrorAlert(constants.MISMATCHED_PASSWORDS_MESSAGE);
         } else {
-            const postTeacherUrl = baseApiUrl + CREATE_TEACHER_ENDPOINT;
-            makeXHRRequest(postTeacherUrl, getRegisterInputs(), POST).then(function (res) {
-                showSuccessAlert(TEACHER_SUCCESS_MESSAGE);
-                setTimeout(() => { window.location = LOG_IN_URL; }, REDIRECT_URL_DURATION);
+            const postTeacherUrl = baseApiUrl + constants.CREATE_TEACHER_ENDPOINT;
+            makeXHRRequest(postTeacherUrl, getRegisterInputs(), constants.POST).then(function (res) {
+                showSuccessAlert(constants.TEACHER_SUCCESS_MESSAGE);
+                setTimeout(() => { window.location = constants.LOG_IN_URL; }, constants.REDIRECT_URL_DURATION);
             }).catch(function (error) {
-                const errorMessage = error.status == BAD_REQUEST_CODE ? REGISTRATION_INPUT_ERROR_MESSAGE : REGISTRATION_FAIL_MESSAGE;
+                const errorMessage = error.status == constants.BAD_REQUEST_CODE ? constants.REGISTRATION_INPUT_ERROR_MESSAGE : constants.REGISTRATION_FAIL_MESSAGE;
                 showErrorAlert(errorMessage);
             })
         }

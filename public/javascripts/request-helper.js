@@ -1,3 +1,4 @@
+import * as constants from "./constants.js";
 /**
  * Shared helper function to perform XHR requests (POST, PUT, DELETE, GET).
  * ALL requests to the backend API from the frontend use this shared method.
@@ -9,16 +10,6 @@
  * @author: Jessica Su
  */
 
-import {
-    INVALID_LOGIN_CREDENTIALS_MESSAGE,
-    LOG_IN_URL,
-    REDIRECT_URL_DURATION,
-    SUCCESS_CODE,
-    MULTIPLE_CHOICES_CODE,
-    UNAUTHORIZED_CODE,
-    AUTH_KEY,
-} from "./constants.js";
-
 export var makeXHRRequest = function (requestUrl, data, requestType) {
     var request = new XMLHttpRequest();
     request.withCredentials = true;
@@ -27,12 +18,12 @@ export var makeXHRRequest = function (requestUrl, data, requestType) {
         request.onreadystatechange = function () {
             if (request.readyState != 4) return; 
 
-            if (request.status >= SUCCESS_CODE && request.status < MULTIPLE_CHOICES_CODE) {
+            if (request.status >= constants.SUCCESS_CODE && request.status < constants.MULTIPLE_CHOICES_CODE) {
                 resolve(request);
-            } else if (request.status == UNAUTHORIZED_CODE) { // invalid token
+            } else if (request.status == constants.UNAUTHORIZED_CODE) { // invalid token
                 localStorage.clear();
-                alert(INVALID_LOGIN_CREDENTIALS_MESSAGE);
-                setTimeout(() => { window.location = LOG_IN_URL;}, REDIRECT_URL_DURATION);
+                alert(constants.INVALID_LOGIN_CREDENTIALS_MESSAGE);
+                setTimeout(() => { window.location = constants.LOG_IN_URL;}, constants.REDIRECT_URL_DURATION);
             }
             else {
                 reject({
@@ -44,8 +35,8 @@ export var makeXHRRequest = function (requestUrl, data, requestType) {
             request.open(requestType, requestUrl, true);
             request.setRequestHeader("Content-Type", "application/json");
 
-            if (localStorage.getItem(AUTH_KEY)) {
-                const requestTokenHeader = "Token " + localStorage.getItem(AUTH_KEY);
+            if (localStorage.getItem(constants.AUTH_KEY)) {
+                const requestTokenHeader = "Token " + localStorage.getItem(constants.AUTH_KEY);
                 request.setRequestHeader("Authorization", requestTokenHeader);
             }
             const dataToSend = data ? JSON.stringify(data) : data;

@@ -1,15 +1,5 @@
 import { makeXHRRequest } from './request-helper.js';
-import {
-    GET,
-    QUESTIONS_BY_LEVEL_ENDPOINT,
-    QUESTIONS_FETCH_ERROR_MESSAGE,
-    NO_QUESTIONS_MESSAGE,
-    NO_ANSWERS_MESSAGE,
-    PERCENT_CORRECT_MESSAGE,
-    DELETE,
-    DELETE_ERROR_MESSAGE,
-    QUESTIONS_PERCENT_DESCRIPTION
-} from "./constants.js";
+import * as constants from "./constants.js";
 /**
  * Displays all the questions for a particular unit.
  * 
@@ -21,8 +11,8 @@ import {
  * @author: Jessica Su
  */
 export function getQuestionsByUnit(unitID) {
-    const requestUrl = baseApiUrl + QUESTIONS_BY_LEVEL_ENDPOINT + unitID;
-    makeXHRRequest(requestUrl, null, GET).then(function (res) {
+    const requestUrl = baseApiUrl + constants.QUESTIONS_BY_LEVEL_ENDPOINT + unitID;
+    makeXHRRequest(requestUrl, null, constants.GET).then(function (res) {
         const jsonResponse = JSON.parse(res.response);
         const questions = jsonResponse.questions;
         makeQuestionsHtml(questions);
@@ -35,7 +25,7 @@ export function getQuestionsByUnit(unitID) {
 function displayQuestionsFetchError() {
     const questionsDOM = document.getElementsByClassName("questions-body")[0];
     let errorHtml = `<div class="no-questions-text">
-                            ${QUESTIONS_FETCH_ERROR_MESSAGE}
+                            ${constants.QUESTIONS_FETCH_ERROR_MESSAGE}
                         </div>`;
     questionsDOM.innerHTML = errorHtml;
 }
@@ -46,10 +36,10 @@ function fillQuestionsGrid(questions) {
     questions.forEach((question) => {
         var progressText;
         if (question.times_answered == 0) {
-            progressText = NO_ANSWERS_MESSAGE;
+            progressText = constants.NO_ANSWERS_MESSAGE;
         } else {
             const percentCorrect = ((question.times_correct / question.times_answered) * 100).toFixed(2);
-            progressText = percentCorrect + PERCENT_CORRECT_MESSAGE;
+            progressText = percentCorrect + constants.PERCENT_CORRECT_MESSAGE;
         }
 
         questionsHtml += ` <div class="question-row">
@@ -72,7 +62,7 @@ function makeQuestionsHtml(questions) {
     let questionsHtml = '';
     if (questions == null || questions.length == 0) {
         questionsHtml += ` <div class="no-questions-text">
-                                ${NO_QUESTIONS_MESSAGE}
+                                ${constants.NO_QUESTIONS_MESSAGE}
                             </div>`;
     } else {
         questionsHtml = fillQuestionsGrid(questions);
@@ -84,7 +74,7 @@ function makeQuestionsHtml(questions) {
 
 function updateProgressDescription() {
     const progressDescriptionDOM = document.getElementsByClassName('question-progress-description')[0];
-    progressDescriptionDOM.innerHTML = QUESTIONS_PERCENT_DESCRIPTION;
+    progressDescriptionDOM.innerHTML = constants.QUESTIONS_PERCENT_DESCRIPTION;
 }
 
 function addCLickListenersToRemove(questions) {
@@ -119,11 +109,11 @@ function showConfirmDeleteModal(questionID) {
 
 function removeQuestion(questionID) {
     const deleteRequestURL = baseApiUrl + `/questions/${questionID}`;
-    makeXHRRequest(deleteRequestURL, null, DELETE).then(function (res) {
+    makeXHRRequest(deleteRequestURL, null, constants.DELETE).then(function (res) {
         console.log(res.responseText);
     }).catch (function (error) {
         console.log(error);
-        alert(DELETE_ERROR_MESSAGE);
+        alert(constants.DELETE_ERROR_MESSAGE);
     }).finally(() => {
         window.location.reload();
     });

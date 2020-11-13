@@ -1,3 +1,4 @@
+import * as constants from "../../public/javascripts/constants.js";
 describe('successful log in', () => {
     beforeEach(() => {
          // remove any stored names before log in
@@ -72,7 +73,7 @@ describe('log in when POST request fails', () => {
 
         cy.get("#log-in-submit").click({ force: true });
         cy.wait('@postLogIn');
-        cy.get('.alert-danger').should('contain', 'Invalid username or password');
+        cy.get('.alert-danger').should('contain', constants.INVALID_CREDENTIALS_MESSAGE);
     });
 
     it('should show an error when trying to get the teacher name', () => {
@@ -84,7 +85,7 @@ describe('log in when POST request fails', () => {
         cy.visit('/choose-unit');
 
         cy.on('window:alert', (str) => {
-            expect(str).to.equal(`Could not find your information. Please log in again.`)
+            expect(str).to.equal(constants.MISSING_INFORMATION_MESSAGE)
         }); 
         cy.wait(1000);
         // check that it redirects to login 

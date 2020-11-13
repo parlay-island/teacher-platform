@@ -1,3 +1,5 @@
+import * as constants from "../../public/javascripts/constants.js";
+
 describe('registering when POST request succeeds', () => {
     beforeEach(() => {
         cy.window().then((win) => {
@@ -22,7 +24,7 @@ describe('registering when POST request succeeds', () => {
         cy.get('#register-password-confirm').type('Not same password');
         cy.get('#register-submit').click({ force: true });
 
-        cy.get('.alert-danger').should('contain', 'Passwords do not match.');
+        cy.get('.alert-danger').should('contain', constants.MISMATCHED_PASSWORDS_MESSAGE);
     });
 
     it('shows a success alert message and redirects to log in', () => {
@@ -37,7 +39,7 @@ describe('registering when POST request succeeds', () => {
             assert.isNotNull(xhr.response.body.data);
 
             // show success message
-            cy.get('.alert-success').should('contain', 'You have successfully created a teacher account!');
+            cy.get('.alert-success').should('contain', constants.TEACHER_SUCCESS_MESSAGE);
             cy.wait(1000);
             cy.location().should((loc) => {
                 expect(loc.pathname).to.eq('/');
@@ -68,6 +70,6 @@ describe('registering when POST request fails', () => {
         cy.get('#register-password-confirm').type('Password');
         cy.get('#register-submit').click({ force: true });
         cy.wait('@postRegisterFail')
-        cy.get('.alert-danger').should('contain', 'Registration Failed. Please try again');
+        cy.get('.alert-danger').should('contain', constants.REGISTRATION_FAIL_MESSAGE);
     });
 });

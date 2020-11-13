@@ -2,6 +2,7 @@ const GREEN_COLOR = "rgb(218, 255, 195)";
 const YELLOW_COLOR = "rgb(255, 235, 195)";
 const ORANGE_COLOR = "rgb(255, 217, 195)";
 const RED_COLOR = "rgb(255, 199, 195)";
+import * as constants from "../../public/javascripts/constants.js";
 
 describe('viewing all students', () => {
     beforeEach(() => {
@@ -54,7 +55,7 @@ describe('displaying all students when the GET request returns no students', () 
     });
 
     it ('shows empty students message', () => {
-        cy.get('.no-students-text').should('contain', 'There are currently no student results for your class.');
+        cy.get('.no-students-text').should('contain', constants.NO_STUDENTS_TEXT);
     });
 });
 
@@ -75,7 +76,7 @@ describe('displaying students when GET request throws error', () => {
     });
 
     it('shows an error message', () => {
-        cy.get('.no-students-text').should('contain', 'There was a problem fetching student results.');
+        cy.get('.no-students-text').should('contain', constants.STUDENTS_FETCH_ERROR_TEXT);
     });
 });
 

@@ -1,3 +1,5 @@
+import * as constants from "../../public/javascripts/constants.js";
+
 describe('rendering all units when GET request is successful', () => {
     beforeEach(() => {
         cy.server();
@@ -52,7 +54,7 @@ describe('rendering units when GET request returns no units', () => {
     });
 
     it('shows an empty units message when there are no units', () => {
-        cy.get('.no-units-text').should('contain', 'There are currently no units for your questions.');
+        cy.get('.no-units-text').should('contain', constants.NO_UNITS_TEXT);
     });
 });
 
@@ -73,6 +75,6 @@ describe('rendering units when GET request fails', () => {
     });
 
     it('displays an error message when the units are not fetched properly', () => {
-        cy.get('.no-units-text').should('contain', 'There was a problem fetching the units.');
+        cy.get('.no-units-text').should('contain', constants.UNITS_FETCH_ERROR_TEXT);
     });
 })

@@ -1,7 +1,7 @@
 import { makeXHRRequest} from './request-helper.js';
 import { fillInExistingFields } from "./modify-question.js";
 import { showSuccessAlert, showErrorAlert } from './alert.js';
-import { QUESTION_ADD_ERROR_MESSAGE, QUESTION_ADD_SUCCESS_MESSAGE, QUESTION_UPDATE_SUCCESS_MESSAGE, PUT, POST, SESSION_STORAGE_QUESTION_KEY, MISSING_INPUT_MESSAGE, MISSING_CHOICE_SELECTION_MESSAGE, QUESTION_BODY, QUESTION_TAGS, QUESTION_ANSWER, QUESTION_CHOICES, QUESTION_LEVEL, QUESTIONS_ENDPOINT } from './constants.js';
+import * as constants from './constants.js';
 /**
  * This class is responsible for all the interactions on the page for 
  * adding a question. It verifies that the all the correct question
@@ -15,7 +15,7 @@ export function postQuestion(unitID, unit, question, requestType) {
     const hasNullInputs = checkNullQuestionInputs();
     if (! hasNullInputs) {
         const json = getQuestionInputsAsJson(unitID, unit, question);
-        var requestURL = baseApiUrl + QUESTIONS_ENDPOINT;
+        var requestURL = baseApiUrl + constants.QUESTIONS_ENDPOINT;
         if (question) {
             requestURL = baseApiUrl + `/questions/${question.id}`;
         }
@@ -28,7 +28,7 @@ export function postQuestion(unitID, unit, question, requestType) {
             }
             setTimeout(() => { window.location = redirectURL;}, 1000);
         }).catch(function (error) {
-            showErrorAlert(QUESTION_ADD_ERROR_MESSAGE);
+            showErrorAlert(constants.QUESTION_ADD_ERROR_MESSAGE);
         });
     }
     return false;
@@ -36,10 +36,10 @@ export function postQuestion(unitID, unit, question, requestType) {
 
 function showQuestionSuccessAlert(requestType) {
     var successMessage;
-    if (requestType==POST) {
-        successMessage = QUESTION_ADD_SUCCESS_MESSAGE;
+    if (requestType==constants.POST) {
+        successMessage = constants.QUESTION_ADD_SUCCESS_MESSAGE;
     } else {
-        successMessage = QUESTION_UPDATE_SUCCESS_MESSAGE;
+        successMessage = constants.QUESTION_UPDATE_SUCCESS_MESSAGE;
     }
     showSuccessAlert(successMessage);
 }
@@ -54,7 +54,7 @@ function checkNullQuestionInputs() {
     var i;
     for (i = 0; i < neededInputs.length; i++) {
         if (! neededInputs[i].value) {
-            showErrorAlert(MISSING_INPUT_MESSAGE);
+            showErrorAlert(constants.MISSING_INPUT_MESSAGE);
             return true;
         }
     }
@@ -62,7 +62,7 @@ function checkNullQuestionInputs() {
     const choiceRadioButtons = Array.from(document.getElementsByClassName("answer-choice-radio"));
     var checkedButtons = choiceRadioButtons.filter(button => button.checked);
     if (checkedButtons.length < 1) {
-        showErrorAlert(MISSING_CHOICE_SELECTION_MESSAGE);
+        showErrorAlert(constants.MISSING_CHOICE_SELECTION_MESSAGE);
         return true;
     }
 
@@ -86,11 +86,11 @@ function getQuestionInputsAsJson(unitID, unit, existingQuestion) {
     }
 
     var json = {};
-    json[QUESTION_BODY] = questionInput.value;
-    json[QUESTION_TAGS] = [unit];
-    json[QUESTION_ANSWER] = [findCorrectAnswer()];
-    json[QUESTION_CHOICES] = choices;
-    json[QUESTION_LEVEL] = unitID;
+    json[constants.QUESTION_BODY] = questionInput.value;
+    json[constants.QUESTION_TAGS] = [unit];
+    json[constants.QUESTION_ANSWER] = [findCorrectAnswer()];
+    json[constants.QUESTION_CHOICES] = choices;
+    json[constants.QUESTION_LEVEL] = unitID;
     return json;
 }
 
@@ -109,14 +109,14 @@ function findCorrectAnswer() {
 window.addEventListener("DOMContentLoaded", (event) => {
     var questionJSON;
     if (questionID) {
-        questionJSON = JSON.parse(sessionStorage.getItem(SESSION_STORAGE_QUESTION_KEY));
+        questionJSON = JSON.parse(sessionStorage.getItem(constants.SESSION_STORAGE_QUESTION_KEY));
         if (questionJSON.id = parseInt(questionID)) {
             fillInExistingFields(questionJSON);
         }
     }
 
     document.getElementById('submit-question').addEventListener('click', function (event) {
-        postQuestion(unitID, questionUnit, questionJSON, questionID ? PUT : POST);
+        postQuestion(unitID, questionUnit, questionJSON, questionID ? constants.PUT : constants.POST);
         event.preventDefault();
     });
 });

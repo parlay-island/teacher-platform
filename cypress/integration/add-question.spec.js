@@ -1,5 +1,6 @@
 const UNIT = 'Economics';
 const UNIT_ID = 1;
+import * as constants from '../../public/javascripts/constants.js';
 
 describe('validation when adding a question', () => {
     beforeEach(() => {
@@ -11,7 +12,7 @@ describe('validation when adding a question', () => {
         cy.get('#choice1').type('Choice 1');
 
         cy.get('.submit-question-button').click({ force: true });
-        cy.get('.alert-danger').should('contain', 'Please fill out the question and ALL answer choices.');
+        cy.get('.alert-danger').should('contain', constants.MISSING_INPUT_MESSAGE);
     });
 
     it ('presents a validation alert if the correct choice is not selected', () => {
@@ -22,7 +23,7 @@ describe('validation when adding a question', () => {
         cy.get('#choice4').type('Choice 4');
 
         cy.get('.submit-question-button').click({ force: true });
-        cy.get('.alert-danger').should('contain', 'Please select the CORRECT answer choice.');
+        cy.get('.alert-danger').should('contain', constants.MISSING_CHOICE_SELECTION_MESSAGE);
     });
 });
 
@@ -59,7 +60,7 @@ describe('sending a post request on submit', () => {
             cy.log(xhr.responseBody);
 
             // show success message
-            cy.get('.alert-success').should('contain', 'You successfully added a new question.');
+            cy.get('.alert-success').should('contain', constants.QUESTION_ADD_SUCCESS_MESSAGE);
             
             // go back to questions page
             cy.get('.exit-add-question').click({ force: true});
@@ -95,6 +96,6 @@ describe('post request on submit fails', () => {
 
         cy.get('.submit-question-button').click({ force: true });
         cy.wait('@postQuestions');
-        cy.get('.alert-danger').should('contain', 'Something went wrong when trying to add your question. Please try again');
+        cy.get('.alert-danger').should('contain', constants.QUESTION_ADD_ERROR_MESSAGE);
     })
 })
