@@ -1,3 +1,10 @@
+/**
+ * This file provides the functionality for an alert message.
+ * It exports functions to show a success message and an error
+ * message in an alert banner at the top of the screen.
+ * 
+ * @author: Jessica Su
+ */
 export function showSuccessAlert(successMessage) {
     const successAlertDOM = document.getElementsByClassName('alert')[0];
     if (successAlertDOM.classList.contains('alert-danger')) {

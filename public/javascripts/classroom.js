@@ -1,13 +1,21 @@
 import { makeXHRRequest } from './request-helper.js';
-
+import { PLAYERS_ENDPOINT, GET, STUDENTS_FETCH_ERROR_TEXT, NO_STUDENTS_TEXT, STRUGGLING_STUDENTS_DESCRIPTION_PLURAL, STRUGGLING_STUDENTS_DESCRIPTION_SINGULAR, 
+GREEN_COLOR, ORANGE_COLOR, YELLOW_COLOR, RED_COLOR} from './constants.js';
+/**
+ * This file is responsible for displaying the classroom to track student progress.
+ * It performs a GET request to get all the students, as well as 
+ * displaying the struggling students who have the lowest overall question accuracy.
+ * 
+ * @author: Holly Ansel, Jessica Su
+ */
 export function getAllStudents() {
-  const requestUrl = baseApiUrl + "/players/";
-  makeXHRRequest(requestUrl, null, 'GET').then(function (res) {
+  const requestUrl = baseApiUrl + PLAYERS_ENDPOINT;
+  makeXHRRequest(requestUrl, null, GET).then(function (res) {
       const jsonResponse = JSON.parse(res.response);
       const students = jsonResponse.players;
       makeStudentsHtml(students);
   }).catch(function (error) {
-      console.log('something went wrong when fetching student results', error);
+      console.log(error);
       displayStudentsFetchError();
   });
 }
@@ -15,7 +23,7 @@ export function getAllStudents() {
 function displayStudentsFetchError() {
   const studentsDOM = document.getElementsByClassName("all-students-body")[0];
   let errorHtml = `<div class="no-students-text">
-                          There was a problem fetching student results. 
+                        ${STUDENTS_FETCH_ERROR_TEXT}
                       </div>`;
   studentsDOM.innerHTML = errorHtml;
 }
@@ -25,7 +33,7 @@ function makeStudentsHtml(students) {
   let studentsHtml = "";
   if (students == null || students.length == 0) {
     studentsHtml += ` <div class="no-students-text">
-                                There are currently no student results for your class.
+                                ${NO_STUDENTS_TEXT}
                             </div>`;
     makeStrugglingStudentsDescription(0);
   } else {
@@ -53,12 +61,14 @@ function makeStudentsHtml(students) {
 
 function makeStrugglingStudentsDescription(numStudents) {
   const strugglingStudentsDescriptionDOM = document.getElementsByClassName('struggling-students-description')[0];
-  var descriptionText = `These are the ${numStudents} students who have the lowest overall question accuracy.`;
+  var descriptionText;
   if (numStudents == 0) {
-    descriptionText = 'There are currently no student results for your class';
+    descriptionText = NO_STUDENTS_TEXT;
   }
-  if (numStudents == 1) {
-    descriptionText = `This is the student who has the lowest overall question accuracy`;
+  else if (numStudents == 1) {
+    descriptionText = STRUGGLING_STUDENTS_DESCRIPTION_SINGULAR;
+  } else {
+    descriptionText = STRUGGLING_STUDENTS_DESCRIPTION_PLURAL;
   }
   strugglingStudentsDescriptionDOM.innerHTML = descriptionText;
 }
@@ -87,13 +97,13 @@ function addBackgroundColorsToStrugglingStudents(strugglingStudents) {
 
 function getStudentColorBasedOnAccuracy(accuracy) {
   if (accuracy > 75) {
-    return "var(--green)";
+    return `var(--${GREEN_COLOR})`;
   } else if (accuracy > 50) {
-    return "var(--yellow)";
+    return `var(--${YELLOW_COLOR})`;
   } else if (accuracy > 25) {
-    return "var(--orange)";
+    return `var(--${ORANGE_COLOR})`;
   } else {
-    return "var(--red)";
+    return `var(--${RED_COLOR})`;
   }
 }
 

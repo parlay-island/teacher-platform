@@ -1,3 +1,11 @@
+/**
+ * This file configures the NodeJS server
+ * by configuring the relevant routes and setting up the 
+ * folder from which to serve the static view pages.
+ * 
+ * @author: Jessica Su, Holly Ansel
+ */
+
 var express = require("express");
 var path = require("path");
 var app = express();
@@ -41,7 +49,7 @@ app.use("/", addUnitRouter);
 
 // set up server
 var server = app.listen(PORT, function () {
-    console.log("Example app listening on port 3000!");
+    console.log("App listening on port 3000!");
 });
 
 module.exports = server;

@@ -1,3 +1,10 @@
+/**
+ * Route for adding a question.
+ * Takes in the unit,unit ID, and question ID through query parameters.
+ * Also requires the Parlay Island backend API url to make XHR requests.
+ * 
+ * @author: Jessica Su
+ */
 const express = require("express");
 const addQuestionRoute = express.Router();
 const LOCAL_BACKEND_API_URL = require('../config');

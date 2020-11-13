@@ -1,19 +1,30 @@
-import { TEACHER_NAME_KEY, CLASS_CODE, AUTH_KEY, makeXHRRequest} from './request-helper.js';
+import { makeXHRRequest } from './request-helper.js';
+import {
+    TEACHER_NAME_KEY,
+    CLASS_CODE,
+    AUTH_KEY,
+    LOG_IN_URL,
+    MISSING_INFORMATION_MESSAGE,
+    REDIRECT_URL_DURATION,
+    LOG_OUT_ERROR_MESSAGE,
+    POST,
+    LOGOUT_ENDPOINT,
+} from "./constants.js";
+/**
+ * Performs all the actions related to the nav bar.
+ * This includes getting the teacher name and class code to display,
+ * as well as the POST request to log out when clicking the sign out button,
+ * On log out, a pop-up confirmation modal will be displayed so the teacher can confirm or cancel log out.
+ * 
+ * @author: Jessica Su, Andres Montoya
+ */
 
-function getTeacherName() {
-    if (!localStorage.getItem(AUTH_KEY) || ! localStorage.getItem(TEACHER_NAME_KEY)) {
-        setTimeout(() => {alert('Could not find your information. Please log in')}, 1000);
-        window.location.href = "/"; // redirect to log in
+function getTeacherNameAndCode() {
+    if (!localStorage.getItem(AUTH_KEY) || ! localStorage.getItem(TEACHER_NAME_KEY) || ! localStorage.getItem(CLASS_CODE)) {
+        setTimeout(() => {alert(MISSING_INFORMATION_MESSAGE)}, REDIRECT_URL_DURATION);
+        window.location.href = LOG_IN_URL;
     } else {
         setTeacherName(localStorage.getItem(TEACHER_NAME_KEY));
-    }
-}
-
-function getClassCode() {
-    if (!localStorage.getItem(AUTH_KEY) || ! localStorage.getItem(CLASS_CODE)) {
-        setTimeout(() => {alert('Could not find your information. Please log in')}, 1000);
-        window.location.href = "/"; // redirect to log in
-    } else {
         setClassCode(localStorage.getItem(CLASS_CODE));
     }
 }
@@ -24,23 +35,22 @@ function setTeacherName(name) {
 }
 
 function setClassCode(code) {
-    const teacherDOM = document.getElementsByClassName("class-code")[0];
-    teacherDOM.innerHTML = `${code}`;
+    const classCodeDOM = document.getElementsByClassName("class-code")[0];
+    classCodeDOM.innerHTML = `${code}`;
 }
 
 function logOut() {
-    const logOutUrl = baseApiUrl + "/auth/token/logout/";
-    makeXHRRequest(logOutUrl, null, 'POST').then(function (res) {
+    const logOutUrl = baseApiUrl + LOGOUT_ENDPOINT;
+    makeXHRRequest(logOutUrl, null, POST).then(function (res) {
         // clear saved vars for teacher
         localStorage.removeItem(TEACHER_NAME_KEY);
         localStorage.removeItem(CLASS_CODE);
         localStorage.removeItem(AUTH_KEY);
-        window.location = '/'; // go back to log-in
+        window.location = LOG_IN_URL;
     }).catch(function (error) {
-        alert('Could not log out. Please try again');
+        alert(LOG_OUT_ERROR_MESSAGE);
     })
 }
-
 
 function showConfirmLogOutModal() {
     const confirmSignOutModal = document.getElementById("signOutModal");
@@ -63,8 +73,7 @@ function showConfirmLogOutModal() {
 }
 
 window.addEventListener("DOMContentLoaded", (event) => {
-    getTeacherName();
-    getClassCode();
+    getTeacherNameAndCode();
 
     document.getElementById('signout').addEventListener('click', function (event) {
         showConfirmLogOutModal();
