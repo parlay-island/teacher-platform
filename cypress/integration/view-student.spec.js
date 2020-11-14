@@ -1,5 +1,5 @@
 
-
+import * as constants from "../../public/javascripts/constants.js";
 describe('viewing a student', () => {
     beforeEach(() => {
         cy.server();
@@ -65,13 +65,13 @@ describe('viewing a student', () => {
             "Financial Planning",
             "Critical Consumerism",
         ];
-        const errorMessage = 'This student has no responses for this unit.';
-        cy.get('.no-results-text').should('contain', errorMessage);
+
+        cy.get('.no-results-text').should('contain', constants.NO_STUDENT_RESULTS_PER_UNIT_MESSAGE);
         cy.get('.no-results-text').should('have.length', 4);
         cy.get('.unit-results').each((unit) => {
             expect(unit.children()).to.contain(expectedUnits[index]);
             if (index != 0) {
-                expect(unit.children()).to.contain(errorMessage);
+                expect(unit.children()).to.contain(constants.NO_STUDENT_RESULTS_PER_UNIT_MESSAGE);
             } 
             index++;
         });
@@ -114,7 +114,7 @@ describe('displaying student results when GET request throws error', () => {
     });
 
     it('shows an error message', () => {
-        cy.get('.no-results-text').should('contain', 'There was a problem fetching student results.');
+        cy.get('.no-results-text').should('contain', constants.STUDENTS_FETCH_ERROR_TEXT);
     });
 });
 
@@ -142,6 +142,6 @@ describe('displaying student results when student has no results', () => {
     });
 
     it('shows an error message', () => {
-        cy.get('.no-results-text').should('contain', 'There are currently no results for this student.');
+        cy.get('.no-results-text').should('contain', constants.NO_STUDENT_RESULTS_MESSAGE);
     });
 });

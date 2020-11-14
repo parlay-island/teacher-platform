@@ -1,4 +1,5 @@
 const UNIT_ID = 1;
+import * as constants from "../../public/javascripts/constants.js";
 
 describe('selecting a unit when the get request returns all the questions', () => {
     beforeEach(() => {
@@ -73,7 +74,7 @@ describe('displaying questions when the GET request returns no questions', () =>
     });
 
     it ('shows empty questions message', () => {
-        cy.get('.no-questions-text').should('contain', 'There are currently no questions for this unit.');
+        cy.get('.no-questions-text').should('contain', constants.NO_QUESTIONS_MESSAGE);
     });
 });
 
@@ -95,6 +96,6 @@ describe('displaying questions when GET request throws error', () => {
     });
 
     it('shows an error message', () => {
-        cy.get('.no-questions-text').should('contain', 'There was a problem fetching the questions.');
+        cy.get('.no-questions-text').should('contain', constants.QUESTIONS_FETCH_ERROR_MESSAGE);
     });
 });

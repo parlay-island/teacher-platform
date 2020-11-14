@@ -1,3 +1,5 @@
+import * as constants from "../../public/javascripts/constants.js";
+
 describe('adding a unit when post request succeeds', () => {
     beforeEach(() => {
         cy.server();
@@ -25,7 +27,7 @@ describe('adding a unit when post request succeeds', () => {
             cy.log(xhr.responseBody);
 
             // show success message
-            cy.get('.alert-success').should('contain', 'You have successfully added a unit!');
+            cy.get('.alert-success').should('contain', constants.ADD_UNIT_SUCCESS_MESSAGE);
         })
     })
 });
@@ -48,6 +50,6 @@ describe('adding a unit when post request fails', () => {
         cy.get('#unit-name').type('TestUnit');
         cy.get('#add-unit-submit').click({ force: true });
         cy.wait('@postUnitFail');
-        cy.get('.alert-danger').should('contain', 'There was a problem adding your unit. Please try again.');
+        cy.get('.alert-danger').should('contain', constants.ADD_UNIT_FAIL_MESSAGE);
     })
 });

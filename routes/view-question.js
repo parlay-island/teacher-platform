@@ -1,7 +1,12 @@
-
+/**
+ * Route for viewing a particular question.
+ * Takes in unit, unitID through URL, as well as the questionID and playerID through query params.
+ * Requires Parlay Island backend API url to make XHR requests.
+ * 
+ * @author: Jessica Su
+ */
 const express = require("express");
 const viewQuestionRoute = express.Router();
-
 const LOCAL_BACKEND_API_URL = require('../config');
 
 viewQuestionRoute.get("/:unit/:unitID/questions/view-question", function (req, res) {

@@ -1,13 +1,23 @@
 import { makeXHRRequest } from './request-helper.js';
-
+import * as constants from "./constants.js";
+/**
+ * Displays all the questions for a particular unit.
+ * 
+ * Performs a GET request to get all the question by unit,
+ * displaying error messages if the request fails or if there are no questions.
+ * Also handles deleting a question, sending a POST request to delete the question
+ * and showing a modal to confirm or cancel the delete.
+ * 
+ * @author: Jessica Su
+ */
 export function getQuestionsByUnit(unitID) {
-    const requestUrl = baseApiUrl + "/questions/?level=" + unitID;
-    makeXHRRequest(requestUrl, null, 'GET').then(function (res) {
+    const requestUrl = baseApiUrl + constants.QUESTIONS_BY_LEVEL_ENDPOINT + unitID;
+    makeXHRRequest(requestUrl, null, constants.GET).then(function (res) {
         const jsonResponse = JSON.parse(res.response);
         const questions = jsonResponse.questions;
         makeQuestionsHtml(questions);
     }).catch(function (error) {
-        console.log('something went wrong when fetching questions', error);
+        console.log(error);
         displayQuestionsFetchError();
     });
 }
@@ -15,44 +25,47 @@ export function getQuestionsByUnit(unitID) {
 function displayQuestionsFetchError() {
     const questionsDOM = document.getElementsByClassName("questions-body")[0];
     let errorHtml = `<div class="no-questions-text">
-                            There was a problem fetching the questions. 
+                            ${constants.QUESTIONS_FETCH_ERROR_MESSAGE}
                         </div>`;
     questionsDOM.innerHTML = errorHtml;
 }
 
+function fillQuestionsGrid(questions) {
+    let questionsHtml = '';
+    updateProgressDescription();
+    questions.forEach((question) => {
+        var progressText;
+        if (question.times_answered == 0) {
+            progressText = constants.NO_ANSWERS_MESSAGE;
+        } else {
+            const percentCorrect = ((question.times_correct / question.times_answered) * 100).toFixed(2);
+            progressText = percentCorrect + constants.PERCENT_CORRECT_MESSAGE;
+        }
+
+        questionsHtml += ` <div class="question-row">
+                                <div class="question-text-section">
+                                    <div class="question-text">
+                                        ${question.body}
+                                    </div>
+                                    <div class="question-progress">
+                                        ${progressText}
+                                    </div>
+                                </div>
+                                <img class="remove-question-icon" src="/images/trash-icon.png" alt="remove-question-icon">
+                            </div>`;
+    });
+    return questionsHtml;
+}
 
 function makeQuestionsHtml(questions) {
     const questionsDOM = document.getElementsByClassName("questions-body")[0];
     let questionsHtml = '';
     if (questions == null || questions.length == 0) {
         questionsHtml += ` <div class="no-questions-text">
-                                There are currently no questions for this unit.
+                                ${constants.NO_QUESTIONS_MESSAGE}
                             </div>`;
     } else {
-        updateProgressDescription();
-        questions.forEach((question) => {
-            var progressText;
-            if (question.times_answered == 0) {
-                progressText = '0.00% answered';
-            } else {
-                const percentCorrect = ((question.times_correct / question.times_answered) * 100).toFixed(2);
-                progressText = `${percentCorrect}% correct`;
-            }
-
-            questionsHtml += ` <div class="question-row">
-                                    <div class="question-text-section">
-                                        <div class="question-text">
-                                            ${question.body}
-                                        </div>
-
-                                        <div class="question-progress">
-                                            ${progressText}
-                                        </div>
-                                    </div>
-                                    
-                                    <img class="remove-question-icon" src="/images/trash-icon.png" alt="remove-question-icon">
-                                </div>`;
-        });
+        questionsHtml = fillQuestionsGrid(questions);
     }
     questionsDOM.innerHTML = questionsHtml;
     addClickListenersToQuestionRows(questions);
@@ -61,7 +74,7 @@ function makeQuestionsHtml(questions) {
 
 function updateProgressDescription() {
     const progressDescriptionDOM = document.getElementsByClassName('question-progress-description')[0];
-    progressDescriptionDOM.innerHTML = 'The percent at the right of each question row is the percentage of students who answered that question correctly.';
+    progressDescriptionDOM.innerHTML = constants.QUESTIONS_PERCENT_DESCRIPTION;
 }
 
 function addCLickListenersToRemove(questions) {
@@ -96,11 +109,11 @@ function showConfirmDeleteModal(questionID) {
 
 function removeQuestion(questionID) {
     const deleteRequestURL = baseApiUrl + `/questions/${questionID}`;
-    makeXHRRequest(deleteRequestURL, null, 'DELETE').then(function (res) {
+    makeXHRRequest(deleteRequestURL, null, constants.DELETE).then(function (res) {
         console.log(res.responseText);
     }).catch (function (error) {
-        alert('Something went wrong when trying to delete a question. Please try again.');
-        console.log('something went wrong when trying to delete a question', error);
+        console.log(error);
+        alert(constants.DELETE_ERROR_MESSAGE);
     }).finally(() => {
         window.location.reload();
     });

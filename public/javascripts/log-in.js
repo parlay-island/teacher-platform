@@ -1,52 +1,57 @@
-import { makeXHRRequest, TEACHER_NAME_KEY, AUTH_KEY, CLASS_CODE } from './request-helper.js';
+import { makeXHRRequest } from './request-helper.js';
 import { showErrorAlert } from './alert.js';
+import * as constants from './constants.js';
+/**
+ * Log-in functionality for log-in page.
+ * Collects input from log-in form, as well as sending a POST request to log-in endpoint.
+ * If teacher is authenticated on log-in, also performs a GET request to get the teacher's
+ * information, including their name and class code.
+ * 
+ * @author: Jessica Su, Andres Montoya
+ */
 
 function getUserNameAndPassword() {
     const usernameInput = document.getElementById('log-in-username');
     const passwordInput = document.getElementById('log-in-password');
-    const userJson = {
-        "username": usernameInput.value,
-        "password": passwordInput.value
-    };
+    var userJson = {};
+    userJson[constants.USERNAME_FIELD] = usernameInput.value;
+    userJson[constants.PASSWORD_FIELD] = passwordInput.value;
     return userJson;
 }
 
 function fetchTeacherInfo() {
-    const requestURL = baseApiUrl + "/teachers/me/";
-    makeXHRRequest(requestURL, null, 'GET').then(function (res) {
-        const nameResponse = JSON.parse(res.response).name;
-        const name = nameResponse ? nameResponse : "Teacher"; // use default value Teacher if no name is supplied
-        const codeResponse = JSON.parse(res.response).class_code;
-        const code = codeResponse ? codeResponse : "Code"; // use default value Teacher if no name is supplied
+    const requestURL = baseApiUrl + constants.TEACHER_INFO_ENDPOINT;
+    makeXHRRequest(requestURL, null, constants.GET).then(function (res) {
+        const name = JSON.parse(res.response).name;
+        const code = JSON.parse(res.response).class_code;
+        localStorage.setItem(constants.TEACHER_NAME_KEY, name);
+        localStorage.setItem(constants.CLASS_CODE, code);
 
-        localStorage.setItem(TEACHER_NAME_KEY, name);
-        localStorage.setItem(CLASS_CODE, code);
-
-        window.location = "/choose-unit"; // go to main page if successful
+        window.location = constants.CHOOSE_UNIT_URL; // go to main page if successful
     }).catch(function (error) {
-        showErrorAlert('There was a problem fetching your information. Please check your credentials and log in again.');
+        showErrorAlert(constants.TEACHER_INFO_FETCH_ERROR_MESSAGE);
     });
 }
 
 window.addEventListener("DOMContentLoaded", (event) => {
-    if (localStorage.getItem(AUTH_KEY)) { // have auth key
+    if (localStorage.getItem(constants.AUTH_KEY)) { // have auth key
         fetchTeacherInfo();
     }
 
     // need to get an auth key
     document.getElementById('log-in-form').addEventListener('submit', function (event) {
-        var requestUrl = baseApiUrl + "/auth/token/login/?format=json";
-        makeXHRRequest(requestUrl, getUserNameAndPassword(), 'POST').then(function (res) {
+        var requestUrl = baseApiUrl + constants.TEACHER_LOGIN_ENDPOINT;
+        makeXHRRequest(requestUrl, getUserNameAndPassword(), constants.POST).then(function (res) {
             const auth_token = JSON.parse(res.response).auth_token;
-            localStorage.setItem(AUTH_KEY, auth_token);
+            localStorage.setItem(constants.AUTH_KEY, auth_token);
 
-            if (res.status >= 200 && res.status < 300) {
+            if (res.status >= constants.SUCCESS_CODE && res.status < constants.MULTIPLE_CHOICES_CODE) {
                 fetchTeacherInfo();
             }
         }).catch(function (error) {
             console.log(error);
-            showErrorAlert('Invalid username or password. Please log in again.');
+            showErrorAlert(constants.INVALID_CREDENTIALS_MESSAGE);
         });
         event.preventDefault();
-    })
+    });
 });

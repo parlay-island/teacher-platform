@@ -1,43 +1,59 @@
 import { makeXHRRequest } from "./request-helper.js";
+import * as constants from "./constants.js";
+
+/**
+ * Shows the individual progress by student.
+ * Shows all the units that the students has answered questions
+ * for, as well as the student's accuracy for those questions.
+ * 
+ * @author: Holly Ansel
+ */
 
 export function getPlayerResults(playerId) {
   let unit_question_map = new Map();
   const units_promises = [getUnits(unit_question_map)];
-  var playerRequestUrl = baseApiUrl + `/players/${playerId}/`;
-  makeXHRRequest(playerRequestUrl, null, "GET")
-      .then(function (res) {
-        const jsonResponse = JSON.parse(res.response);
-        const playerResults = jsonResponse.results;
-        makeStudentHeadingHtml(jsonResponse);
-      })
-      .catch(function (error) {
-        console.log("something went wrong", error);
-        displayStudentFetchError();
-  });
+  getSpecificPlayerInfo(playerId);
   Promise.all(units_promises).then(() => {
     var requestUrl = baseApiUrl + `/players/${playerId}/results/`;
-    makeXHRRequest(requestUrl, null, "GET")
+    makeXHRRequest(requestUrl, null, constants.GET)
       .then(function (res) {
         const jsonResponse = JSON.parse(res.response);
         const playerResults = jsonResponse.results;
         const promises = playerResults.map(async (result) => {
-          await getQuestionAndAddToMap(result.question, unit_question_map, result);
+          await getQuestionAndAddToMap(
+            result.question,
+            unit_question_map,
+            result
+          );
         });
         Promise.all(promises).then(() => {
           makeStudentResultsHtml(playerResults, unit_question_map, playerId);
         });
       })
       .catch(function (error) {
-        console.log("something went wrong", error);
+        console.log(error);
         displayStudentResultsFetchError();
       });
   });
 }
 
+function getSpecificPlayerInfo(playerId) {
+  var playerRequestUrl = baseApiUrl + `/players/${playerId}/`;
+  makeXHRRequest(playerRequestUrl, null, constants.GET)
+    .then(function (res) {
+      const jsonResponse = JSON.parse(res.response);
+      makeStudentHeadingHtml(jsonResponse);
+    })
+    .catch(function (error) {
+      console.log(error);
+      displayStudentFetchError();
+    });
+}
+
 function displayStudentResultsFetchError() {
   const studentsDOM = document.getElementsByClassName("student-performance")[0];
   let errorHtml = `<div class="no-results-text">
-                            There was a problem fetching student results. 
+                            ${constants.STUDENTS_FETCH_ERROR_TEXT} 
                         </div>`;
   studentsDOM.innerHTML = errorHtml;
 }
@@ -45,7 +61,7 @@ function displayStudentResultsFetchError() {
 function displayStudentFetchError() {
   const studentsDOM = document.getElementsByClassName("student-heading-section")[0];
   let errorHtml = `<div class="no-results-text">
-                            There was a problem fetching student results. 
+                            ${constants.STUDENTS_FETCH_ERROR_TEXT} 
                         </div>`;
   studentsDOM.innerHTML = errorHtml;
 }
@@ -55,7 +71,7 @@ function makeStudentHeadingHtml(student) {
   let studentHtml = "";
   if (student == null) {
     studentHtml += ` <div class="no-results-text">
-                        This student could not be found.
+                        ${constants.MISSING_STUDENT_MESSAGE}
                     </div>`;
   } else {
     const color = determineColor(student.accuracy);
@@ -74,13 +90,13 @@ function makeStudentHeadingHtml(student) {
 
 function determineColor(percentage){
   if(percentage > 75) {
-    return "green";
+    return constants.GREEN_COLOR;
   } else if(percentage > 50) {
-    return "yellow";
+    return constants.YELLOW_COLOR;
   } else if(percentage > 25) {
-    return "orange";
+    return constants.ORANGE_COLOR;
   } else {
-    return "red";
+    return constants.RED_COLOR;
   }
 }
 
@@ -90,7 +106,7 @@ function makeStudentResultsHtml(studentResults, unit_question_map, playerId) {
   let questions_ordered = [];
   if (studentResults == null || studentResults.length == 0) {
     studentsHtml += ` <div class="no-results-text">
-                                  There are currently no results for this student.
+                                  ${constants.NO_STUDENT_RESULTS_MESSAGE}
                               </div>`;
   } else {
     unit_question_map.forEach((questionsAndResponses, unit) => {
@@ -114,7 +130,7 @@ function makeUnitResultHtml(questionsAndResponses, questions_ordered) {
   let questionHtml = "";
   if (questionsAndResponses == null || questionsAndResponses.size === 0) {
     questionHtml = `<div class="no-results-text">
-                            This student has no responses for this unit. 
+                          ${constants.NO_STUDENT_RESULTS_PER_UNIT_MESSAGE}
                         </div>`;
   } else {
     questionsAndResponses.forEach((responses, question) => {
@@ -125,8 +141,7 @@ function makeUnitResultHtml(questionsAndResponses, questions_ordered) {
         totalResponses += response.count;
         responsesCorrect += response.is_correct ? response.count : 0;
       });
-      const accuracy =
-        (totalResponses > 0 ? responsesCorrect / totalResponses : 0) * 100;
+      const accuracy = (totalResponses > 0 ? responsesCorrect / totalResponses : 0) * 100;
       const color = determineColor(accuracy);
       const colorStyle = getComputedStyle(document.body).getPropertyValue(`--${color}`);
       questionHtml += `<div class="question-text-section" style="background-color:${colorStyle};">
@@ -163,22 +178,22 @@ function sendToQuestionPage(question, player) {
 }
 
 function getUnits(unit_question_map) {
-  var requestUrl = baseApiUrl + "/levels/";
-  return makeXHRRequest(requestUrl, null, "GET")
+  var requestUrl = baseApiUrl + constants.LEVELS_ENDPOINT;
+  return makeXHRRequest(requestUrl, null, constants.GET)
     .then(function (res) {
       const jsonResponse = JSON.parse(res.response);
       const levels = jsonResponse.levels;
       levels.forEach((level) => unit_question_map.set(level, new Map()));
     })
     .catch(function (error) {
-      console.log("something went wrong when fetching units", error);
+      console.log(error);
       displayStudentResultsFetchError();
     });
 }
 
 function getQuestionAndAddToMap(questionID, unit_question_map, response) {
   var requestUrl = baseApiUrl + `/questions/${questionID}`;
-  return makeXHRRequest(requestUrl, null, "GET")
+  return makeXHRRequest(requestUrl, null, constants.GET)
     .then(function (res) {
       const question = JSON.parse(res.response);
       unit_question_map.forEach((_, key) => {
@@ -186,23 +201,20 @@ function getQuestionAndAddToMap(questionID, unit_question_map, response) {
           const question_map = unit_question_map.get(key);
           let existing_responses = [];
           question_map.forEach((values, key) => {
-            if(JSON.stringify(key) === JSON.stringify(question)){
+            if (JSON.stringify(key) === JSON.stringify(question)) {
               existing_responses = values;
-              question_map.set(key, [...values, response])
-            } 
+              question_map.set(key, [...values, response]);
+            }
           });
-          if(existing_responses.length === 0) {
+          if (existing_responses.length === 0) {
             question_map.set(question, [response]);
           }
-          unit_question_map.set(
-            key,
-            question_map
-          );
+          unit_question_map.set(key, question_map);
         }
       });
     })
     .catch(function (error) {
-      console.log("something went wrong", error);
+      console.log(error);
       displayStudentResultsFetchError();
     });
 }

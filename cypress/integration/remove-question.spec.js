@@ -1,5 +1,6 @@
 const UNIT = 'Economics';
 const UNIT_ID = 1;
+import * as constants from "../../public/javascripts/constants.js";
 
 describe('removing question when DELETE request fails', () => {
     beforeEach(() => {
@@ -26,7 +27,7 @@ describe('removing question when DELETE request fails', () => {
         cy.get("#confirm-delete").click({ force: true });
         cy.wait("@deleteQuestionFail");
         cy.on('window:alert', (str) => {
-            expect(str).to.equal(`Something went wrong when trying to delete a question. Please try again.`)
+            expect(str).to.equal(constants.DELETE_ERROR_MESSAGE);
         });
     })
 })

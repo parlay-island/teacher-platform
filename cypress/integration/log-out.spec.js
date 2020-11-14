@@ -1,3 +1,4 @@
+import * as constants from "../../public/javascripts/constants.js";
 describe('logging out with unsuccessful post request', () => {
     beforeEach(() => {
         cy.server();
@@ -17,7 +18,7 @@ describe('logging out with unsuccessful post request', () => {
         cy.get("#signout").click({ force: true });
         cy.get("#confirm-sign-out").click({ force: true });
         cy.on('window:alert', (str) => {
-            expect(str.strip()).to.equal(`Could not log out. Please log in again`)
+            expect(str.strip()).to.equal(constants.LOG_OUT_ERROR_MESSAGE);
         }); 
     });
 });

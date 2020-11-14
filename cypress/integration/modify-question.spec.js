@@ -1,5 +1,6 @@
 const UNIT = 'Economics';
 const UNIT_ID = 1;
+import * as constants from "../../public/javascripts/constants.js";
 
 describe('loading the page to modify question', () => {
     beforeEach(() => {
@@ -49,7 +50,7 @@ describe('loading the page to modify question', () => {
 
             cy.get(".alert-success").should(
                 "contain",
-                "You successfully updated this question."
+                constants.QUESTION_UPDATE_SUCCESS_MESSAGE
             );
         });
     });
@@ -86,6 +87,6 @@ describe('sending a PUT request on submit that fails', () => {
     it ('creates an alert error message when PUT fails', () => {
         cy.get('.submit-question-button').click({ force: true });
         cy.wait("@putQuestionFail");
-        cy.get('.alert-danger').should('contain', 'Something went wrong when trying to add your question. Please try again');
+        cy.get('.alert-danger').should('contain', constants.QUESTION_ADD_ERROR_MESSAGE);
     })
 })
