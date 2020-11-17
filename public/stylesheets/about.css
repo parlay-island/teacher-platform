@@ -1,7 +1,7 @@
 @import 'layout.css';
 
 .about-page {
-    padding: 10px 80px 100px;
+    padding: 0 80px 100px;
 }
 
 .about-main-title {
@@ -20,12 +20,12 @@
 .about-description {
     color: rgb(153, 152, 152);
     font-size: 15px;
+    margin-bottom: 20px;
 }
 
 .about-subtitle {
     font-size: 20px;
     margin-bottom: 5px;
-    margin-top: 20px;
 }
 
 .team-pictures {

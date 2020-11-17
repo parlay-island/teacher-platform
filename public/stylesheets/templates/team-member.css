@@ -1,6 +1,7 @@
 .team-member {
     display: flex;
     flex-direction: column;
+    text-align: center;
 }
 
 .team-member-image {
@@ -13,10 +14,16 @@
     margin-top: 10px;
     font-weight: bold;
     text-align: center;
+    font-size: 18px;
 }
 
-.team-member-description {
+.team-member-title {
     font-style: italic;
-    text-align: center;
     font-size: 14px;
+}
+
+.team-member-role {
+    margin-top: 5px;
+    font-size: 14px;
+    color: rgb(139, 139, 139);
 }
