@@ -47,6 +47,15 @@ app.use("/", registerRouter);
 const addUnitRouter = require("./routes/add-unit");
 app.use("/", addUnitRouter);
 
+const gameRouter = require("./routes/game");
+app.use("/", gameRouter);
+
+const welcomeRouter = require("./routes/welcome");
+app.use("/", welcomeRouter);
+
+const aboutRouter = require("./routes/about");
+app.use("/", aboutRouter);
+
 // set up server
 var server = app.listen(PORT, function () {
     console.log("App listening on port 3000!");

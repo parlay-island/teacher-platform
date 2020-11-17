@@ -7,7 +7,7 @@
  */
 const express = require("express");
 const viewQuestionRoute = express.Router();
-const LOCAL_BACKEND_API_URL = require('../config');
+const config = require('../config');
 
 viewQuestionRoute.get("/:unit/:unitID/questions/view-question", function (req, res) {
     var questionUnit = req.params.unit;
@@ -20,7 +20,7 @@ viewQuestionRoute.get("/:unit/:unitID/questions/view-question", function (req, r
         questionUnit: questionUnit,
         questionID: questionID,
         playerID: playerID ? playerID : null,
-        baseAPIUrl: process.env.BACKEND_API_URL || LOCAL_BACKEND_API_URL
+        baseAPIUrl: process.env.BACKEND_API_URL || config.BACKEND_API_URL
     });
 });
 

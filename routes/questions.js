@@ -7,7 +7,7 @@
  */
 const express = require("express");
 const questionsIndex = express.Router();
-const LOCAL_BACKEND_API_URL = require('../config');
+const config = require('../config');
 
 questionsIndex.get("/:unit/:unitID/questions", async function (req, res) {
     var unit = req.params.unit;
@@ -16,7 +16,7 @@ questionsIndex.get("/:unit/:unitID/questions", async function (req, res) {
     res.render("pages/questions", {
         unit: unit,
         unitID: unitID,
-        baseAPIUrl: process.env.BACKEND_API_URL || LOCAL_BACKEND_API_URL
+        baseAPIUrl: process.env.BACKEND_API_URL || config.BACKEND_API_URL
     });
 });
 

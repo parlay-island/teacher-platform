@@ -63,7 +63,7 @@ describe('logging out with successful post request', () => {
             }); 
 
             cy.location().should((loc) => {
-                expect(loc.pathname).to.eq("/"); // redirected to log in screen
+                expect(loc.pathname).to.eq("/log-in"); // redirected to log in screen
             });
         });
     });

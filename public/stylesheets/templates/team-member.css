@@ -1,0 +1,22 @@
+.team-member {
+    display: flex;
+    flex-direction: column;
+}
+
+.team-member-image {
+    border-radius: 50%;
+    height: 200px;
+    width: 200px;
+}
+
+.team-member-name {
+    margin-top: 10px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.team-member-description {
+    font-style: italic;
+    text-align: center;
+    font-size: 14px;
+}

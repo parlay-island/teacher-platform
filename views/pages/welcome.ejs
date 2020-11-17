@@ -1,0 +1,18 @@
+<html lang="en">
+    <head>
+        <title>Welcome Page</title>
+        <link rel="stylesheet" href="/stylesheets/welcome.css">
+    </head>
+
+    <body>
+        <%- include('../templates/main-nav', {homeNavClass: 'selected-main-nav', aboutNavClass: ''}); %>
+        <div class="welcome-page">
+            <div class="welcome-title">Welcome to Parlay Island!</div>
+            <img class="parlay-logo" src="/images/ParlayLogo.png" alt="Parlay logo" />
+            <div class="main-nav-buttons">
+                <div class="game-button" onclick="window.location='/game';">Game</div>
+                <div class="teacher-platform-button" onclick="window.location='/log-in';">Teacher Platform</div>
+            </div>
+        </div>
+    </body>
+</html>

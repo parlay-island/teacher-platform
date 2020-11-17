@@ -1,0 +1,35 @@
+@import 'layout.css';
+
+.about-page {
+    padding: 10px 80px 100px;
+}
+
+.about-main-title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 40px;
+}
+
+.about-title {
+    font-weight: bold;
+    font-size: 30px;
+    margin-bottom: 10px;
+    margin-top: 40px;
+}
+
+.about-description {
+    color: rgb(153, 152, 152);
+    font-size: 15px;
+}
+
+.about-subtitle {
+    font-size: 20px;
+    margin-bottom: 5px;
+    margin-top: 20px;
+}
+
+.team-pictures {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

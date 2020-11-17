@@ -6,12 +6,12 @@
  */
 const express = require("express");
 const index = express.Router();
-const LOCAL_BACKEND_API_URL = require('../config');
+const config = require('../config');
 
 index.get("/", async function (req, res) {
 
     res.render("pages/choose-unit", {
-        baseAPIUrl: process.env.BACKEND_API_URL || LOCAL_BACKEND_API_URL
+        baseAPIUrl: process.env.BACKEND_API_URL || config.BACKEND_API_URL
     });
 });
 
