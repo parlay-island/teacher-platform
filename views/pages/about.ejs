@@ -1,0 +1,62 @@
+<html lang="en">
+    <head>
+        <title>About Page</title>
+        <link rel="stylesheet" href="/stylesheets/about.css">
+    </head>
+
+    <body>
+        <a class="skip-link" href="#about-main-content">Skip to Main About Section</a>
+        <%- include('../templates/main-nav', {homeNavClass: '', aboutNavClass: 'selected-main-nav'}); %>
+        <main id="about-main-content">
+            <div class="about-page">
+                <div class="about-main-title">
+                    About Parlay Island
+                </div>
+
+                <div class="about-title">
+                    Motivation
+                </div>
+                <div class="about-description">
+                    The goal of the Parlay Island project is to improve financial literacy for high school students.
+                    In order to achieve this, we have created a game that aims to serve as an engaging study tool to reinforce
+                    important financial literacy concepts. We have also created a teacher platform that helps high school
+                    teachers track student progress as they play the game.
+                </div>
+                
+                <div class="about-title">
+                    The Team
+                </div>
+                <div class="team-pictures">
+                    <%- include('../templates/team-member', {teamMemberPic: 'HollyAnsel.png', teamMemberName: 'Holly Ansel', 
+                                    teamMemberTitle: 'CS & Psych, Class of 2022', teamMemberRole: 'Developer'}); %>
+                    <%- include('../templates/team-member', {teamMemberPic: 'JakeDerry.png', teamMemberName: 'Jake Derry', 
+                                    teamMemberTitle: 'CS & Neuro, Class of 2021', teamMemberRole: 'Developer'}); %>
+                    <%- include('../templates/team-member', {teamMemberPic: 'GaryHorton.png', teamMemberName: 'Gary Horton', 
+                                    teamMemberTitle: 'Person County High School', teamMemberRole: 'Founder'}); %>
+                    <%- include('../templates/team-member', {teamMemberPic: 'AndresMontoya.png', teamMemberName: 'Andres Montoya', 
+                                    teamMemberTitle: 'CS & Physics, Class of 2022', teamMemberRole: 'Developer'}); %>
+                    <%- include('../templates/team-member', {teamMemberPic: 'JessicaSu.png', teamMemberName: 'Jessica Su', 
+                                    teamMemberTitle: 'CS & Psych, Class of 2022', teamMemberRole: 'Developer'}); %>
+                </div>
+                
+                <div class="about-title">
+                    Special Thanks
+                </div>
+
+                <div class="about-subtitle">
+                    Gary Horton, Person County High School
+                </div>
+                <div class="about-description">
+                    We would like to thank Gary Horton for trusting us with his idea to make learning economics more fun for high school students and providing us with the resources to run user testing of our application on his students and fellow teachers.
+                </div>
+
+                <div class="about-subtitle">
+                    Duke University, Computer Science 408 Course Staff
+                </div>
+                <div class="about-description">
+                    We would also like to thank the course staff for Computer Science 408 for giving us the opportunity to work with Gary Horton and the freedom to make our own technical decisions and design considerations in order to effectively fulfill Mr. Horton's vision for this application. 
+                </div>
+        </div>
+        </main>
+    </body>
+</html>

@@ -7,7 +7,7 @@
  */
 const express = require("express");
 const addQuestionRoute = express.Router();
-const LOCAL_BACKEND_API_URL = require('../config');
+const config = require('../config');
 
 addQuestionRoute.get("/:unit/:unitID/add-question", function (req, res) {
     var unit = req.params.unit;
@@ -18,7 +18,7 @@ addQuestionRoute.get("/:unit/:unitID/add-question", function (req, res) {
         unit: unit,
         unitID: unitID,
         questionID: questionID,
-        baseAPIUrl: process.env.BACKEND_API_URL || LOCAL_BACKEND_API_URL
+        baseAPIUrl: process.env.BACKEND_API_URL || config.BACKEND_API_URL
     });
 });
 

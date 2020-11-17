@@ -22,7 +22,7 @@ export const QUESTIONS_ENDPOINT = "/questions/";
 
 // routes
 export const CHOOSE_UNIT_URL = "/choose-unit";
-export const LOG_IN_URL = "/";
+export const LOG_IN_URL = "/log-in";
 
 // session storage
 export const SESSION_STORAGE_QUESTION_KEY = "question";

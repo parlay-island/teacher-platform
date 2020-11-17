@@ -6,12 +6,12 @@
  */
 const express = require("express");
 const logInRoute = express.Router();
-const LOCAL_BACKEND_API_URL = require('../config');
+const config = require('../config');
 
-logInRoute.get('/', function (req, res) {
+logInRoute.get('/log-in', function (req, res) {
 
     res.render("pages/log-in", {
-        baseAPIUrl: process.env.BACKEND_API_URL || LOCAL_BACKEND_API_URL
+        baseAPIUrl: process.env.BACKEND_API_URL || config.BACKEND_API_URL
     });
 });
 

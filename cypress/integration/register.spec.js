@@ -42,7 +42,7 @@ describe('registering when POST request succeeds', () => {
             cy.get('.alert-success').should('contain', constants.TEACHER_SUCCESS_MESSAGE);
             cy.wait(1000);
             cy.location().should((loc) => {
-                expect(loc.pathname).to.eq('/');
+                expect(loc.pathname).to.eq('/log-in');
             });
         })
     })

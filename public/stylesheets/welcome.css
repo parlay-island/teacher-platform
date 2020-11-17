@@ -1,0 +1,41 @@
+@import 'layout.css';
+
+.welcome-page {
+    display: flex;
+    flex-direction: column;
+}
+
+.welcome-title {
+    font-size: 80px;
+    font-weight: bold;
+    text-align: center;
+}
+.parlay-logo {
+    margin: auto;
+    height: 25%;
+    width: 25%;
+}
+
+.main-nav-buttons {
+    margin-top: 2%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.game-button, .teacher-platform-button {
+    background-color: black;
+    color: white;
+    width: 35%;
+    height: 60px;
+    text-align: center;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.game-button {
+    margin-right: 20px;
+}

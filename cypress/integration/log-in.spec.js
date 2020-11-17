@@ -19,7 +19,7 @@ describe('successful log in', () => {
             "getTeacherName"
         );
 
-        cy.visit('/');        
+        cy.visit('/log-in');        
     });
 
     it('successfully sends the post request', () => {
@@ -64,7 +64,7 @@ describe('log in when POST request fails', () => {
             }
         }).as('getTeacherNameFail');
 
-        cy.visit('/');
+        cy.visit('/log-in');
     });
 
     it('creates an alert error message', () => {
@@ -90,7 +90,7 @@ describe('log in when POST request fails', () => {
         cy.wait(1000);
         // check that it redirects to login 
         cy.location().should((loc) => {
-            expect(loc.pathname).to.eq('/');
+            expect(loc.pathname).to.eq('/log-in');
         });
     })
 })

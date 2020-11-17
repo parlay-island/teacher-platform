@@ -1,0 +1,18 @@
+.main-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding: 20px;
+}
+
+.main-nav-text {
+    padding: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    color: grey;
+}
+
+.main-nav-text:hover, .selected-main-nav {
+    font-weight: bold;
+    color: black;
+}
