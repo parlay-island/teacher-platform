@@ -1,0 +1,60 @@
+Release Notes for Parlay Island Teacher Platform
+
+Current Functionality 
+- Log-in, Registration, and Log-out
+    - Log-in
+        - Requires username & password
+        - Throws validation errors if there is an invalid combination
+    - Log-out
+        - Takes user back to main log-in
+    Registration
+        - Requires name, email, username, and password
+        - Class code will be automatically generated
+- Class Codes
+    - Can be found below the teacher name in the navigation menu on the left
+    - Each teacher account is associated with a specific class code, which means they will have a unique set of units, questions, and students
+- Managing Units
+    - Users can add their own units
+    - User will see all their units, which is pulled from the backend and specific to the teacher's class
+- Managing Questions
+    - Adding Questions
+        - After selecting a unit, a user can add a new questions
+        - The form for adding a question has validation checks to see if the question choices are empty or if the correct answer choice has not been selected
+        - Once the question is successfully added, a user can see it in their question bank for a unit
+    - Modifying Questions
+        - User can update the question's text, the answer choices, and the correct answer for a question
+    - Deleting Questions
+        - User will see a confirmation modal before deleting --> if they confirm, then the question will be deleted
+- Tracking Question Progress
+    - Each question is associated with a percentage which represents the overall accuracy (times correct divided by total number of times answered, across ALL students)
+    - For each question, there is also a breakdown of the percentage of students who answered each question choice
+- Tracking Student Progress
+    - Seeing Struggling students
+        - The students (up to four) with the lowest overall question accuracy will be displayed at the top of the page 
+    - Seeing All Students 
+        - All students and their overall question accuracy are displayed in alphabetical order
+    - Seeing individual student Progress
+        - If a user clicks on a particular student in the "All Students" section, they will see a breakdown of progress for that student
+            - Individual student progress page shows all the questions that students answered across all units and the corresponding accuracy for those questions 
+Known Bugs
+- When adding or modifying a new question, two duplicate choices can be added and no error is thrown
+- When adding a new question, there is no limit on the length of the choice text
+
+Assumptions 
+- Only one teacher will be logged into the same account at the same time
+    - If multiple people are logged into the same account, and one person logs out, this will cause the other person to be automatically logged out (which may seem weird to the user)
+    - Therefore, the assumption is that only one person is logged into one account at a time, although we have error handling if this is not the case
+- Teacher will give class code to students to make their student accounts
+    - A teacher account will not have any student data unless there are students who make account with the teacher's class code
+- An external API will be used for the backend
+    - If the backend API needs to be changed, then the link in config.js, as well as the deployment environment, must be updated
+
+Limitations
+- Ad-block must be turned off for the log-in and log-out requests due to the way we perform authentication on the backend
+- In order to stub requests with Cypress for testing, HTTP request must be XHR requests (Cypress is currently working on expanding functionality to stub other kinds of requests, but this is still experimental)
+
+Platforms Test On
+- Browsers 
+    - Chrome
+    - Safari
+    - Firefox
