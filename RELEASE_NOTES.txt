@@ -53,8 +53,11 @@ Limitations
 - Ad-block must be turned off for the log-in and log-out requests due to the way we perform authentication on the backend
 - In order to stub requests with Cypress for testing, HTTP request must be XHR requests (Cypress is currently working on expanding functionality to stub other kinds of requests, but this is still experimental)
 
-Platforms Test On
-- Browsers 
-    - Chrome
-    - Safari
-    - Firefox
+Platforms Tested On
+- Browsers:
+    - chrome (versions 87.0.4280.67, 86.0.4240.198)
+    - safari (versions 13.0.4, 13.1.1)
+    - firefox (versions 81.0.2, 82.0.3)
+- Computers:
+    - Macs (Catalina)
+    - PCs (chrome OS)
