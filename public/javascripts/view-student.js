@@ -148,7 +148,7 @@ function makeUnitResultHtml(questionsAndResponses, questions_ordered) {
                                     <div class="question-text">
                                             ${question.body}
                                             <div class="question-percent">
-                                                ${accuracy}%
+                                                ${Number((accuracy).toFixed(2))}%
                                             </div>
                                     </div>
                             </div>`;

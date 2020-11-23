@@ -11,6 +11,8 @@ This is a NodeJS app.
 1. [Install NodeJS and Npm](https://www.npmjs.com/get-npm)
 2. All dependencies listed in `package.json`. 
 3. Run `npm install` to install all dependencies.
+4. You may also need install the dependencies listed under "devDependencies" in the `package.json` file. 
+    * If these do not install properly with the `npm install package-name --save-dev`, try running `npm uninstall package-name --save-dev` and then `npm install package-name --save-dev` again.
 
 ## Local Development
 
